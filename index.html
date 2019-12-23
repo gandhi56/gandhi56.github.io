@@ -32,7 +32,7 @@
 								<li><a href="#intro">Intro</a></li>
 								<li><a href="#projects">Projects</a></li>
 								<li><a href="#education">Education</a></li>
-								<li><a href="#cp">Competitive Programming</a></li>
+								<li><a href="#cp">Contests</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<!--<li><a href="#elements">Elements</a></li>-->
 							</ul>
@@ -78,9 +78,93 @@
 						<!-- Projects -->
 							<article id="projects">
 								<h2 class="major">Projects</h2>
-								<span class="image main"><img src="images/projects_img.png" alt="" /></span>
+								<span class="image main"><img src="images/projects_img.png" alt="" />The above program counts the number of nonnegative integers which are at most the input integer satisfying n+x = n xor x. I found this quite fascinating!</span>
+
+								Following are brief descriptions about some projects that I have done in class or just for fun. Visit my github to learn more about them!
+
 								<p>
-									My Projects
+									<ol>
+										<li>
+											<u>unixFS</u> is a UNIX-based file system, written in C++, which stores data files persistently on disk, represented by a file. Features include:
+											<ul>
+												<li> Disk mounting
+												<li> File/directory creation and deletion
+												<li> Read/write file
+												<li> Update buffer
+												<li> File resize
+												<li> Disk defragmentation
+											</ul>
+										</li>
+
+										<li>
+											<p>
+												<u>mapReduce</u> library is a programming model and a distributed computing paradigm for large-scale data processing, written in C++. It allows for applications to run tasks in parallel, making them scalable and fault-tolerant.
+											</p>
+
+											<p>
+												To use the mapreduce library, developers must implement two callback functions, namely <i>map</i> and <i>reduce</i>.
+
+												<ul>
+													<li>
+
+														The <i>map</i> function takes in filename as input and generates intermediate key/value pairs from the data stored in that file.
+													</li>
+													<li>
+														The <i>reduce</i> function processes a subset of intermediate key/value pairs, summarizing all values associated with the same key.
+													</li>
+
+												</ul>
+
+											</p>
+										</li>
+
+										<li> <u>lianshell</u> is a standalone procedurally designed UNIX-based shell program, written in C++, that supports the following features:
+											<ul>
+												<li>
+													Support for built-in commands including:
+													<ul>
+														<li type = "circle">changing working directory</li>
+														<li type = "circle">modifying environment variables</li>
+														<li type = "circle">killing all subprocesses</li>
+													</ul>
+												</li>
+
+												<li>
+													Runs external programs from any specified location in the file system
+												</li>
+
+												<li>
+													Sequential execution of multiple processes
+												</li>
+
+												<li>
+													Redirection of output from a process to a file
+												</li>
+
+												<li>
+													Run processes in the background
+												</li>
+
+												<li>
+													Implement piping of output from one program to another
+												</li>
+												
+												<li>
+												Handles signal interrupts, including SIGINT and SIGTSTP.</li>
+											</ul>
+										
+
+										</li>
+
+										<li> <u>Q3T</u> is an implementation of Quantum Tic-tac-toe. This game integrates the ideas of superposition and entanglement in the classical game of Tic-tac-toe, written in Python 3.
+										</li>
+
+										<li> <u>dragon</u> is a single-header library of game playing algorithms integrable with any game written in the expected format. Currently, the project includes Nex, Hex, Reversi and Tic-tac-toe as example programs. This project is written in C++.
+										</li>
+
+										<li> <u>EulerTikz</u> is a visualization tool for discrete graphs which implements spectral layout algorithms for graph drawing.
+										</li>
+									</ol>
 								</p>
 							</article>
 
