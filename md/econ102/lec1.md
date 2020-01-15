@@ -49,5 +49,61 @@
   * size of economy is referred to as either output or production
   * input --> production --> output
   * ![alt text](1.png)
+  * Problems with the above diagram:
+    * Government intervention? Taxes?
+    * Financial market? Eventually we earn more than our expenditure
+    * World economy? This diagram does not consider international trade
 
+## Lecture 3
+* Problems with measuring GDP
+  - How to include expenditure on 'soft' things like Amazon purchases and netflix services?
+* Three ways to measure GDP:
+  1. Expenditure approach: break expenditures down into four categories:
+    ![alt text](2.png)
+    - consumption (~55%): spending on goods and services by private individuals and households.
+    - investment (~25): spending on productive inputs, such as factories, machinery, and inventory changes.
+      - investing in businesses helps them with increment of their revenue
+      - investment creates jobs
+      - investments are policy-sensitive: what if there is an excess of output?
+      - oil and gas companies are biggest drops in investments because prices are fairly stable
+      - Moreover, government intervenes with oil and gas trades
+      - high risk! businesses might be forced to terminate that project you invested in
+    - Government purchases (~14%): spending on goods and services by all levels of the government
+      - includes heath services, education, national trade or any other services provided by the government
+      - Federal and provincial governments are at the same level in Canada
+      - Most taxes paid to the federal government, who provides the most services?
+      - __Fiscal federalism__
+      - Employment Insurance premiums go into general revenue
+      - Breaking News: Justin Trudeau spent more than any other Canadian government ever!
+    - Net exports (~1%)= exports - imports
+      - A third of Canadian GDP comes from international trade, mainly USA
+      - Canada imports more than exports
+      - We buy oil at Western Canadian Select price
+      - We follow WTO system when trading internationally
+    - Expenditure = Consumption + investments + government spending + net export = production (Y = C + I + G + NX)
 
+  2. Income approach: add up the income earned by everyone in a country.
+    ![alt text](3.png)
+    - includes wages earned by workers, interest earned on capital investments, rents earned on land, and profits earned by firms
+    - I = wages + interest + rental income + profits
+
+  3. Value-added approach: calculates the value that each transaction adds to the economy
+    - each value added is the price of firm's output - cost of input
+    - allows us to determine how much of the total amount paid was created at each step in the production process
+    - helpful in avoiding double counting
+    - calculates the resale of existing goods
+  
+* **Note:** Each approach gives us the same GDP value.
+
+* Example:
+  ![alt text](4.png)
+  - Value added = price at output - price at immediate input
+
+* Using GDP to compare economies
+  * Dollar is not a good unit of measurement to compare economies.
+  * Calculate the growth rate of GDP:
+    - growth(x) = $\frac{x_t - x_{t-1}}{x_{t-1}} \times 100\% $
+      where $x_{t-1}$ is the previous GDP and $x_t$ is the current GDP
+    - rise in GDP is a function of output and prices
+    - not reliable!
+    

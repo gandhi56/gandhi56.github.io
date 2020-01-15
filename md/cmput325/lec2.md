@@ -1,7 +1,7 @@
 # CMPUT 325
 
 ## Lecture 2: Fun language
-
+### Fun
 - List elements are seperated by a space
 - In general, f( (x1 ... xn) ) --> x, notice the spacing for parameters
 - `first( L )` returns first element of L, error if L is not a list or an empty list
@@ -34,3 +34,57 @@
   `length( L )`, `append( L1, L2 )`, `last( L )`, `removeLast( L )`
 - It makes sense to break the solution into smaller functions
 - One function must do only one thing
+
+## Lecture 2: Intro to LISP
+* `reverse( L )` using `append( L1, L2 )`
+* Abstract data type for binary tree
+  * Goal: implement a binary tree and some operations, such as inserting elements
+  * Two main tasks:
+    * Decide how trees are represented by lists
+    * Implement an abstract data type for binary trees and the operations on them
+  * User will work with trees using only these functions. The user is protected from the details of our data representation
+  * Bottom up construction
+* Tree representation
+  * Empty tree: `nil`
+  * Nonempty tree: `(left-subtree, node-value, right-subtree)`
+  * Selectors:
+    * `leftTree( Tr ) = f( Tr )`
+    * `rightTree( Tr ) = f( r( r( Tr ) ) )`
+    * `nodeValue( Tr ) = f( r( Tr ) )`
+  * Constructors:
+    * `consNilTr() = nil`
+      * return an empty tree
+    * `consTree(L, V, R) = cons( L, cons( V, cons( R, nil ) ) )`
+      * construct tree with subtrees L, R and value V
+  * Test: 
+    * `isEmpty( Tr ) = eq( Tr, nil )`
+    * return true iff `Tr` is an empty tree
+* Building an abstract data type
+  * Functions are the only ones that need direct knowledge of our tree representation
+  * Everything else can be implemented in terms of these basic functions - providing such a base set of functions is the essence of implementing an abstract data type in functional programming
+
+* `insert` into tree
+  * assume our trees contain integer values and are sorted such that every value in the left subtree < node value < all values in right subtree
+  * unique values
+  * `insert( Tr, int )` inserts `int` into the binary tree `Tr`
+
+  ![](1.png)
+
+### LISP
+
+* interpreted language
+* case insensitive
+* uses read-eval-print-loop (REPL) similar to a shell such as bash
+  - read input
+  - evaluate input
+  - print result of evaluation
+  - loop back to beginning
+* Functions are defined by `(defun function-name parameter-list body)`
+  * Example: 
+    - Function definition: `(defun plus (x y) (+ x y))`
+    - Function application: `(plus 3 4)`
+* Lisp always interprets `(e1 e2 e3 ...)` as a function application. Use quote to "atomify" the expression
+* An empty list is represented by either `()` or `nil`. Both are considered the same atom in Lisp.
+* `nil` also represents false
+* `T` represents true
+
