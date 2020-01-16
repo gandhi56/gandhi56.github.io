@@ -88,3 +88,62 @@
 * `nil` also represents false
 * `T` represents true
 
+## Lecture 4
+* `(if condition then-part else-part)` is a special function because not every block is run, unlike other functions
+* `trace` to see calls and returns to specific functions
+* `untrace` stops the tracing
+* functions can take variable number of arguments
+* `(let ((x 3) (y 4)) (* (+ x y) x))` evaluates expression, but replaces names `x` and `y` with their values 3 and 4
+* `let` does not allow using one variable to define another, use `let*` instead
+* `eq` is true iff both are equal _atoms_, runs in a single machine instruction
+* `equal` is more general
+* ```
+  (cond (P1 S1)
+        (P2 S2)
+        (P3 S3)
+        ...
+        (T Sn)
+  )
+  ```
+* General form of `cond` (do not use it):
+  ```
+  (cond (P1 S11 S12 ... S1m)
+  (P2 S21 S22 ... S2m)
+  ...
+  (T Sn1 Sn2 ... Snm)
+  )
+  ```
+  * If `P1` is true then evaluate `S11`, `S12`, ... and `S1m` and return the result of evaluating `S1m`
+
+* `list`
+* `caar`, `cddadr`, etc.
+* `print` and `format` for printing, strings
+* `random`
+* Use `quote` when everything is constant
+* Use `list` when some contents are the result of evaluating functions
+* Use `cons` for the result in recursion when you have computed a first element and the rest of a list
+* Use `cons` for dotted pairs
+* Use `cons` when your professor tells you to in a test
+* `(car (cdr (car (cdr (cdr (cdr L)))))) = (cadr (cadddr L))`
+  * max 4 levels deep
+* Simple printing `(print arg)`
+* Formatted printing: `(format t format-string arg1 ...)`
+* `(random N)` generates a uniformly random integer from 0..N-1 if N is an integer
+* `(random F)` generates a uniformly random floating point number in range [0..F)
+* Accumulators
+  * helper function with an extra parameter
+  * the extra parameter accumulates the required result
+  * `reverse` using an accumulator
+    ```
+    (defun reverse_helper (L ResultSoFar)
+      (if (null L)
+        ResultSoFar
+        (reverse_helper (cdr L)
+          (cons (car L) ResultSoFar))
+        )
+      )
+
+    (defun reverseAC (L)
+      (reverse_helper L nil)
+      )
+    ``` 
