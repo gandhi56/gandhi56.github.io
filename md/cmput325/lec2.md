@@ -68,7 +68,7 @@
   * unique values
   * `insert( Tr, int )` inserts `int` into the binary tree `Tr`
 
-  ![](1.png)
+  ![1](1.png)
 
 ### LISP
 
@@ -133,7 +133,10 @@
 * Accumulators
   * helper function with an extra parameter
   * the extra parameter accumulates the required result
-  * `reverse` using an accumulator
+  * Issues with simple recursion:
+    * no real computation until hits the base case
+    * all computation happens on return from recursion
+  * Example 1: `reverse` using an accumulator
     ```
     (defun reverse_helper (L ResultSoFar)
       (if (null L)
@@ -146,4 +149,87 @@
     (defun reverseAC (L)
       (reverse_helper L nil)
       )
-    ``` 
+    ```
+  * Example 2: accumulating two types of results
+    ![2](2.png)
+  * Comparing accumulator with standard recursion
+    * Standard recursion on a list
+      * recurse to the end of list
+      * compute result on return from recursion
+      * bottom-up computation
+    * Accumulators
+      * accumulates results-so-far
+      * computes results top-down
+      * needs an extra accumulator variable for partial result
+    * Questions to think about to decide whether accumulators should be used
+      * top-down or bottom-up?
+* Programming loops in LISP
+  * In pure functional programming, we use recursion instead of loops although LISP has loop constructs (`for`, `do`, `loop`, ...)
+  * break loop into two steps:
+    * what to do in each run through the loop
+    * how to solve the rest of the problem by recursion
+
+## Lecture 5
+* Symbolic expressions (S-Expressions, s-expr, sexpr)
+  * universal data structure for Lisp
+  * generalization of atoms and lists
+    * all atoms and lists are sexpr
+    * but not all atom and lists are sexpr
+  * "dotted pair" `(x . y)`
+  * Definition
+    * atom is an s-expression
+    * if `x1`, `x2`, ..., `xn` are s-expressions then (`x1` ... `xn`) is an s-expression
+    * if `x1` and `x2` are s-expressions, then `( x1 . x2 )` is an s-expression (a dotted pair)
+    * Examples:
+      * `hello`
+      * `(a b c)`
+      * `(a (b) (()))`
+      * `(a . b)`
+      * `(a . (b . c))`
+      * `(1 2 3 (4 . 5))`
+  * `(car (x . y))` returns x
+  * `(cdr (x . y))` returns y
+  * `(car (cons 'x 'y)) = x`
+  * `(cdr (cons 'x 'y)) = y`
+  * `.` must be surrounded by whitespace: `(a.b)` is a list containing the atom `a.b`
+  * machine-level representations
+    * Example 1: `(cons 1 2)` or `(1 . 2)`
+      ![3](3.png)
+
+    * Example 2: `( (1 . (2 . 3)) . 4 )`
+      ![4](4.png)
+    
+    * Example 3: List representation `(1 2 3 4)`
+      ![5](5.png)
+
+  * `(a . nil) = (a)` because `(cdr '(a . nil)) = (cdr ('(a))) = nil`
+  * Every list can be written as nested dotted pairs:
+    `(1 . (2 . (3 . (4 . nil))))`
+  * Why use dotted pairs?
+    * saves memory
+    * simplifies direct access
+
+## Lecture 6
+* Higher order functions
+  * Definition: a function that takes other function(s) as input and/or produce function(s) as output
+  * often used to seperate:
+    * a computation pattern
+    * specific repeated action
+  * Example 1:
+    * Pattern: iterate over a list
+    * Action: Compute the same function for each list element
+  * Example 2:
+    * Pattern: reduce a list to a single result
+    * Action: reduce two arguments to one
+  * Some typical higher order functions
+    * Map - apply some function to all elements of a list
+    * Reduce - apply two argument function repeatedly
+    * Filter - select list elements that pass a test
+    * Vector - apply many functions to one element
+  * Why define high order functions?
+    * use case: a common computation pattern, where the details can vary
+    * removing code duplication
+    * `apply` and `funcall` tells Lisp that there is a function to be called
+      * only differs in syntax, same functionality
+      * `(apply function-name (arg1 ... argn))`
+      * `(funcall function-name arg1 ... argn)`
