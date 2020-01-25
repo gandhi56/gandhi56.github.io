@@ -83,6 +83,7 @@
 >2. Introction to CUDA C
 >3. To lean the basic API functions in CUDA host code
 >4. To learn about CUDA threads, the main mechanism for exploiting of data parallelism
+>5. To familiarize with some tools from the CUDA toolkit including compiler flags, debuggers and profilers
 
 ### Accelerating applications
 * three ways:
@@ -106,6 +107,7 @@
   * `i = blockIdx.x * blockDim.x + threadIdx.x`
 * divide the grid into multiple blocks
   * threads within a block cooperate via shared memory, atomic operations and barrier synchronization
+    * a barrier for a group of threads in the source code means any thread must stop at this point and cannot proceed until all other threads reach this barrier.
   * threads in different blocks do not interact
 * a grid is a collection of thread blocks of the same thread dimensionality which all execute the same kernel, threads are oganized in blocks
 * a block is executed by a multiprocessing unit
@@ -116,4 +118,54 @@
   * `myker <<< numBlocks, threadsPerBlock >>>( /* params */ );`
 * (SM) Streaming multiprocessors
   * each block can execute in any order relative to other blocks
-  * 
+  * threads are assigned to SMs in block granularity
+    * up to 8 blocks to each SM as resource allows
+  * threads run concurrently
+    * SM maintains thread/block IDs
+    * SM manages/schedules thread execution
+* Kernel / Block / Warp
+  * each block is executed as 32-thread warps
+  * an implementation decision, not part of the CUDA programming model
+  * *warps* are scheduling units in SM
+  * if 3 blocks are assigned to an SM and each block has 256 threads, how many warps are there in an SM?
+    * each block is divided into 256 / 32 = 8 warps. Hence, 3 blocks have $$ 8 \times 3 = 24 $$ warps.
+  * all threads must be executed before there is space to schedule another thread block
+* thread scheduling
+  * SM implements zero-overhead warp scheduling
+  * at any time, only one of the warps is executed by the SM.
+  * warps whose next instruction has its operands ready for consumption are eligible for execution
+  * eligible warps are selected for execution on a prioritized scheduling policy.
+  * all threads in a warp execute the same instruction when selected
+  * Fermi GPUs implement a double warp scheduler
+    * each SM has two warp schedulers and two instruction units
+* Warps
+  * in a block of threads, the threads are executed in groups of 32, called a **warp**. If the size is not divisible by 32, some of the threads in the last warp will remain idle.
+  * if the blocks are 2D or 3D, the threads are ordered by dimension.
+  * all threads in the same warp execute the same code independently (except for explicit synchronization) by run-time scheduler
+  * it's possible that each warp executes until it needs to wait for data (from device memory or a previous operation) then another warp gets scheduled
+  * **Important:** knowing the number of threads in a warp becomes important to maximize performance of the program. Performance may be lost otherwise:
+    * in the kernel invocation, <<< blocks, threads >>>, try to choose a number of threads that divides evenly with the number of threads in a warp (usually a multiple of 32). If you don't, you end up launching a block that contains inactive threads.
+    * in your kernel, try to have each thread follow the same code path. Otherwise warp divergence can occur. This happens because the GPU has to run the entire warp through each of the divergent code paths.
+    * in your kernel, try to have each thread in a warp load and store data in specific patterns. For instance, have the threads in a warp access consecutive 32-bit words in global memory.
+  * ALUs (cores), load/store units (LD/ST) and Special Function Units (SFU) are pipelined units. They keep the results of many computations or operations at the same time, in various stages of completion.
+  * So, in one cycle they can accept a new operation and provide the results of another operation that was started a long time ago (~20 cycles for the ALUs).
+  * So, a single SM has resources for processing 48*20 cycles = 960 ALU operations at the same time, which is 960 / 32 threads = 30 warps.
+  * In addition, it can process LD/ST operations and SFU operations at whatever their latency and throughput are.
+  * Warp schedulers can schedule 2 * 32 threads per warp = 64 threads to the pipeline per cycle.
+  * At any given cycle, the warp schedulers try to "pair up" two warps to schedule, to maximize SM utilization. These warps can be either from different blocks or different places in the same block.
+  * Warps that are executing instructions for which there are fewer than 32 resources, must be issued multiple times for all threads to be serviced.
+    * For instance, there are 8 SFUs, so that means that a warp containing an instruction that requires the SFUs must be scheduled 4 times.
+
+### Parallel Thread Execution (PTX)
+* PTX provides a stable programming model and instruction set for general purpose parallel programming.
+* It is design to be efficient on NVIDIA GPUs supporting the computation features defined by the NVIDIA Tesla architecture.
+* High-level language compilers for languages such as CUDA and C++ generate PTX instructions, which are optimized for and translated to native target-architecture instructions.
+
+### NVCC Compiler
+* Cuda-C compiler
+* compiles device code then forwards code on to the host compiler
+* can be used to compiler and link host-only applications
+
+### CUDA-GDB
+* extension of GDB to provide seamless debugging of CUDA and CPU code
+
