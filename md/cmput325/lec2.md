@@ -1,7 +1,7 @@
 # CMPUT 325
 
 ## Lecture 2: Fun language
-
+### Fun
 - List elements are seperated by a space
 - In general, f( (x1 ... xn) ) --> x, notice the spacing for parameters
 - `first( L )` returns first element of L, error if L is not a list or an empty list
@@ -34,3 +34,202 @@
   `length( L )`, `append( L1, L2 )`, `last( L )`, `removeLast( L )`
 - It makes sense to break the solution into smaller functions
 - One function must do only one thing
+
+## Lecture 2: Intro to LISP
+* `reverse( L )` using `append( L1, L2 )`
+* Abstract data type for binary tree
+  * Goal: implement a binary tree and some operations, such as inserting elements
+  * Two main tasks:
+    * Decide how trees are represented by lists
+    * Implement an abstract data type for binary trees and the operations on them
+  * User will work with trees using only these functions. The user is protected from the details of our data representation
+  * Bottom up construction
+* Tree representation
+  * Empty tree: `nil`
+  * Nonempty tree: `(left-subtree, node-value, right-subtree)`
+  * Selectors:
+    * `leftTree( Tr ) = f( Tr )`
+    * `rightTree( Tr ) = f( r( r( Tr ) ) )`
+    * `nodeValue( Tr ) = f( r( Tr ) )`
+  * Constructors:
+    * `consNilTr() = nil`
+      * return an empty tree
+    * `consTree(L, V, R) = cons( L, cons( V, cons( R, nil ) ) )`
+      * construct tree with subtrees L, R and value V
+  * Test: 
+    * `isEmpty( Tr ) = eq( Tr, nil )`
+    * return true iff `Tr` is an empty tree
+* Building an abstract data type
+  * Functions are the only ones that need direct knowledge of our tree representation
+  * Everything else can be implemented in terms of these basic functions - providing such a base set of functions is the essence of implementing an abstract data type in functional programming
+
+* `insert` into tree
+  * assume our trees contain integer values and are sorted such that every value in the left subtree < node value < all values in right subtree
+  * unique values
+  * `insert( Tr, int )` inserts `int` into the binary tree `Tr`
+
+  ![1](1.png)
+
+### LISP
+
+* interpreted language
+* case insensitive
+* uses read-eval-print-loop (REPL) similar to a shell such as bash
+  - read input
+  - evaluate input
+  - print result of evaluation
+  - loop back to beginning
+* Functions are defined by `(defun function-name parameter-list body)`
+  * Example: 
+    - Function definition: `(defun plus (x y) (+ x y))`
+    - Function application: `(plus 3 4)`
+* Lisp always interprets `(e1 e2 e3 ...)` as a function application. Use quote to "atomify" the expression
+* An empty list is represented by either `()` or `nil`. Both are considered the same atom in Lisp.
+* `nil` also represents false
+* `T` represents true
+
+## Lecture 4
+* `(if condition then-part else-part)` is a special function because not every block is run, unlike other functions
+* `trace` to see calls and returns to specific functions
+* `untrace` stops the tracing
+* functions can take variable number of arguments
+* `(let ((x 3) (y 4)) (* (+ x y) x))` evaluates expression, but replaces names `x` and `y` with their values 3 and 4
+* `let` does not allow using one variable to define another, use `let*` instead
+* `eq` is true iff both are equal _atoms_, runs in a single machine instruction
+* `equal` is more general
+* ```
+  (cond (P1 S1)
+        (P2 S2)
+        (P3 S3)
+        ...
+        (T Sn)
+  )
+  ```
+* General form of `cond` (do not use it):
+  ```
+  (cond (P1 S11 S12 ... S1m)
+  (P2 S21 S22 ... S2m)
+  ...
+  (T Sn1 Sn2 ... Snm)
+  )
+  ```
+  * If `P1` is true then evaluate `S11`, `S12`, ... and `S1m` and return the result of evaluating `S1m`
+
+* `list`
+* `caar`, `cddadr`, etc.
+* `print` and `format` for printing, strings
+* `random`
+* Use `quote` when everything is constant
+* Use `list` when some contents are the result of evaluating functions
+* Use `cons` for the result in recursion when you have computed a first element and the rest of a list
+* Use `cons` for dotted pairs
+* Use `cons` when your professor tells you to in a test
+* `(car (cdr (car (cdr (cdr (cdr L)))))) = (cadr (cadddr L))`
+  * max 4 levels deep
+* Simple printing `(print arg)`
+* Formatted printing: `(format t format-string arg1 ...)`
+* `(random N)` generates a uniformly random integer from 0..N-1 if N is an integer
+* `(random F)` generates a uniformly random floating point number in range [0..F)
+* Accumulators
+  * helper function with an extra parameter
+  * the extra parameter accumulates the required result
+  * Issues with simple recursion:
+    * no real computation until hits the base case
+    * all computation happens on return from recursion
+  * Example 1: `reverse` using an accumulator
+    ```
+    (defun reverse_helper (L ResultSoFar)
+      (if (null L)
+        ResultSoFar
+        (reverse_helper (cdr L)
+          (cons (car L) ResultSoFar))
+        )
+      )
+
+    (defun reverseAC (L)
+      (reverse_helper L nil)
+      )
+    ```
+  * Example 2: accumulating two types of results
+    ![2](2.png)
+  * Comparing accumulator with standard recursion
+    * Standard recursion on a list
+      * recurse to the end of list
+      * compute result on return from recursion
+      * bottom-up computation
+    * Accumulators
+      * accumulates results-so-far
+      * computes results top-down
+      * needs an extra accumulator variable for partial result
+    * Questions to think about to decide whether accumulators should be used
+      * top-down or bottom-up?
+* Programming loops in LISP
+  * In pure functional programming, we use recursion instead of loops although LISP has loop constructs (`for`, `do`, `loop`, ...)
+  * break loop into two steps:
+    * what to do in each run through the loop
+    * how to solve the rest of the problem by recursion
+
+## Lecture 5
+* Symbolic expressions (S-Expressions, s-expr, sexpr)
+  * universal data structure for Lisp
+  * generalization of atoms and lists
+    * all atoms and lists are sexpr
+    * but not all atom and lists are sexpr
+  * "dotted pair" `(x . y)`
+  * Definition
+    * atom is an s-expression
+    * if `x1`, `x2`, ..., `xn` are s-expressions then (`x1` ... `xn`) is an s-expression
+    * if `x1` and `x2` are s-expressions, then `( x1 . x2 )` is an s-expression (a dotted pair)
+    * Examples:
+      * `hello`
+      * `(a b c)`
+      * `(a (b) (()))`
+      * `(a . b)`
+      * `(a . (b . c))`
+      * `(1 2 3 (4 . 5))`
+  * `(car (x . y))` returns x
+  * `(cdr (x . y))` returns y
+  * `(car (cons 'x 'y)) = x`
+  * `(cdr (cons 'x 'y)) = y`
+  * `.` must be surrounded by whitespace: `(a.b)` is a list containing the atom `a.b`
+  * machine-level representations
+    * Example 1: `(cons 1 2)` or `(1 . 2)`
+      ![3](3.png)
+
+    * Example 2: `( (1 . (2 . 3)) . 4 )`
+      ![4](4.png)
+    
+    * Example 3: List representation `(1 2 3 4)`
+      ![5](5.png)
+
+  * `(a . nil) = (a)` because `(cdr '(a . nil)) = (cdr ('(a))) = nil`
+  * Every list can be written as nested dotted pairs:
+    `(1 . (2 . (3 . (4 . nil))))`
+  * Why use dotted pairs?
+    * saves memory
+    * simplifies direct access
+
+## Lecture 6
+* Higher order functions
+  * Definition: a function that takes other function(s) as input and/or produce function(s) as output
+  * often used to seperate:
+    * a computation pattern
+    * specific repeated action
+  * Example 1:
+    * Pattern: iterate over a list
+    * Action: Compute the same function for each list element
+  * Example 2:
+    * Pattern: reduce a list to a single result
+    * Action: reduce two arguments to one
+  * Some typical higher order functions
+    * Map - apply some function to all elements of a list
+    * Reduce - apply two argument function repeatedly
+    * Filter - select list elements that pass a test
+    * Vector - apply many functions to one element
+  * Why define high order functions?
+    * use case: a common computation pattern, where the details can vary
+    * removing code duplication
+    * `apply` and `funcall` tells Lisp that there is a function to be called
+      * only differs in syntax, same functionality
+      * `(apply function-name (arg1 ... argn))`
+      * `(funcall function-name arg1 ... argn)`
