@@ -15,7 +15,7 @@
     * stars differ in brightness, but brightness depends on the distance of the star
     * **apparent brightness** = how bright stars look in our sky = amount of power reaching us (watts per unit square meter)
     * **luminosity** = total amount of power that a star emits into space (watts)
-    * apparent brightness = luminosity / $$ (4 \pi \times distance^2) $$
+    * $$ apparent brightness = \frac{luminosity}{(4 \pi \times distance^2)} $$
     * we can measure a star's apparent brightness by using a detector that records how much energy strikes its light-sensitive surface each second. The only difficulties we face in measuring apparent brightness are making sure the detector is properly calibrated and, for ground-based telescopes, taking into account the absorption of light by Earth's atmosphere.
     * No detector can record light of all wavelengths.
     * total apparent brightness (luminosity) is the measurement across all wavelengths of the electromagnetic spectrum.
@@ -52,3 +52,47 @@
 * Hertzsprung - Russell diagram
     * horizontal axis represents stellar surface temperature which corresponds to spectral type. Temperature decreases from left to right because Hertzsprung and Russell based their diagrams on the spectral sequence OBAFGKM
     * vertical axis represents stellar luminosity, in units of the Sun's luminosity (L_sun). Stellar luminosities span a wide range, so we keep the graph compact by making each tick mark represent a luminosity 10 times as large as that of the prior tick mark.
+    * each location in the diagram represents a unique combination of spectral type and luminosity.
+    * Stars in the upper left are hot and luminous, stars near the upper right are cool and luminous, stars near lower right are cool and dim, and stars near the lower left are hot and dim.
+    * provides stellar information about stellar radii, because a star's luminosity depends on both its surface temperature and its surface area or radius. If two stars have the same surface temperature, one can be more luminous than the other only if it is larger in size.
+    * Stellar radii must therefore increase as we go from high temperature, low-luminosity corner on the lower left of the HR diagram to the low temperature, high luminosity corner on the upper right.
+    * most stars, like our Sun, fall somewhere along the **main sequence**, the prominent streak running from the upper left to the lower right on the HR diagram.
+    * the stars in the upper right are called **supergiants** because they are very large in addition to being very bright.
+    * just below the supergiants are the **giants**, which are somewhat smaller in radius and lower in luminosity
+    * stars in the lower left are small in radius and appear white in color because of their high temperatures, these are called **white dwarfs**.
+    * Stellar luminosity classes
+
+        |   Class   |   Description     |
+        |-----------|-------------------|
+        |      I    |   Supergiants     |
+        |      II   |   Bright giants   |
+        |      III  |   Giants          |
+        |      IV   |   Subgiants       |
+        |      V    |   Main-sequence   |
+
+    * classes II and IV are intermediate classes
+    * mass is the most important attribute of a hydrogen-fusing star. The reason is that mass determines the balancing point at which the energy released by hydrogen fusion in the core equals the energy lost from the star's surface.
+    * In general, a very luminous star must be very large or have a very high surface temperature, or some combination of both.
+    * Since mass, surface temperature and luminosity are all related; we can estimate a main sequence star's mass just by knowing its spectral type.
+    * Lifetimes along the main sequence
+        * massive stars near the upper end of the main sequence have shorter lives than less massive stars near the lower end.
+        * lifetime depends on mass and luminosity
+        * mass determines how much hydrogen fuel the star initially contains in its core.
+        * luminosity determines how rapidly the star uses up its fuel.
+    * Giants and supergiants
+        * upper right of the main sequence in an HR diagram
+        * larger in radius than the sun
+        * star's surface temperature determines the amount of life it emits
+        * eventually runs out of fuel
+    * White dwarfs
+        * a giant with a mass similar to that of our sun ultimately ejects its outer layers, leaving behind a dead core in which all nuclear fusion has ceased.
+    * **pulsating variable star** alternately expands and contracts, causing the star to rise and fall in luminosity.
+
+### Star clusters
+* all stars in a cluster lie at about the same distance from Earth
+* all the stars in a cluster formed at about the same time 
+* Two types:
+    1. modest-size open clusters
+    2. globular clusters
+* the two types differ in how densely packed the cluster is and their location and age.
+    
