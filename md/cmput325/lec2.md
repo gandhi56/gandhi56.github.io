@@ -233,3 +233,66 @@
       * only differs in syntax, same functionality
       * `(apply function-name (arg1 ... argn))`
       * `(funcall function-name arg1 ... argn)`
+
+## Lecture 7
+* Lambda Functions
+  * get rid of named functions, why?
+    * a function was the result of a higher order function
+    * tried to return this newly computed function
+  * lambda functions are function definitions without names
+    * Syntax: `(lambda (x1 ... xn) body)`
+    * Example: `((lambda (x y) (+ x y)) 5 3)`
+* Lisp-1 and Lisp-2
+  * Lisp-1 systems: "values" and functions in the same namespace
+  * Lisp-2 systems: in seperate spaces
+  * Common Lisp standard requires Lisp-2
+  * if we have a variable bound to a function ...
+  * ... we need to tell SBCL this is a function to be called
+  * Consequence:
+    * Working with lambda functions is much messier in Lisp-2 systems than in Lisp-1
+* `function`
+  * takes lambda function as its argument
+  * returns function definition in an internal format used by SBCL
+  * compiles it and returns an internal representation of the compiled code
+  * representation is called **closure**
+  * next, the function in the closure can be called in an application
+  * use `funcall` or `apply` for the application
+* Lambda Calculus
+  * formal, abstract language
+  * all functions are defined without giving them names
+  * Lisp is based on lambda calculus but adds a large language on top of it
+  * formal language with only four concepts:
+    ```
+    [identifier]  := a | b | ...
+    [function]    := (lambda (x) [expression])
+    [application] := ([expression] [expression])
+    [expression]  := [identifier] | [application] | [function]
+    ```
+    * `identifier` corresponds to atom in Lisp
+    * `function` is a lambda function in Lisp
+    * `[expression]` can be an arbitrary lambda expression. It plays the role of the body in the function definition
+    * In practice, this means: either the body is written directly or the body is computed by evaluating a lambda application
+* Unary vs N-ary functions
+  `[function] := (lambda (x) [expression])`
+  * we only have unary functions - functions that take one parameter
+  * any n-ary function (function with n arguments) can be defined using a series of unary functions
+  * consequence:
+    * to understand the model of computation for general functional programming
+    * it is enough to understand computation with unary functions
+* Curried functions
+  * Goal: define an n-ary functions by a series of unary functions
+  * can solve this by using higher order functions
+  * main idea:
+    * series of n unary function applications
+    * each application processes one argument
+    * the application produces a new function which has this argument hardcoded
+  * Intuition
+    * Example: `(plus 5 2)` is a function with two args
+    * `(plus5 2)` is a function with one argument, the "add 5" is hardcoded into the new function `plus5`
+    * function takes only the first argument
+    * produces as result a new function
+    * this function now takes the second argument
+    * it produces a result a new function
+    * etc.
+    * the function that takes the last argument will have other argument values "hardcoded"
+    * each function is computed on the fly by all the previous function applications

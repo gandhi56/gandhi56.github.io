@@ -180,8 +180,43 @@
 * _Note: No formula sheet on exam!_
 * _Note: Midterms contain 40 questions in an hour!_
 
-### Chapter 8
+### Chapter 8 Cost of living
 * The cost of living
   * A large focus of macroeconomics is prices but more importantly how changes in prices impact our purchase power.
   * Prices change at different speeds across time and place.
   * Changing prices have effects on people's incentives and choices.
+* The prices of many different goods and services must be considered when comparing the cost of living across time and place
+* **market basket** is a list of specific goods and services in fixed quantities
+* **price index** is a measure showing how much the cost of a market basket has changed relative to the cost in base time period of location
+* **consumer price index** is a measure that tracks changes in the cost of a basket of goods and services purchased by a typical Canadian household.
+![](10.png)
+* challenges in measuring price changes
+  * which goods should be included in the market basket?
+  * the basket of goods remains fixed even if the consumers substitute between similar goods. CPI keeps types and quantities of goods constant, which does not account for consumption changes
+* Using price indices
+  * similar to GDP, economic variables give an incomplete picture when expressed in nominal terms, as their real value may be different over time
+  * price indices transform nominal values into real values
+* Inflation rate
+  * size of the change in the overall price level
+  * $$ (CPI_1 - CPI_0) / CPI_0 \times 100 $$
+  * several common ways to report inflation
+  * CPI:
+    * headline inflation measures price changes for the entire market basket
+    * core inflation measures price changes with food and energy costs removed
+      * energy and food prices fluctuate often, which could over or understate the real change in overall prices
+  * Producer Price Index (PPI) measures the price of goods and services purchased by firms
+  * GDP deflator measures the prices of goods and services produced in the country
+  * CPI or PPI can be used to "deflate" nominal values into real values:
+    $$ real_value_year_Y = nominal_value_year_X \times CPI_year_Y/CPI_year_X $$
+  * **indexing** is a practice of automatically increasing payments in proportion to the cost of living.
+  * **purchasing power parity** refers to the theory that purchasing power in different countries should be the same when state in common currency.
+  * developing a ppi:
+    1. find a market basket of foods and services to compare across countries
+    2. measure the price of the goods in each country
+    3. calculate the cost of purchasing the basket in each country
+    4. build an index showing how much the basket costs in each country relative to some base
+  * **PPP adjustment** involves recalculating economic statistics to account for differences in price levels across countries
+
+    * $$ PPP-adjusted GDP = nominal_dollars_A \times [ 1 / (1 - price-level adjustment_A) ] $$
+
+    * price level adjustment is the percentage difference in purchasing power between the two countries
