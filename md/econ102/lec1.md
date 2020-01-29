@@ -185,3 +185,48 @@
   * A large focus of macroeconomics is prices but more importantly how changes in prices impact our purchase power.
   * Prices change at different speeds across time and place.
   * Changing prices have effects on people's incentives and choices.
+
+TODO
+
+### Chapter 9
+
+TODO slides 1 - 11
+
+#### Determinants of productivity
+* *Producitivity* is a measure of the output per worker and is what drives growth.
+* The only way to consume more and enjoy a higher standard of living is to increase the amount each person produces.
+* The standard of living in a country is driver by the **average productivity of its workers**
+  * increases in productivity per person --> increases in per capita income = economic growth
+
+#### Components of productivity
+* Physical capital is the stock of equipment and structures that allows for production of goods and services
+* Human capital is the set of skills, knowledge, experience, and talent that determines the productivity of workers
+  * missing risk taking
+* Technological improvements are innovations that cause the same inputs to product more outputs
+  * not only computers, also involves methods of producing goods and services
+* Natural resources are production inputs that come from the earth
+
+#### Convergence
+* countries that start our poor will grow faster than rich ones and eventually converge to the same **growth rate** as the rich ones, but may never reach the same level in economy
+* free trade allows Canada to work on something Canada is really good at, even though Canada does not hold resources locally
+* Canada has good firefighters, medical equipments
+
+#### Growth and public policy
+* recent history has shown that a few decades of strong economic growth can transform lives through increases in standard of living
+* public policy responses aim to spark and sustain growth
+* there is no one-size-fits all policy: Canada's public policy may not work for some other country
+
+#### Investments and savings
+* **investment trade-off** is a reduction in current consumption to pay for investment in capital to pay for investment in capital intended to increase future production
+  * developing nations tend to save more
+  * developed nations tend to save less
+  * *Foreign direct investment (FDI)* is when a firm runs part of its operation abroad or invests in another company abroad
+* **domestic savings** is savings for capital investments that come from within a country
+  * two sources:
+    1. households spending less than they earn
+    2. government revenues exceeding non-capital expenditures
+  * domestic savings = domestic income - consumption spending
+  * $$ S = Y - (C + G) $$
+  * savings for job layoff days, health emergency
+    * Canada has CPP, health care plans ==> less saving can be done/needed
+    * savings account interest is below inflation rate, better off saving money in stocks and bonds or homes

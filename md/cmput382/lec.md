@@ -169,3 +169,20 @@
 ### CUDA-GDB
 * extension of GDB to provide seamless debugging of CUDA and CPU code
 
+## Module 5
+
+### Objectives
+>1. To understand how CUDA threads execute on SIMD hardware
+
+### Warps
+* each block is divided into 32-thread warps
+  * an implementation technique
+  * warps are scheduling units in SM
+  * threads in a warp execute in SIMD manner
+  * number of threads in a warp may vary in future generations
+* blocks are partitioned after linearization
+  * linearized thread blocks are partitioned
+  * partition scheme is consistent across devices
+  * do not rely on any ordering within or between warps
+
+
