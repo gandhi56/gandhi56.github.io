@@ -296,3 +296,34 @@
     * etc.
     * the function that takes the last argument will have other argument values "hardcoded"
     * each function is computed on the fly by all the previous function applications
+
+## Lecture 8
+
+### Reductions in Lambda Calculus
+* Goal: reduce a lambda expression to its **simplest possible form**
+* This process is called *operational semantics* of lambda calculus
+* In lambda calculus, computation is the process of reductions from one expression to another expression
+* Example:
+  ```
+  ((lambda (x) (x 2)) (lambda (z) (+ z 1))) → (+ 2 1)
+  ```
+* Shorthand notation in lambda calculus
+  ($\lambda$x ( + x 1)) for 
+  ```
+  (lambda (x) (+ x 1))
+  ```
+* In lambda calculus we do not need any of the primitive functions
+* numbers can be represented by lambda expressions
+* Questions about reductions
+  * what type of reductions are there?
+  * how do we do them?
+  * is there a simplest form for a given expression?
+  * is there always a simplest form?
+  * is it unique?
+  * how can we compute it?
+  * can we compute it efficiently?
+* Beta reduction
+  * most intuitive and important one is what we called function application
+  * called beta-reduction in the theory
+  * we write $\rightarrow^{\beta}$ to indicate such a reduction
+  * rule:
