@@ -1,7 +1,5 @@
 # Introduction to Macroeconomics
 
-## Lecture 2
-
 ### Microeconomics review
 
 - Scarcity and equilibrium are the fundamental problems of economics
@@ -54,7 +52,6 @@
     * Financial market? Eventually we earn more than our expenditure
     * World economy? This diagram does not consider international trade
 
-## Lecture 3
 * Problems with measuring GDP
   - How to include expenditure on 'soft' things like Amazon purchases and netflix services?
 * Three ways to measure GDP:
@@ -106,8 +103,6 @@
       where $x_{t-1}$ is the previous GDP and $x_t$ is the current GDP
     - rise in GDP is a function of output and prices
     - not reliable!
-    
-## Lecture 4
 * stocks and bonds are not investments because nothing is produced! Hence, not part of GDP.
 * **Inflation** drives up GDP.
 * **Real GDP**: Goods and services are values at constant prices.
@@ -190,7 +185,25 @@ TODO
 
 ### Chapter 9
 
-TODO slides 1 - 11
+#### Economic growth through the ages
+* During the 1800s, the economic activity increased substantially
+* During the 1900s, GDP grew faster than population, raising the standard of living for many
+* read GDP per capita describes the change in purchasing power for each person over time
+* given the growth rate in nominal GDP, real GDP per capita growth rate is calculated as:
+  real GSP per capita growth rate = nominal GDP growth rate - inflation rate - population growth rate
+
+#### Compounding and the rule of 70
+* economic growth builds on itself over time
+  * this process is similar to compounding interest in a savings account
+* a small annual growth rate can add up to a large change in an economy over time
+* Canada average annual growth in real GDP per capita was 2% during the last century
+* equates to real GDP per capita being 7 times larger in 2010 than 1910
+* total change in GDP over time is bigger than the annual growth rate suggests
+* using an average growth rate and any year's GDP, GDP in the future can be estimated
+* GDP per capita in any year: $$ GDP_A = GDP_B \times (1 + growth rate)^{(yr A - yr B)}$$
+* a simple shortcut to understand how many years it takes for GDP to double is the rule of 70:
+  years until income doubles = 70 / (real GDP growth rate)
+
 
 #### Determinants of productivity
 * *Producitivity* is a measure of the output per worker and is what drives growth.
@@ -221,6 +234,12 @@ TODO slides 1 - 11
   * developing nations tend to save more
   * developed nations tend to save less
   * *Foreign direct investment (FDI)* is when a firm runs part of its operation abroad or invests in another company abroad
+    * Benefits
+      * Government actively works to attract FDI when domestic savings are not large enough
+      * Can result in human capital transfer from foreign firms to local workers
+    * Costs
+      * Firms might demand specific tax breaks or legal exemptions
+      * Humans capital and technology transfer is not guaranteed
 * **domestic savings** is savings for capital investments that come from within a country
   * two sources:
     1. households spending less than they earn
@@ -230,7 +249,6 @@ TODO slides 1 - 11
   * savings for job layoff days, health emergency
     * Canada has CPP, health care plans ==> less saving can be done/needed
     * savings account interest is below inflation rate, better off saving money in stocks and bonds or homes
-=======
 * The prices of many different goods and services must be considered when comparing the cost of living across time and place
 * **market basket** is a list of specific goods and services in fixed quantities
 * **price index** is a measure showing how much the cost of a market basket has changed relative to the cost in base time period of location
@@ -266,3 +284,42 @@ TODO slides 1 - 11
     * $$ PPP-adjusted GDP = nominal_dollars_A \times [ 1 / (1 - price-level adjustment_A) ] $$
 
     * price level adjustment is the percentage difference in purchasing power between the two countries
+
+* Education, health and technological developments
+  * education: one of the most important ways that a country an increase its human capital is by ensuring that high-quality public education is freely available to all children
+  * health: workers who are in good health will be more productive
+  * technological improvements: helps countries improve the productivity of existing inputs
+* Good government, property  rights and economic openness
+  * enforcable laws and effective public services are critical
+  * government stability
+* The juggling act
+  * trade-offs between different ways of promoting growth through public policy
+    * many governments cannot pay for all of the factors that promote growth at once
+    * the poorer the country, the harder the trade-off
+    * this poverty trap is one of the main justifications for foreign aid that provides loans or funding for investment and development
+    * there are trade-offs associated with economic growth and natural resource sacrifices
+
+**--------------------------------------- cut-off for midterm -----------------------------------------------------------------------**
+
+
+### Chapter 10 Unemployment and the demand for labor
+* How do we measure labor market?
+* Why people are not working?
+* Defining and measuring unemployment
+  * unemployment is a situation where someone wants to work but cannot find a job in the current market
+    * people who do nnot have jobs and are not interested in obtaining one are *not* counted as unemployed
+  * Statistics Canada defines unemployment as people who
+    1. did not work at all in the previous week
+    2. were available to work if they had been offered a job
+    3. were making efforts to look for a job
+
+* Measuring unemployment
+  * the labour force refers to the people who are in the working-age population and are either employed or unemployed
+  * the unemployment rate is the number of employed people divided by the number of people in the labour force:
+    unemployment rate = #unemployed / labour force x 100%
+    where labour force = number of employed and unemployed
+  * labor-force participation rate (LFPR) determines the state of the economy is also understood by looking at the *labor-force participation rate*
+    LFPR = (labor force / working-age-population) x 100%
+  * LFP incdicates what fraction of the population wants to be working, regardless of whether or not they actually have a job
+    * it is common for the LFPR to fall during a recession
+    

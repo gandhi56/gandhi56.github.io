@@ -95,4 +95,36 @@
     1. modest-size open clusters
     2. globular clusters
 * the two types differ in how densely packed the cluster is and their location and age.
-    
+
+
+
+
+## Chapter 16: Star birth
+
+### Objectives
+>1. Stellar nurseries
+>2. Stages of star birth
+>3. Masses of newborn stars
+
+### Stellar nurseries
+* using the technique of main sequence turnoff point to determine the ages of star clusters, we have found that the youngest clusters are always associated with dark clouds of gas and dust, indicating that these interstellar clouds are the birthplaces of stars.
+* where do stars come from?
+    * average of two to three stars are born somewhere in the Milky Way galaxy each year
+    * black patches within the Milky Way are interstellar gas clouds that appear dark because they block our view of the stars behind them. These gas clouds provide the raw material for star formation.
+    * interstellar medium
+        * gas and dust in spaces between stars
+        * composed mostly of hydrogen and helium
+        * use spectroscopy to measure the abundances of the new elements that stars have added to the interstellar medium
+        * cloud absorbs some of the star's light, leaving the absorption lines in the star's spectrum
+    * star-forming clouds
+        * stars are born in interstellar clouds that are particularly cold and dense, usually molecular clouds because they are cold enough and dense enough to allow atoms to combine into molecules.
+        * typical temperature of a molecular cloud is between 10K and 30K, density around 300 molecules per cubic cm
+    * interstellar dust
+        * carbon, silicon, oxygen and iron found in tiny solid grains of dust
+        * dust scatter or absorb virtually all the visible light that enters a molecular cloud, preventing us from seeing stars that lie behind it.
+        * regions of the sky with molecular clouds look so black
+        * stars seen near the edges of a molecular cloud appear redder than similar stars outside the cloud, a phenomenon known as **interstellar reddening**
+        * interstellar reddening occurs as follows:
+            * dust grains block shorter wavelength photons of visible light more easily than longer wavelength photons.
+            * near the edges of a moleular cloud, where stars are only partially obscured, the blocking of blue light causes stars to appear redder than their true colors
+        
