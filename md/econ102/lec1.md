@@ -188,9 +188,11 @@ TODO
 #### Economic growth through the ages
 * During the 1800s, the economic activity increased substantially
 * During the 1900s, GDP grew faster than population, raising the standard of living for many
-* read GDP per capita describes the change in purchasing power for each person over time
+* real GDP per capita describes the change in purchasing power for each person over time
 * given the growth rate in nominal GDP, real GDP per capita growth rate is calculated as:
-  real GSP per capita growth rate = nominal GDP growth rate - inflation rate - population growth rate
+  
+  * real GDP per capita = nominal GDP - inflation - population
+  * **Important:** all are rates here!
 
 #### Compounding and the rule of 70
 * economic growth builds on itself over time
@@ -200,7 +202,7 @@ TODO
 * equates to real GDP per capita being 7 times larger in 2010 than 1910
 * total change in GDP over time is bigger than the annual growth rate suggests
 * using an average growth rate and any year's GDP, GDP in the future can be estimated
-* GDP per capita in any year: $$ GDP_A = GDP_B \times (1 + growth rate)^{(yr A - yr B)}$$
+* GDP per capita in any year: $GDP_A = GDP_B \times (1 + growth rate)^{(yr A - yr B)}$
 * a simple shortcut to understand how many years it takes for GDP to double is the rule of 70:
   years until income doubles = 70 / (real GDP growth rate)
 
@@ -262,7 +264,7 @@ TODO
   * price indices transform nominal values into real values
 * Inflation rate
   * size of the change in the overall price level
-  * $$ (CPI_1 - CPI_0) / CPI_0 \times 100 $$
+  * $(CPI_1 - CPI_0) / CPI_0 \times 100$
   * several common ways to report inflation
   * CPI:
     * headline inflation measures price changes for the entire market basket
@@ -271,7 +273,7 @@ TODO
   * Producer Price Index (PPI) measures the price of goods and services purchased by firms
   * GDP deflator measures the prices of goods and services produced in the country
   * CPI or PPI can be used to "deflate" nominal values into real values:
-    $$ real_value_year_Y = nominal_value_year_X \times CPI_year_Y/CPI_year_X $$
+    $real_value_year_Y = nominal_value_year_X \times CPI_year_Y/CPI_year_X$
   * **indexing** is a practice of automatically increasing payments in proportion to the cost of living.
   * **purchasing power parity** refers to the theory that purchasing power in different countries should be the same when state in common currency.
   * developing a ppi:
@@ -281,7 +283,7 @@ TODO
     4. build an index showing how much the basket costs in each country relative to some base
   * **PPP adjustment** involves recalculating economic statistics to account for differences in price levels across countries
 
-    * $$ PPP-adjusted GDP = nominal_dollars_A \times [ 1 / (1 - price-level adjustment_A) ] $$
+    * $$ PPP_{adjusted GDP} = nominal_{dollars A} \times [ 1 / (1 - priceleveladjustment_A) ] $$
 
     * price level adjustment is the percentage difference in purchasing power between the two countries
 
