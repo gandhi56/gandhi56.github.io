@@ -93,7 +93,7 @@
     * CUDA C fits here!
 
 ### CUDA memory
-* Device code can:
+* **Device** code can:
   * read/write per-thread *registers*
   * read/write all-shared *global memory*
 * `​cudaError_t cudaMalloc ( void** devPtr, size_t size )` allocates an object in the device global memory
@@ -104,57 +104,82 @@
 * CUDA kernel is executed by a grid of threads
   * all threads in a grid run the same kernel code (Single Program Multiple Data)
   * each thread has indices that it uses to compute memory addresses and make control decisions
-  * `i = blockIdx.x * blockDim.x + threadIdx.x`
-* divide the grid into multiple blocks
-  * threads within a block cooperate via shared memory, atomic operations and barrier synchronization
-    * a barrier for a group of threads in the source code means any thread must stop at this point and cannot proceed until all other threads reach this barrier.
+    * `i = blockIdx.x * blockDim.x + threadIdx.x`
+* **blocks**: divide the grid into multiple blocks
+  * threads within a block cooperate via 
+    * shared memory
+    * atomic operations
+    * barrier synchronization
+      * a barrier for a group of threads in the source code means any thread must stop at this point and cannot proceed until all other threads reach this barrier.
   * threads in different blocks do not interact
 * a grid is a collection of thread blocks of the same thread dimensionality which all execute the same kernel, threads are oganized in blocks
 * a block is executed by a multiprocessing unit
-* threads of a block can be identified using 1D, 2D, or 3D
-* blocks may be indexed in 1D, 2D, or 3D.
-* threads in a block can communicate via shared memory
+* threads and blocks can be indexed using 1D, 2D, or 3D
+* threads in a block can communicate via **shared memory**
 * kernel is launched by the following code:
   * `myker <<< numBlocks, threadsPerBlock >>>( /* params */ );`
-* (SM) Streaming multiprocessors
-  * each block can execute in any order relative to other blocks
-  * threads are assigned to SMs in block granularity
-    * up to 8 blocks to each SM as resource allows
-  * threads run concurrently
-    * SM maintains thread/block IDs
-    * SM manages/schedules thread execution
-* Kernel / Block / Warp
-  * each block is executed as 32-thread warps
-  * an implementation decision, not part of the CUDA programming model
-  * *warps* are scheduling units in SM
-  * if 3 blocks are assigned to an SM and each block has 256 threads, how many warps are there in an SM?
-    * each block is divided into 256 / 32 = 8 warps. Hence, 3 blocks have $$ 8 \times 3 = 24 $$ warps.
-  * all threads must be executed before there is space to schedule another thread block
-* thread scheduling
-  * SM implements zero-overhead warp scheduling
-  * at any time, only one of the warps is executed by the SM.
-  * warps whose next instruction has its operands ready for consumption are eligible for execution
-  * eligible warps are selected for execution on a prioritized scheduling policy.
-  * all threads in a warp execute the same instruction when selected
-  * Fermi GPUs implement a double warp scheduler
-    * each SM has two warp schedulers and two instruction units
-* Warps
+### Streaming multiprocessors
+* performs the actual computation
+* Each SM has its own:
+  * control unit
+  * registers
+  * execution pipelines
+  * caches
+  * shared memory
+  * L1 cache
+* many architecture-dependent CUDA cores per SM
+* each block can execute in any order relative to other blocks
+* threads are assigned to SMs in block granularity
+  * up to 8 blocks to each SM as resource allows
+* threads run concurrently
+  * SM maintains thread/block IDs
+  * SM manages/schedules thread execution
+
+### Execution model
+![](4.png)
+* threads are executed by scalar processors
+* thread blocks are executed on multiprocessors
+  * several concurrent threads can reside on one multiprocessor
+* a kernel is launched as a grid of thread blocks
+
+### GPU Memory hierarchy summary
+
+![](5.png)
+
+### Thread scheduling
+* SM implements **zero-overhead** warp scheduling
+* at any time, only one of the warps is executed by the SM.
+* warps whose next instruction has its operands ready for consumption are eligible for execution
+* eligible warps are selected for execution on a prioritized scheduling policy.
+* all threads in a warp execute the same instruction when selected
+* Fermi GPUs implement a double warp scheduler
+  * each SM has two warp schedulers and two instruction units
+* all threads in the same warp execute the same code independently (except for explicit synchronization) by run-time scheduler
+
+### Warps
+* each block consists of 32-thread warps
   * in a block of threads, the threads are executed in groups of 32, called a **warp**. If the size is not divisible by 32, some of the threads in the last warp will remain idle.
-  * if the blocks are 2D or 3D, the threads are ordered by dimension.
-  * all threads in the same warp execute the same code independently (except for explicit synchronization) by run-time scheduler
-  * it's possible that each warp executes until it needs to wait for data (from device memory or a previous operation) then another warp gets scheduled
-  * **Important:** knowing the number of threads in a warp becomes important to maximize performance of the program. Performance may be lost otherwise:
-    * in the kernel invocation, <<< blocks, threads >>>, try to choose a number of threads that divides evenly with the number of threads in a warp (usually a multiple of 32). If you don't, you end up launching a block that contains inactive threads.
+* a warp is executed physically in parallel (single instruction multiple threads)
+* warps are scheduling units in SM
+* if 3 blocks are assigned to an SM and each block has 256 threads, how many warps are there in an SM?
+  * each block is divided into 256 / 32 = 8 warps. Hence, 3 blocks have $8 \times 3 = 24$ warps.
+* **all threads must be executed before there is space to schedule another thread block**
+* if the blocks are 2D or 3D, the threads are **ordered by dimension**.
+* **Important:** knowing the number of threads in a warp becomes important to maximize performance of the program. Performance may be lost otherwise:
+  * **avoid idle threads**
+    * in the kernel invocation, `<<< blocks, threads >>>`, try to choose a number of threads that divides evenly with the number of threads in a warp (usually a multiple of 32).
+  * **avoid warp divergence**
     * in your kernel, try to have each thread follow the same code path. Otherwise warp divergence can occur. This happens because the GPU has to run the entire warp through each of the divergent code paths.
+  * **consistent loading and storing**
     * in your kernel, try to have each thread in a warp load and store data in specific patterns. For instance, have the threads in a warp access consecutive 32-bit words in global memory.
-  * ALUs (cores), load/store units (LD/ST) and Special Function Units (SFU) are pipelined units. They keep the results of many computations or operations at the same time, in various stages of completion.
-  * So, in one cycle they can accept a new operation and provide the results of another operation that was started a long time ago (~20 cycles for the ALUs).
-  * So, a single SM has resources for processing 48*20 cycles = 960 ALU operations at the same time, which is 960 / 32 threads = 30 warps.
-  * In addition, it can process LD/ST operations and SFU operations at whatever their latency and throughput are.
-  * Warp schedulers can schedule 2 * 32 threads per warp = 64 threads to the pipeline per cycle.
-  * At any given cycle, the warp schedulers try to "pair up" two warps to schedule, to maximize SM utilization. These warps can be either from different blocks or different places in the same block.
-  * Warps that are executing instructions for which there are fewer than 32 resources, must be issued multiple times for all threads to be serviced.
-    * For instance, there are 8 SFUs, so that means that a warp containing an instruction that requires the SFUs must be scheduled 4 times.
+* ALUs (cores), load/store units (LD/ST) and Special Function Units (SFU) are pipelined units. They keep the results of many computations or operations at the same time, in various stages of completion.
+* So, in one cycle they can accept a new operation and provide the results of another operation that was started a long time ago (~20 cycles for the ALUs).
+* So, a single SM has resources for processing 48*20 cycles = 960 ALU operations at the same time, which is 960 / 32 threads = 30 warps.
+* In addition, it can process LD/ST operations and SFU operations at whatever their latency and throughput are.
+* Warp schedulers can schedule 2 * 32 threads per warp = 64 threads to the pipeline per cycle.
+* At any given cycle, the warp schedulers try to "pair up" two warps to schedule, to maximize SM utilization. These warps can be either from different blocks or different places in the same block.
+* Warps that are executing instructions for which there are fewer than 32 resources, must be issued multiple times for all threads to be serviced.
+  * For instance, there are 8 SFUs, so that means that a warp containing an instruction that requires the SFUs must be scheduled 4 times.
 
 ### Parallel Thread Execution (PTX)
 * PTX provides a stable programming model and instruction set for general purpose parallel programming.
@@ -168,6 +193,14 @@
 
 ### CUDA-GDB
 * extension of GDB to provide seamless debugging of CUDA and CPU code
+
+
+
+## Module 3
+TODO: Finish lecture 3-5 notes
+
+## Module 4
+
 
 ## Module 5
 
@@ -184,5 +217,4 @@
   * linearized thread blocks are partitioned
   * partition scheme is consistent across devices
   * do not rely on any ordering within or between warps
-
 

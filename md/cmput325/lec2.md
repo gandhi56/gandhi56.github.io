@@ -235,13 +235,20 @@
       * `(funcall function-name arg1 ... argn)`
 
 ## Lecture 7
-* Lambda Functions
+### Lambda Functions
   * get rid of named functions, why?
     * a function was the result of a higher order function
     * tried to return this newly computed function
   * lambda functions are function definitions without names
     * Syntax: `(lambda (x1 ... xn) body)`
     * Example: `((lambda (x y) (+ x y)) 5 3)`
+    * lambda function application
+      * to apply a lambda function
+          ```
+          ((lambda (x1 ... xn) body) a1 ... an)
+          x1 ... xn are formal arguments of function
+          a1 ... an are actual parameters for which we want to evaluate the function
+          ```
 * Lisp-1 and Lisp-2
   * Lisp-1 systems: "values" and functions in the same namespace
   * Lisp-2 systems: in seperate spaces
@@ -250,14 +257,25 @@
   * ... we need to tell SBCL this is a function to be called
   * Consequence:
     * Working with lambda functions is much messier in Lisp-2 systems than in Lisp-1
+  * never quote a lambda expression in Lisp-2
 * `function`
+  * syntax: `(function arg)`
+  * purpose: evaluates lambda function given by `arg`
   * takes lambda function as its argument
   * returns function definition in an internal format used by SBCL
   * compiles it and returns an internal representation of the compiled code
   * representation is called **closure**
   * next, the function in the closure can be called in an application
   * use `funcall` or `apply` for the application
-* Lambda Calculus
+* `function` vs `funcall` vs `apply`
+  * `function` takes as argument a *function definition* and returns an internal representation of that definition
+  * does NOT apply the function
+  * `funcall` and `apply` are for *function application*
+* applying lambda functions
+  * use `funcall` and `apply` as usual by giving the whole lambda function as an argument
+
+### Lambda Calculus
+* Intro to lambda calculus
   * formal, abstract language
   * all functions are defined without giving them names
   * Lisp is based on lambda calculus but adds a large language on top of it
@@ -271,14 +289,15 @@
     * `identifier` corresponds to atom in Lisp
     * `function` is a lambda function in Lisp
     * `[expression]` can be an arbitrary lambda expression. It plays the role of the body in the function definition
-    * In practice, this means: either the body is written directly or the body is computed by evaluating a lambda application
+
 * Unary vs N-ary functions
   `[function] := (lambda (x) [expression])`
-  * we only have unary functions - functions that take one parameter
-  * any n-ary function (function with n arguments) can be defined using a series of unary functions
+  * we only have unary functions - functions that take **one** parameter
+  * any **n-ary function** (function with n arguments) can be defined using **a series of unary functions**
   * consequence:
     * to understand the model of computation for general functional programming
     * it is enough to understand computation with unary functions
+
 * Curried functions
   * Goal: define an n-ary functions by a series of unary functions
   * can solve this by using higher order functions
@@ -312,7 +331,7 @@
   ```
   (lambda (x) (+ x 1))
   ```
-* In lambda calculus we do not need any of the primitive functions
+* In lambda calculus, we do not need any of the primitive functions
 * numbers can be represented by lambda expressions
 * Questions about reductions
   * what type of reductions are there?
@@ -327,3 +346,11 @@
   * called beta-reduction in the theory
   * we write $\rightarrow^{\beta}$ to indicate such a reduction
   * rule:
+    * given an expression `(( lambda (x) body ) a)`, reduce it to body
+    * replace all occurences of `x` in body by `a`
+  * Example:
+    `((lambda (x) (x (x 1))) 5) ` $\rightarrow^{\beta}$ `(5 (5 1))`
+  * Remarks
+    * the expression we reduce could be a sub-expression nested within some complex expression
+    * sometimes, the result after a reduction is actually more complex than before
+    * each step in recursion corresponds to one step in beta-reduction

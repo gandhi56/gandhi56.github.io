@@ -107,24 +107,89 @@
 >3. Masses of newborn stars
 
 ### Stellar nurseries
-* using the technique of main sequence turnoff point to determine the ages of star clusters, we have found that the youngest clusters are always associated with dark clouds of gas and dust, indicating that these interstellar clouds are the birthplaces of stars.
+* using the technique of main sequence turnoff point to determine the ages of star clusters, we have found that:
+    * the youngest clusters are always associated with dark clouds of gas and dust, indicating that these **interstellar clouds** are the birthplaces of stars.
 * where do stars come from?
     * average of two to three stars are born somewhere in the Milky Way galaxy each year
-    * black patches within the Milky Way are interstellar gas clouds that appear dark because they block our view of the stars behind them. These gas clouds provide the raw material for star formation.
+    * black patches within the Milky Way are **interstellar gas clouds** that appear dark because they block our view of the stars behind them. These gas clouds provide the raw material for star formation.
     * interstellar medium
         * gas and dust in spaces between stars
         * composed mostly of hydrogen and helium
         * use spectroscopy to measure the abundances of the new elements that stars have added to the interstellar medium
         * cloud absorbs some of the star's light, leaving the absorption lines in the star's spectrum
     * star-forming clouds
-        * stars are born in interstellar clouds that are particularly cold and dense, usually molecular clouds because they are cold enough and dense enough to allow atoms to combine into molecules.
-        * typical temperature of a molecular cloud is between 10K and 30K, density around 300 molecules per cubic cm
+        * interstellar clouds are cold and dense to allow atoms to combine into molecules
+        * temperature of a molecular cloud is between 10K and 30K, density around 300 molecules per cubic cm
     * interstellar dust
         * carbon, silicon, oxygen and iron found in tiny solid grains of dust
         * dust scatter or absorb virtually all the visible light that enters a molecular cloud, preventing us from seeing stars that lie behind it.
-        * regions of the sky with molecular clouds look so black
         * stars seen near the edges of a molecular cloud appear redder than similar stars outside the cloud, a phenomenon known as **interstellar reddening**
         * interstellar reddening occurs as follows:
             * dust grains block shorter wavelength photons of visible light more easily than longer wavelength photons.
             * near the edges of a moleular cloud, where stars are only partially obscured, the blocking of blue light causes stars to appear redder than their true colors
-        
+        * interstellar reddening is different from a Doppler shift because reddening does not change the wavelengths of a star's spectral lines.
+
+* Why do stars form?
+    * stars form when gravity causes a molecular cloud to contract and the contraction continues until the central object becomes hot enough to sustain nuclear fusion in its core
+    * sun remains stable in size because the outward push of gas pressure balances the inward pull of gravity, this is called *gravitational equilibrium*
+    * gas pressure is far weaker in the low density gas of interstellar space, but so is the pull of gravity
+    * in most places within our galaxy, gravity is not strong enough to overcome the internal pressure of the interstellar gas, which is why star formation does not occur everywhere. Molecular clouds are the exception, they are the only places in which gravity can win the battle against pressure and start the formation of stars
+    * **Fact**: Gravity can create stars only if it can overcome the outward push of the pressure within a gas cloud, which depends on both the density and the temperature of the cloud.
+    * **Analogy**: consider gas particles inside a balloon. The outward pressure goes up if density of the gas particles in the balloon is increased because higher the density more collisions of gas particles inside the balloon. Temperature is also directly proportional to pressure.
+    * Temperature-dependent pressure in ordinary gas clouds is called **thermal pressure**.
+    * Preventing pressure buildup
+        * regions of a molecular cloud in which the gravitational attraction is stronger than the thermal pressure are forced to contract.
+    * Clustered star formation
+        * most stars are born in large clusters because gravity is stronger in high mass gas cloud, making it easier for gravity to overcome the outward force due to thermal pressure.
+        * magnetic fields can help the cloud resist gravity
+        * starlight that has passed through a molecular cloud often has its electric and magnetic fields aligned in particular directions
+    * Fragmentation of a molecular cloud
+        * gravity helps accomplish this task
+    * Isolated star formation
+        * A molecular cloud that is highly dense and cold
+    * First generation of stars
+        * composition:
+            * 70% hydrogen
+            * 28% helium
+            * 2% elements heavier than helium
+
+### Stages of star birth
+
+![](1.png)
+
+* What slows the contraction of a star-forming cloud?
+    * A cloud fragment will continue to collapse on itself as long as it remains cold, and it can remain cold as long as photons emitted by molecules within the cloud can carry away the energy released by gravitational contraction
+    * it's easy for photons emitted by molecules to escape from the cloud early in the process of contraction, while the cloud's density is still fairly low, because the photons are unlikely to run into any other molecules after they are emitted.
+    * Trapping of thermal energy
+        * cloud contraction makes it increasingly difficult for emitted photons to escape, because the growing density of the cloud increases the chances that a photon on its way out will be absorbed, leaving the absorbing molecule in an excited state.
+        * collisions between particles increase thermal energy
+        * For a while, dust grains can help keep the cloud cool by emitting infrared light, but as contraction packs the dust grains closer together, the infrared photons have trouble escaping the cloud.
+        * The central region of the cloud fragment eventually grows dense enough **to trap almost all the radiation inside it**
+        * The dense center of the cloud fragment is now a **protostar** (pre-main-sequence star).
+        * protostars look starlike, with **surface temperatures and luminosities  similar to those of true stars**. But its core is not yet hot enough for nuclear fusion
+    * Growth of a protostar by gas infall
+        * A protostar's mass grows with time because a molecular cloud fragment contract in an inside out fashion
+        * gravity is strongest where the gas density is the greatest
+        * gas in the outer part of the cloud fragment feels a weaker gravitational pull, so it initially remains behind as the protostar forms
+        * because the gas beneath has already contracted to make the protostar, the outer regions of the cloud fragment are with little pressure support from below
+        * **this rain of mass onto the protostar continues until the gas surrounding the protostar is gone**, either because the gas runs out or because something blows the remaining gas away.
+        * the star itself can blow the surrounding gases away through the combined effects of its radiation and stellar wind, much as the sun's radiation and solar wind are thought to have cleared out excess gas during the formation of our solar system
+* What is the role of rotation in star birth?
+    * protostellar disks
+        * random motions of gas particles give a gas cloud some small overall rotation, although it may be imperceptibly slow.
+        * However, the cloud's rotation must become much faster as the clouds shrink in size due to conservation of angular momentum
+        * this prevents gas from raining directly down onto a protostar, causing it instead to settle into a **protostellar disk**.
+        * gas in a protostellar disk can gradually spiral inward towards the protostar because of friction.
+        * friction slowly causes the orbits of individual particles to shrink until the gas particles fall onto the surface of the protostar, thereby increasing the star's mass
+        * The process in which material falls onto another body is called *accretion*. A disk in which friction causes material to spiral inward is often called an *accretion disk*.
+        * protostellar disk is also important to slowing the rotation of the protostar itself. 
+        * the protostar's rapid rotation generates a strong magnetic field. As the magnetic field lines sweep through the protostellar disk, they transfer angular momentum to outlying the material, slowing the protostar's rotation.
+        * The strong magnetic field may also help to generate a strong **protostellar wind**.
+    * protostellar jets
+        * high speed streams of gas
+    * single star or binary?
+        * as a molecular cloud contracts, breaks up into fragments, and forms protostars, some of those protostars end up quite close to one another.
+        * gravity can pull two neighbouring protostars closer together, but they usually don't crash into each other. Instead, they go into orbit around each other, because each pair of protostars has a certain amount of angular momentum.
+        * pairs with large amounts of angular momentum have large orbits
+* How does nuclear fusion begin in a newborn star?
+    * 
