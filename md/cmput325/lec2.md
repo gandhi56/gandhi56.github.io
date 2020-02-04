@@ -354,3 +354,51 @@
     * the expression we reduce could be a sub-expression nested within some complex expression
     * sometimes, the result after a reduction is actually more complex than before
     * each step in recursion corresponds to one step in beta-reduction
+    * reduction steps will evaluates the function applications in the recersive function
+* Alpha reduction
+  * $\rightarrow^{\alpha}$ means renaming variables
+  * Intuition: changing the name of local variables in a function does not change the meaning
+  * *name conflict* between arguments:
+    * `(defun f(x x) (- x x))`
+    * this gives a compile-time error: variable x occurs more than once in a lambda expression
+  * In lambda calculus, a *bound* variable's name can be replaced by another if the latter does not cause any name conflict
+  * it is always safe if you use a new name, that does not occur anywhere else in the whole lambda expression
+    * example: `(lambda (x) (+ x y))`
+    * `x` is **bound** in the scope of `( lambda (x) ...)`
+    * `y` is **free**
+    * `x` can be renamed to anything except `y`
+    * `y` cannot be renamed
+  * Free vs bound variables
+    * free and bound are not absolute concepts, they depend on their scopes
+    * like global and local variables
+  * Avoid name conflicts in beta reduction
+    * use a new variable name
+    * called alpha reduction
+    * without alpha reduction, direct substitution does not always work
+* Perform alpha reduction first!
+  * $(( \lambda x (\lambda z (x z)) ) z)$
+  * rename the $z$ in $(\lambda z \dots)$
+    * $((\lambda x (\lambda u (x u))) z)$
+  * now the bound variable is called $u$ and will not conflict with the argument $z$
+  * finally replace $x$ by $z$ in body
+    * $(\lambda (u) (z u))$
+
+* Scope of variables and beta-reduction
+  * scope of a variable should be preserved by variable renaming to ensure that reduction is correct
+    * $((\lambda x (\lambda z (x z))) z) \rightarrow^{\beta} (\lambda u (z u))$
+    * where $u$ is some new variable
+    * exercise: fill in the steps
+  * correct beta reductions can always be achieved by renaming (alpha-reduction), if needed
+  * beta-reduction using direct substitution
+
+* Summary of reductions
+  * one $\beta$-reduction corresponds to a one-step function application
+  * the substitution of the formal variable by the argument must be done carefully to avoid name conflicts
+  * $\alpha$-reduction renames function arguments
+  * after using such renaming where necessary, a simple substitution in the body gives a correct beta-reduction
+  * to be safe can always use $\alpha$-reduction with names for bound variables
+
+TODO FINISH NOTES
+- normal expressions
+
+## Lecture 9
