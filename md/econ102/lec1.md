@@ -317,11 +317,50 @@ TODO
 
 * Measuring unemployment
   * the labour force refers to the people who are in the working-age population and are either employed or unemployed
-  * the unemployment rate is the number of employed people divided by the number of people in the labour force:
-    unemployment rate = #unemployed / labour force x 100%
+  * the unemployment rate is the number of unemployed people divided by the number of people in the labour force:
+    unemployment rate = $\frac{unemployed}{labour force} \times 100%$
     where labour force = number of employed and unemployed
   * labor-force participation rate (LFPR) determines the state of the economy is also understood by looking at the *labor-force participation rate*
     LFPR = (labor force / working-age-population) x 100%
-  * LFP incdicates what fraction of the population wants to be working, regardless of whether or not they actually have a job
+  * LFP indicates what fraction of the population wants to be working, regardless of whether or not they actually have a job
     * it is common for the LFPR to fall during a recession
     
+* Beyond the unemployment rate
+  * limitations of unemployment rate:
+    * discouraged workers: people who have looked for work in the past year because of labor market conditions
+    * underemployed workers: people who are either working less than they would like or in jobs below their skill level
+
+* Equilibium in the labor market
+  * labor is bought and sold in a market, just like other goods and services
+    * there is a demand for labor
+    * there is a supply for labor
+    * there is price
+  * in most markets, the price is expected to adjust until the market reaches equilibrium, a point at which the quantity supplied equals the quantity demanded
+  * existence of unemployment suggests that this simplest of models can't fully explain what goes on in the labor market
+
+![](11.png)
+* categories of unemployment
+* first, the *natural rate of unemployment* is the normal level of unemployment that persists in an economy in the long run
+* three contributors to the natural rate of unemployment:
+  1. frictional unemployment
+    * caused by workers who are changing location, job, or career
+    * natural and healthy part of life in a dynamic economy
+  2. structural unemployment
+    * caused by a mismatch between the skills workers can offer and the skills in demand
+    * jobs might can move to a different country due to globalization
+      * international trade is beneficial in macroeconomics but not necessarily in the labor market
+    * how many people wear firefighter suits everyday, no point in producing more and more suits
+  3. real-wage or classical unemployment results from wages being higher than the market-clearing level
+* public policies and other influences on unemployment
+  * unemployment is an impmortant indicator of the overall health of economy
+* factors that may stop wage rates from falling
+  * government might prevent falling wages throught minimum wage legislation
+    * *minimum wage* is the lowest wage that a firm is legally allowed to pay its workers
+  * *Labor unions* are groups of employees who bargain with their empoyer(s) over salaries and work conditions
+  * *efficiency wages* are deliberately set above the market rate to increase productivity
+* employment insurance
+  * frictional and structural unemployment are part of the normal working of the economy
+  * employment insurance is money paid by the government to people who are unemployed
+  * effect of employment insurance is ambiguous because:
+    * people might not look as hard for work if payment is generous
+    * if people don't have to rush into taking the first job they are offered, they are more likely to find the right job for them
