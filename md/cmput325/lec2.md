@@ -402,3 +402,126 @@ TODO FINISH NOTES
 - normal expressions
 
 ## Lecture 9
+
+## Lecture 10: Interpreter based on context and closure
+* specs:
+  * only lambda functions
+  * similar to `eval` in lisp, `(eval expr)` takes an s-expr and keep reducing it
+* main issues:
+  * reduction order
+  * how to compute efficiently
+* new, efficient approach different from basic NOR, AOR
+* based on two concepts: **context** and **closure**
+
+* Context and closure
+  * context: current variables and their bindings
+  * closure: a pair
+    * an s-expr
+    * a context in which to evaluate the expression
+  * we will write `eval` to:
+    * evaluate an s-expr in the current context (which might contain some closures)
+* Language
+  * variables
+  * constant expressions: `(quote e)`
+  * arithmetic
+  * relations and logic
+  * primitives for s-expr:
+    * `car`, `cdr`, `cons`, `atom`, `null`
+  * `if`
+  * lambda functions
+  * function call
+  * simple block `(let (x1.e1) ... (xk.ek) e)`
+  * (optional) recursive block
+  * `(let (x1 . e1) ... (xk . ek) e)`, instead of the Lisp way to simplify
+
+* Why not just use $\beta$-reductions?
+  * determine the scope of each parameter
+  * detect potential name conflicts
+  * implement variable renaming ($\alpha$-reductions)
+  * implement direct substitutions
+  * it is possible to do it, but not very efficient
+  * main problem:
+    * need to all the above repeatedly
+    * ... after each substitution step
+
+* new idea
+  * key idea: delay the subsitutions by using contexts and closures
+  * this technique is used in real Lisp interpreters
+  * also helps with understanding compilation
+
+* definition of a context
+  * a context is a list of bindings
+    $[n_1 \rightarrow v_1 \dots n_k \rightarrow v_k]$
+    * where $n_i$ are identifiers, $v_i$ are expressions (value that the variable is bound to)
+    * $v_i$ can also be a closure, represents the state of an incomplete evaluation
+  * a context is used to record of lookup name bindings
+  * a context can be *extended* when a new binding $n \rightarrow v$ is created in a function application
+* evaluation with a context
+  * always begin with an empty context
+  * compare with other programming languages
+    * may have global variables already bound to values
+  * in the middle of evaluating an expression, the context is usually non-empty
+  * substitutions are delayed to the point where the value of a variable is really needed for the evaluation to continue
+  * variables are left as-is (such as `x` in `(+ x 4)` above)
+  * a variable is bound as "needed"...
+    * if binding can be found in context
+* definition of a closure
+  * pair `[f, CT]`
+  * `f` is a lambda function
+  *  `CT` is a (possibly empty) context
+  * remember - a lambda function consists of two parts
+  * function parameters, eg. `(x y)`
+  * the body `(+ x y)`
+  * when function `f` is applied we know the parameters and body
+  * we get values for the variables from the context which are used in the body of `f`
+* function application in a context - algorithm
+  * when interpretation of a program starts, the context is empty
+  * when a function is applied:
+    * evaluate the arguments in the current context
+    * evaluate the functional part in the current context
+    * extend the context
+      * bind the parameter names to the evaluated arguments
+      * add these bindings to current context to form the next context
+    * evaluate the body of the function in this extended context
+
+* an implementation of context for interpreter
+  * define a data structure to represent a context
+  * two lists, name list and value list
+  * both lists are in sync
+    * for each name there is a corresponding value ...
+    * ... stored in the same location in the other list
+* name list and value list
+  * each list is a list of list
+    * `(list1 list2 ... listn)`
+  * a sublist contains
+    * all the names of values for one function call
+  * name list
+    * list of lists of atoms
+  * values list
+    * list of lists of s-expr
+* example
+  * name list `((x y) (z) (w s))`
+  * value list `((1 2) ((lambda (x) (* x x)))`
+  * list of three sublists
+    * corresponds to three (nested) lambda function applications
+  * in previous notation, this implements the context
+
+* compare context and closure model with runtime execution model of programs
+  * compare to runtime model of a programming language
+  * a runtime model has:
+    * a call stack for all active functions
+    * one stack frame for each function
+  * the names are compiled away, replaced by relative addresses on the stack
+  * in our model, we still keep the names in the context
+  * we will soon see a similar compilation for Lisp, also compiling away names, in the SECD machine
+* name lookup for context
+  * search for a name in a context
+  * walk synchronously over both name and value lists
+  * if a name is found:
+    * s-expr in the same position in the value list is its binding
+  * name lookup function `assoc(x, n, v)`
+    * name list `n`
+    * value list `v`
+    * name to lookup stored in `x`
+
+    
