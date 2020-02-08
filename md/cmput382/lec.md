@@ -180,6 +180,7 @@
 * At any given cycle, the warp schedulers try to "pair up" two warps to schedule, to maximize SM utilization. These warps can be either from different blocks or different places in the same block.
 * Warps that are executing instructions for which there are fewer than 32 resources, must be issued multiple times for all threads to be serviced.
   * For instance, there are 8 SFUs, so that means that a warp containing an instruction that requires the SFUs must be scheduled 4 times.
+* a thread block will be divided into $warps/block = \frac{threads/block + warpsize - 1} {warpsize}$
 
 ### Parallel Thread Execution (PTX)
 * PTX provides a stable programming model and instruction set for general purpose parallel programming.
@@ -194,12 +195,63 @@
 ### CUDA-GDB
 * extension of GDB to provide seamless debugging of CUDA and CPU code
 
-
-
 ## Module 3
-TODO: Finish lecture 3-5 notes
+### Transparent Scalability
+* each block can execute in any order relative to others
+* hardware is free to assign blocks to any processor at any time
+* a kernel scales to any number of parallel processors
+
+### Thread hierarchy revisited
+* recell, kernel is a grid of blocks of warps of threads
+* thread blocks contains up to 1024 threads
+* threads are grouped into warps in hardware
+
+![](6.png)
+
+* each block is dispatched to a SIMT core as a unit of work: all of its warps run in the core's pipeline until they are all done
+* warp is SIMT execution of scalar threads
+  * warps = scalar threads grouped to execute in lockstep 
+  * SIMT vs SIMD
+    * SIMD = hardware pipeline width must be known by software
+    * SIMT = pipeline width hidden from software
+* SM details
+  * set of scalar threads grouped together into an SIMD unit called a warp.
+  * warps grouped into blocks and blocks grouped into grids
+  * set of warps on a core are fine grain interleaved on pipeline to hide off-chip memory access latency
+* CUDA runtime numbers all available devices in the system from 0 to dev_count - 1
+
+
 
 ## Module 4
+### Objectives
+>1. To learn to effectively use the CUDA memory types in a parallel program.
+  >2. importance of memory access efficiency
+  >3. registers, shared memory, global memory
+  >4. scope and lifetime
+
+### Shared memory
+* a special type of memory whose contents are explicitly defined and used in the kernel source code
+  * one in each SM
+  * accesses at much higher speed (in both latency and throughput) compared to global memory
+  * scope of access and sharing - thread blocks
+  * lifetime - thread block, contents will disappear after the corresponding thread finishes terminates execution
+  * accessed by memory load/store instructions
+  * a form of scratchpad memory in computer architecture
+
+### Global memory access pattern of the basic matrix multiplication kernel
+![](7.png)
+
+### Tiling/blocking - basic idea
+![](8.png)
+
+### Basic concept of tiling
+* congested = too blocked
+* identify a tile of global memory contents that are accessed by multiple threads
+* load the tile from global memory into on-chip memory
+* use barrier synchronization to make sure that all threads are ready to start the phase
+* have the multiple threads to access their data from the on-chip memory
+* use barrier synchronization to make sure that all threads have completed the current phase
+* move on to the next tile and repeat
 
 
 ## Module 5
