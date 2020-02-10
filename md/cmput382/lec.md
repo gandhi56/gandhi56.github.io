@@ -269,4 +269,23 @@
   * linearized thread blocks are partitioned
   * partition scheme is consistent across devices
   * do not rely on any ordering within or between warps
-
+    * if there are any dependencies between threads, `__syncthreads()` must be called to get correct results
+* SMs are SIMD processors
+  * control units for instruction fetch, decode and control is shared among multiple processing units
+  * control overhead is minimized
+  * **Important**: all threads in a warp must execute the same instruction at any point in time for efficiency
+* Control divergence
+  * occurs when threads in a warp take different control flow paths by making different control decisions
+  * execution of threads taking different paths are serialized in current GPUs
+    * the control paths taken by the threads in a warp are traversed one at a time until there is no more
+    * during the execution of each path, all threads taking that path will be executed in parallel
+    * number of different paths can be large when considering nested control flow statements
+  * examples:
+    * can arise when branch or loop condition is a function of thread indices
+    * kernel statement with divergence:
+      * `if (threadIdx.x > 2){}`
+      * this creates two different control paths for threads in a block
+      * decision granularity < warp size; threads 0, 1 and 2 follow different path that the rest of the threads in the first warp
+    * example without divergence:
+      * `if (blockIdx.x > 2){}`
+      * decision granularity is a multiple of block size; all threads in any given warp follow the same path

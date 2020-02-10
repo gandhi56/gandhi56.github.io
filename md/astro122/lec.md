@@ -192,4 +192,12 @@
         * gravity can pull two neighbouring protostars closer together, but they usually don't crash into each other. Instead, they go into orbit around each other, because each pair of protostars has a certain amount of angular momentum.
         * pairs with large amounts of angular momentum have large orbits
 * How does nuclear fusion begin in a newborn star?
-    * 
+
+TODO
+
+
+
+
+# Chapter 17: Star stuff
+
+## Lives in the balance
