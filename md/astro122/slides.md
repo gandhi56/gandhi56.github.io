@@ -178,4 +178,136 @@
 * surface temperature
     * use spectroscopy
     * spectral classes (hot to cool): OBAFGKM, each letter corresponds to different temperature ranges
-    
+
+* calculating radius from luminosity and temperature
+    * $r = \sqrt{ \frac{L}{4 \pi \sigma T^{4}} }$
+
+* binary star systems
+    * visual binaries
+        * directly observable stars orbiting around a common centre of mass
+    * spectroscopic binary
+        * periodic dopper shifts in their spectral lines
+    * eclipsing binary
+        * plane of the binary orbit is oriented edge-on to our line of sight, hence stars pass in front of each other
+        * we detect them by periodic decreases in flux
+* H-R Diagram
+    * x-axis: decreasing temperature
+    * y-axis: increasing luminosity
+    * main sequence: stars powered by nuclear burning of hydrogen to helium
+        * most are faint
+        * sun is in the main sequence
+    * giants and supergiants
+        * upper-right corner
+        * radius must be larger
+    * white dwarfs
+        * lower left
+        * radius must be smaller
+    * luminosity classes
+        * supergiants
+        * bright giants
+        * giants
+        * subgiants
+        * main-sequence stars
+    * star's mass determines the equilibrium point between gravity and pressure and thus the central temperature, nuclear burning rate and luminosity
+    * stars with higher luminosity burn faster ==> they have shorter lifetime
+* variable stars
+    * some stars are not in exact gravitational equilibrium, but instead periodically expand and contract their outer layers, in a pulsating pattern
+    * live in the instability strip on the HR diagram
+* star clusters
+    * group of stars forming gas clouds, they are useful because
+        * stars in a given cluster are all at about the same distance from Earth
+        * stars in a given cluster formed approximately at the same time
+    * open clusters: found in the disk of the galaxy and are relatively young
+    * globular clusters: found in the halo of the galaxy and are very old
+* stellar nurseries
+    * 2-3 stars are born in the milky way galaxy every year
+    * youngest stars are associated with dark lumps of dust and gas, indicating that this is the place where stars form
+    * lumps of gas in space are referred to as clouds
+* interstellar medium
+    * gas and dust fill in the space between stars
+    * molecular clouds are cold and dense to allow star formation
+    * dust in the ISM scatter most visible light that enters the molecular cloud, making them opaque
+    * dust blocks bluer light more easily than red light
+        * near the edges, stars behind it appear redder. This is called interstellar reddening
+        * reddening can be distinguished from the doppler effect because reddening does not change the wavelength of spectral lines
+## Formation of stars
+* processes controlling star formation
+    * gravity
+        * depends on the density of a cloud and its size
+        * gravity wins in molecular clouds because density is high and temperature is low
+
+    * gravitational contraction in clouds
+        * under the action of gravity, molecular clouds contract
+        * gravitational energy is converted into thermal energy
+        * clouds can remain cold throughout the process because photons can escape easily in the early stages of star formation
+    * clustered star formation
+        * different clumps can reach densities necessary to allow gravitational collapse, thus clouds can undergo fragmentation
+    * first gen stars
+        * did not have CO like stars today
+        * much warmer than today's molecular clouds
+        * in order to overcome high pressure, dense cloud fragments grow to a much larger size
+        * first stars were likely much more massive on average
+        * probably had shorter lifetimes
+* stages of star formation
+    * slowing of contraction and appearance of a protostar
+        * increasing density during contraction makes it difficult for photons to escape because the mean free path between collisions become smaller
+        * in the central regions of cloud fragments, gas becomes dense enough to trap nearly all radiation inside it
+        * at this point, heat can no longer be efficiently radiated away and the central temperature and pressure increase quickly, pushing back against gravitational contraction
+        * dense centre of the cloud fragment is now called a protostar
+    * growth of protostars by gas infall
+        * after a protostar forms, the rest of the molecular cloud fragment continues to collapse, raining down matter onto the protostar
+        * matter infall continues until either the cloud gas runs out or until it is blown away
+        * gas in the protostellar disk gradually spirals into the protostar due to friction
+        * orbits of gas parcels in the disk gradually shrink until they fall to the surface: **accretion**
+        * protostellar disk also helps slow down the protostar
+
+    * role of rotation and protostellar disks
+    * onset of nuclear fusion
+
+
+
+
+
+# lec 16
+* inital mass $\in [0.08M_{sun}, 150M_{sun}]$
+    * lower limit obtain by minimal mass that will sustain nuclear fusion of hydrogen
+    * maximal mass is set by force of radiation pressure
+* techniques to measure mass distribution
+    * count stars with different masses in young star clusters
+    * count stars with different masses in the solar neighbourhood
+* more stars of low mass, less stars of high mass
+
+## ch17
+* lifecycle of stars is shaped by a constant competition between gravity and pressure throughout the star's life
+    * high mass stars are born with more hydrogen hence they exhaust at a very fast rate
+* stars of higher mass have shorter lifetimes
+* larger weight of the different layers must be supported a higher central pressure, which requires higher central temperature
+* nuclear fusion is extremely sensitive to temperature, hence luminosity is also affected
+* low mass stars
+    * less than $2M_{sun}$
+    * similar structure to the sun
+    * energy is generated in the core and transported outward by radiative diffusion and then convection in the outermost layer
+    * interior primarily differ by the depth of their convection zones
+    * radiative diffusion is most efficient when the temperature is high and matter is fully ionized, but stars of lower mass have cooler interiors
+    * hence, smaller radii and they even disappear altogether for very low mass stars, which are fully convective
+    * deeper the convection zone, more stellar flares are generated which results in bright x-ray outbursts
+    * core contracts slowly as the number of particles decreases
+    * red-giant phase
+        * once hydrogen is depleted, no more energy is generated and therefore there is not enough pressure to balance gravity, and the core starts to shrink
+        * due to the increase in pressure, temperature goes up.
+        * inert core is made of helium, but its surroundings are made of hydrogen that has not yet been burned
+        * eventually, increase in temperature is such that hydrogen begins burning in a shell outside the inner helium core
+        * the star is now in the red giant phase
+        * hydrogen shell fusion occurs at a higher temperature than the hydrogen burning during the main sequence
+        * as a consequence of the higher energy generation, the layers outside the core expands and the radius increases
+        * core will continue to contract and the luminosity of the star will continue to increase as long as the helium core remains inert, because the thermostat mechanism cannot work for the core
+        * this causes inflation of the outer layers of the red giant, with a significant increase in the mass loss via stellar wind from the surface
+        * although enough compression, the helium core becomes dominated by degeneracy pressure. For very low mass stars, collapse is halted and the evolution stops here. The outer layers are expelled and the bare stellar core remnant becomes a heium white dwarf
+        * For stars between $0.5M_{sun}$ and $2M_{sun}$, the degenerate helium core reaches a temperature of about 100 million K which allows fusion of heium into carbon via the triple alpha reaction
+        * once helium ignites, the core temperature increases quickly but degeneracy pressure is insensitive to temperature: the core continues to heat up and nuclear energy generation spikes. This process is called the helium flash.
+        * helium flash releases a great amount of energy, increasing temperature to the point where thermal pressure becomes dominant again, pushing back against gravity and expanding the core
+        * expansion of the core lowers the temperature and hence, the luminosity
+        * after the helium flash expands the core, helium burns in the core and hydrogen burns in a shell at lower temperature than in the red giant phase, resulting in a lower luminosity
+        * core helium fusion generates about the same amount of power in most stars
+        * core helium burning eventually exhausts the helium supply leaving an inert carbon core at the centre ==> shrinks ==> enters second red giant phase
+TODO

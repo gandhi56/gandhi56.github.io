@@ -289,3 +289,6 @@
     * example without divergence:
       * `if (blockIdx.x > 2){}`
       * decision granularity is a multiple of block size; all threads in any given warp follow the same path
+
+### Reduction NVidia
+https://developer.download.nvidia.com/assets/cuda/files/reduction.pdf
