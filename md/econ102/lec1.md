@@ -29,8 +29,8 @@
   * we get income for working.
   * income value = value of the good/service produced
   * Define **GDP** as the sum of the market values of all final goods and services produced in a country within a given period of time.
-  * Canada's GDP last year was $2M
-  * World's largest economy: USA, USA's GDP is $20M
+  * Canada's GDP last year was CAD 2M
+  * World's largest economy: USA, USA's GDP is CAD 20M
   * Conversion of foreign currency to USD (market value) affects GDP value.
   * G7 = group of 7 = world's largest economies
   * emerging economies = nations that are investing in more productive capacity
@@ -38,8 +38,8 @@
   * Problems:
     1. How to add up unique goods and services into one measure of productivity?
     2. Not double counting intermediate goods and services that go into final goods and services
-  * Refined definition: GDP is the sum of the market value ($) of all final goods and services produced within a country in a given period of time.
-  * But some units are not constant over time. CAD$20 is not the same as CAD$20 after a year.
+  * Refined definition: GDP is the sum of the market value (dollars) of all final goods and services produced within a country in a given period of time.
+  * But some units are not constant over time. CAD 20 is not the same as CAD 20 after a year.
   * Only count the final good and services. Intermediate goods are produced goods used by someone else to produce another good or service. Final goods and services are nonintermediate goods and services.
   * produced within a country, company producing a good/service in Canada counts towards Canada's GDP.
   * Given period of time: usually annual
@@ -99,7 +99,7 @@
 * Using GDP to compare economies
   * Dollar is not a good unit of measurement to compare economies.
   * Calculate the growth rate of GDP:
-    - growth(x) = $\frac{x_t - x_{t-1}}{x_{t-1}} \times 100\% $
+    - growth(x) = $\frac{x_t - x_{t-1}} {x_{t-1}} \times 100\%$
       where $x_{t-1}$ is the previous GDP and $x_t$ is the current GDP
     - rise in GDP is a function of output and prices
     - not reliable!
@@ -245,18 +245,16 @@
   * this process is similar to compounding interest in a savings account
 * a small annual growth rate can add up to a large change in an economy over time
 * Canada average annual growth in real GDP per capita was 2% during the last century
-* equates to real GDP per capita being 7 times larger in 2010 than 1910
-* total change in GDP over time is bigger than the annual growth rate suggests
-* using an average growth rate and any year's GDP, GDP in the future can be estimated
+* total change in GDP over time is bigger than the annual growth rate
 * GDP per capita in any year: $GDP_A = GDP_B \times (1 + growth rate)^{(yr A - yr B)}$
 * a simple shortcut to understand how many years it takes for GDP to double is the rule of 70:
   years until income doubles = 70 / (real GDP growth rate)
 
 
 #### Determinants of productivity
-* *Producitivity* is a measure of the output per worker and is what drives growth.
+* *Productivity* is a measure of the output per worker and is what drives growth.
 * The only way to consume more and enjoy a higher standard of living is to increase the amount each person produces.
-* The standard of living in a country is driver by the **average productivity of its workers**
+* The standard of living in a country is driven by the **average productivity of its workers**
   * increases in productivity per person --> increases in per capita income = economic growth
 
 #### Components of productivity
@@ -268,7 +266,7 @@
 * Natural resources are production inputs that come from the earth
 
 #### Convergence
-* countries that start our poor will grow faster than rich ones and eventually converge to the same **growth rate** as the rich ones, but may never reach the same level in economy
+* countries that start out poor will grow faster than rich ones and eventually converge to the same **growth rate** as the rich ones, but may never reach the same level in economy
 * free trade allows Canada to work on something Canada is really good at, even though Canada does not hold resources locally
 * Canada has good firefighters, medical equipments
 
@@ -301,7 +299,7 @@
 * **market basket** is a list of specific goods and services in fixed quantities
 * **price index** is a measure showing how much the cost of a market basket has changed relative to the cost in base time period of location
 * **consumer price index** is a measure that tracks changes in the cost of a basket of goods and services purchased by a typical Canadian household.
-![](10.PNG)
+  * ![](10.PNG)
 * challenges in measuring price changes
   * which goods should be included in the market basket?
   * the basket of goods remains fixed even if the consumers substitute between similar goods. CPI keeps types and quantities of goods constant, which does not account for consumption changes
@@ -319,7 +317,7 @@
   * Producer Price Index (PPI) measures the price of goods and services purchased by firms
   * GDP deflator measures the prices of goods and services produced in the country
   * CPI or PPI can be used to "deflate" nominal values into real values:
-    $real_value_year_Y = nominal_value_year_X \times CPI_year_Y/CPI_year_X$
+    real_Y = nominal_X x CPI_Y/CPI_X
   * **indexing** is a practice of automatically increasing payments in proportion to the cost of living.
   * **purchasing power parity** refers to the theory that purchasing power in different countries should be the same when state in common currency.
   * developing a ppi:

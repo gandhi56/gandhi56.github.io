@@ -524,4 +524,43 @@ TODO FINISH NOTES
     * value list `v`
     * name to lookup stored in `x`
 
-    
+## Lecture SECD machine
+* programming language implementations:
+  * interpreter
+  * compiler to assembly, real machine code
+  * compiler to virtual machine
+* SECD is a virtual machine that runs simple Lisp programs
+* virtual machines
+  * not real hardware, but has its own set of instructions
+  * to run, implement on a real machine
+* SECD usage
+  * compiler from Lisp to SECD machine code
+  * execute the compiled code on an abstract cmachine
+  * main differences to interpreter
+    * once compiled, code can be executed many times
+    * code optimization is possible
+* SECD Machine
+  * consists of four stacks
+    * s: Stack used for evaluation of expressions
+    * e: Environment stores the current value list
+    * c: Control stores the machine instructions
+    * d: Dump stores *suspended* invocation context
+* SECD operations and functions
+  * NIL: push a nil pointer
+  * LD: load from environment
+  * LCD: load constant
+  * LDF: load function
+  * AP: apply function
+  * RTN: return
+  * SEL: select in if statement
+  * JOIN: rejoin main control
+  * builtin funtions: +, *, ATOM, CAR, CONS, EQ, etc.
+* definition of SECD operations
+  * each operation is defined by its effect on the four stacks
+    * s e c d ---> s' e' c' d'
+  * representation of a stack s
+    * s-expression with dot notation
+    * note: for bevity, in this topic spaces around the '.' are omitted as required in Lisp
+    * first position `(car s)` = top of the stack
+    * push onto stack `s ---> (e.s)`
+    * pop from the stack `(e.s) ---> s`
