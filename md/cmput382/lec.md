@@ -102,31 +102,32 @@
 
 ### CUDA Threads
 * CUDA kernel is executed by a grid of threads
+* a **grid** is a collection of thread blocks of the same thread dimensionality which all execute the same kernel, threads are oganized in blocks
   * all threads in a grid run the same kernel code (Single Program Multiple Data)
   * each thread has indices that it uses to compute memory addresses and make control decisions
   * `i = blockIdx.x * blockDim.x + threadIdx.x`
+  * threads of a block can be identified using 1D, 2D, or 3D
+  * blocks may be indexed in 1D, 2D, or 3D.
 * divide the grid into multiple blocks
-  * threads within a block cooperate via shared memory, atomic operations and barrier synchronization
-    * a barrier for a group of threads in the source code means any thread must stop at this point and cannot proceed until all other threads reach this barrier.
+  * threads within a block cooperate via 
+    * shared memory, 
+    * atomic operations
+    * barrier synchronization
+      * a barrier for a group of threads in the source code means any thread must stop at this point and cannot proceed until all other threads reach this barrier.
   * threads in different blocks do not interact
-* a grid is a collection of thread blocks of the same thread dimensionality which all execute the same kernel, threads are oganized in blocks
-* a block is executed by a multiprocessing unit
-* threads of a block can be identified using 1D, 2D, or 3D
-* blocks may be indexed in 1D, 2D, or 3D.
-* threads in a block can communicate via shared memory
 * kernel is launched by the following code:
   * `myker <<< numBlocks, threadsPerBlock >>>( /* params */ );`
-* (SM) Streaming multiprocessors
+* a block is executed by a multiprocessing unit called **Streaming multiprocessor**
   * each block can execute in any order relative to other blocks
   * threads are assigned to SMs in block granularity
-    * up to 8 blocks to each SM as resource allows
+    * up to 8 blocks to each SM, as resource allows
   * threads run concurrently
     * SM maintains thread/block IDs
     * SM manages/schedules thread execution
 * Kernel / Block / Warp
-  * each block is executed as 32-thread warps
-  * an implementation decision, not part of the CUDA programming model
+  * each block is executed as 32-thread **warps**
   * *warps* are scheduling units in SM
+  * an implementation decision, not part of the CUDA programming model
   * if 3 blocks are assigned to an SM and each block has 256 threads, how many warps are there in an SM?
     * each block is divided into 256 / 32 = 8 warps. Hence, 3 blocks have $$ 8 \times 3 = 24 $$ warps.
   * all threads must be executed before there is space to schedule another thread block
@@ -145,12 +146,12 @@
   * it's possible that each warp executes until it needs to wait for data (from device memory or a previous operation) then another warp gets scheduled
   * **Important:** knowing the number of threads in a warp becomes important to maximize performance of the program. Performance may be lost otherwise:
     * in the kernel invocation, <<< blocks, threads >>>, try to choose a number of threads that divides evenly with the number of threads in a warp (usually a multiple of 32). If you don't, you end up launching a block that contains inactive threads.
-    * in your kernel, try to have each thread follow the same code path. Otherwise warp divergence can occur. This happens because the GPU has to run the entire warp through each of the divergent code paths.
+    * in your kernel, try to have each thread follow the same code path. Otherwise **warp divergence** can occur. This happens because the GPU has to run the entire warp through each of the divergent code paths.
     * in your kernel, try to have each thread in a warp load and store data in specific patterns. For instance, have the threads in a warp access consecutive 32-bit words in global memory.
   * ALUs (cores), load/store units (LD/ST) and Special Function Units (SFU) are pipelined units. They keep the results of many computations or operations at the same time, in various stages of completion.
   * So, in one cycle they can accept a new operation and provide the results of another operation that was started a long time ago (~20 cycles for the ALUs).
-  * So, a single SM has resources for processing 48*20 cycles = 960 ALU operations at the same time, which is 960 / 32 threads = 30 warps.
-  * In addition, it can process LD/ST operations and SFU operations at whatever their latency and throughput are.
+    * So, a single SM has resources for processing 48*20 cycles = 960 ALU operations at the same time, which is 960 / 32 threads = 30 warps.
+    * In addition, it can process LD/ST operations and SFU operations at their latency and throughput are.
   * Warp schedulers can schedule 2 * 32 threads per warp = 64 threads to the pipeline per cycle.
   * At any given cycle, the warp schedulers try to "pair up" two warps to schedule, to maximize SM utilization. These warps can be either from different blocks or different places in the same block.
   * Warps that are executing instructions for which there are fewer than 32 resources, must be issued multiple times for all threads to be serviced.
@@ -175,14 +176,19 @@
 >1. To understand how CUDA threads execute on SIMD hardware
 
 ### Warps
-* each block is divided into 32-thread warps
-  * an implementation technique
-  * warps are scheduling units in SM
-  * threads in a warp execute in SIMD manner
-  * number of threads in a warp may vary in future generations
 * blocks are partitioned after linearization
   * linearized thread blocks are partitioned
   * partition scheme is consistent across devices
   * do not rely on any ordering within or between warps
-
-
+* SMs are SIMD processors
+  * control unit for intruction fetch, decode and control is shared among multiple processing units
+* control divergence
+  * threads in a warp take different control flow paths by making different control decisions
+  * execution of threads taking different paths are serialized in current GPUs
+  * divergence can arise when **branch or loop condition is a function of thread indices**
+  * examples:
+    * `if (threadIdx.x > 2){}` raises control divergence
+    * `if (blockIdx.x > 2){}` does not raise control divergence
+  
+## Module 6
+### Objectives
