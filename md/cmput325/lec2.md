@@ -310,8 +310,12 @@
     ```
     * `identifier`: corresponds to an atom
     * `function`: is a lambda function definition
-    * `expression`: can be an arbitrary lambda expression. It plays the role of the body in the function definition
-    * `application`: both ex
+    * `expression`: can be an arbitrary lambda expression. It plays the role of the body in the function definition.
+      * corresponds to sexpr in Lisp
+    * `application`: both function and arguments can be any expressions
+      * usually, first expression will evaluate to a lambda function and the second argument will evaluate to the arguments for the lambda function
+  * all valid expressions defined by this language are called lambda expressions
+  * lambda expressions can represent any computation
 
 * Unary vs N-ary functions
   `[function] := (lambda (x) [expression])`
@@ -319,8 +323,6 @@
   * any **n-ary function** (function with n arguments) can be defined using **a series of unary functions**
   * consequence:
     * to understand the model of computation for general functional programming
-    * it is enough to understand computation with unary functions
-
 * Curried functions
   * Goal: define an n-ary functions by a series of unary functions
   * can solve this by using higher order functions
@@ -331,13 +333,18 @@
   * Intuition
     * Example: `(plus 5 2)` is a function with two args
     * `(plus5 2)` is a function with one argument, the "add 5" is hardcoded into the new function `plus5`
-    * function takes only the first argument
-    * produces as result a new function
-    * this function now takes the second argument
-    * it produces a result a new function
-    * etc.
+    * function takes only the first argument, and produces as result a new function
+    * this new function now takes the second argument and produces a new function
     * the function that takes the last argument will have other argument values "hardcoded"
     * each function is computed on the fly by all the previous function applications
+  * splitting up the two argument function
+    ```
+    (lambda (x y) (if  (< x y) x y))
+    
+    is equivalent to
+
+    (lambda (x) (lambda (y) (if (< x y) x y)))
+    ```
 
 ## Lecture 8
 
