@@ -44,7 +44,7 @@
     * Implement an abstract data type for binary trees and the operations on them
   * User will work with trees using only these functions. The user is protected from the details of our data representation
   * Bottom up construction
-* Tree representation
+* Binary tree representation
   * Empty tree: `nil`
   * Nonempty tree: `(left-subtree, node-value, right-subtree)`
   * Selectors:
@@ -68,18 +68,30 @@
   * unique values
   * `insert( Tr, int )` inserts `int` into the binary tree `Tr`
 
-  ![1](1.png)
+    ```
+     insert(Tr, int) = 
+      if isEmpty(Tr)
+        then consTree(consNilTr(), Int, consNilTr())
+      else if Int = nodeValue(Tr)
+        then Tr
+      else if Int < nodeValue(Tr)
+        then consTree(insert(leftTree(Tr), Int, nodeValue, Tr), rightTree(Tr))
+      else consTree(leftTree(Tr), nodeValue(Tr), insert(rightTree(Tr), Int))
+    ```
 
 ### LISP
 
 * interpreted language
-* case insensitive
+* case **insensitive**
 * uses read-eval-print-loop (REPL) similar to a shell such as bash
   - read input
   - evaluate input
   - print result of evaluation
   - loop back to beginning
-* Functions are defined by `(defun function-name parameter-list body)`
+* Functions are defined by 
+  ```
+  (defun function-name parameter-list body)
+  ```
   * Example: 
     - Function definition: `(defun plus (x y) (+ x y))`
     - Function application: `(plus 3 4)`
@@ -121,9 +133,9 @@
 * `random`
 * Use `quote` when everything is constant
 * Use `list` when some contents are the result of evaluating functions
-* Use `cons` for the result in recursion when you have computed a first element and the rest of a list
-* Use `cons` for dotted pairs
-* Use `cons` when your professor tells you to in a test
+* Use `cons` 
+  * for the result in recursion when you have computed a first element and the rest of a list
+  * for dotted pairs
 * `(car (cdr (car (cdr (cdr (cdr L)))))) = (cadr (cadddr L))`
   * max 4 levels deep
 * Simple printing `(print arg)`
@@ -150,8 +162,6 @@
       (reverse_helper L nil)
       )
     ```
-  * Example 2: accumulating two types of results
-    ![2](2.png)
   * Comparing accumulator with standard recursion
     * Standard recursion on a list
       * recurse to the end of list
@@ -175,7 +185,7 @@
   * generalization of atoms and lists
     * all atoms and lists are sexpr
     * but not all atom and lists are sexpr
-  * "dotted pair" `(x . y)`
+  * dotted pair: `(x . y)`
   * Definition
     * atom is an s-expression
     * if `x1`, `x2`, ..., `xn` are s-expressions then (`x1` ... `xn`) is an s-expression
@@ -194,13 +204,13 @@
   * `.` must be surrounded by whitespace: `(a.b)` is a list containing the atom `a.b`
   * machine-level representations
     * Example 1: `(cons 1 2)` or `(1 . 2)`
-      ![3](3.png)
+      ![3](3.PNG)
 
     * Example 2: `( (1 . (2 . 3)) . 4 )`
-      ![4](4.png)
+      ![4](4.PNG)
     
     * Example 3: List representation `(1 2 3 4)`
-      ![5](5.png)
+      ![5](5.PNG)
 
   * `(a . nil) = (a)` because `(cdr '(a . nil)) = (cdr ('(a))) = nil`
   * Every list can be written as nested dotted pairs:
@@ -226,6 +236,19 @@
     * Reduce - apply two argument function repeatedly
     * Filter - select list elements that pass a test
     * Vector - apply many functions to one element
+  * `mapcar` in Lisp
+    ```
+    (defun plus1 (x) (+ x 1))
+    (mapcar 'plus1 '(1 2 3 4 5)) --> (2 3 4 5 6)
+    ```
+  * reduce - general definition
+    * input:
+      * function `g`
+      * function's identity `id`
+      * a list `L = (a1 a2 ... an)`
+    * compute: `(g a1 (g a2 ... (g an id) ... ))`
+    * example in Lisp:
+      * `(reduce '* '(2 6 4)) --> 48`
   * Why define high order functions?
     * use case: a common computation pattern, where the details can vary
     * removing code duplication
@@ -236,25 +259,24 @@
 
 ## Lecture 7
 ### Lambda Functions
-  * get rid of named functions, why?
-    * a function was the result of a higher order function
-    * tried to return this newly computed function
-  * lambda functions are function definitions without names
-    * Syntax: `(lambda (x1 ... xn) body)`
-    * Example: `((lambda (x y) (+ x y)) 5 3)`
-    * lambda function application
-      * to apply a lambda function
-          ```
-          ((lambda (x1 ... xn) body) a1 ... an)
-          x1 ... xn are formal arguments of function
-          a1 ... an are actual parameters for which we want to evaluate the function
-          ```
+* get rid of named functions, why?
+  * a function was the result of a higher order function
+  * tried to return this newly computed function
+* lambda functions are **function definitions** without names
+  * Syntax: `(lambda (x1 ... xn) body)`
+  * Example: `((lambda (x y) (+ x y)) 5 3)`
+  * lambda function application
+    * to apply a lambda function
+        ```
+        ((lambda (x1 ... xn) body) a1 ... an)
+        x1 ... xn are formal arguments of function
+        a1 ... an are actual parameters for which we want to evaluate the function
+        ```
 * Lisp-1 and Lisp-2
   * Lisp-1 systems: "values" and functions in the same namespace
   * Lisp-2 systems: in seperate spaces
   * Common Lisp standard requires Lisp-2
-  * if we have a variable bound to a function ...
-  * ... we need to tell SBCL this is a function to be called
+  * if we have a variable bound to a function, we need to tell SBCL this is a function to be called
   * Consequence:
     * Working with lambda functions is much messier in Lisp-2 systems than in Lisp-1
   * never quote a lambda expression in Lisp-2
@@ -286,9 +308,10 @@
     [application] := ([expression] [expression])
     [expression]  := [identifier] | [application] | [function]
     ```
-    * `identifier` corresponds to atom in Lisp
-    * `function` is a lambda function in Lisp
-    * `[expression]` can be an arbitrary lambda expression. It plays the role of the body in the function definition
+    * `identifier`: corresponds to an atom
+    * `function`: is a lambda function definition
+    * `expression`: can be an arbitrary lambda expression. It plays the role of the body in the function definition
+    * `application`: both ex
 
 * Unary vs N-ary functions
   `[function] := (lambda (x) [expression])`
