@@ -351,7 +351,7 @@
 ### Reductions in Lambda Calculus
 * Goal: reduce a lambda expression to its **simplest possible form**
 * This process is called *operational semantics* of lambda calculus
-* In lambda calculus, computation is the process of reductions from one expression to another expression
+* In lambda calculus, computation is **the process of reductions from one expression to another expression**
 * Example:
   ```
   ((lambda (x) (x 2)) (lambda (z) (+ z 1))) → (+ 2 1)
@@ -362,50 +362,37 @@
   (lambda (x) (+ x 1))
   ```
 * In lambda calculus, we do not need any of the primitive functions
-* numbers can be represented by lambda expressions
-* Questions about reductions
-  * what type of reductions are there?
-  * how do we do them?
-  * is there a simplest form for a given expression?
-  * is there always a simplest form?
-  * is it unique?
-  * how can we compute it?
-  * can we compute it efficiently?
+  * numbers can be represented by lambda expressions
 * Beta reduction
-  * most intuitive and important one is what we called function application
-  * called beta-reduction in the theory
-  * we write $\rightarrow^{\beta}$ to indicate such a reduction
+  * function application
+  * written as $\rightarrow^{\beta}$
   * rule:
     * given an expression `(( lambda (x) body ) a)`, reduce it to body
     * replace all occurences of `x` in body by `a`
   * Example:
-    `((lambda (x) (x (x 1))) 5) ` $\rightarrow^{\beta}$ `(5 (5 1))`
-  * Remarks
-    * the expression we reduce could be a sub-expression nested within some complex expression
-    * sometimes, the result after a reduction is actually more complex than before
-    * each step in recursion corresponds to one step in beta-reduction
-    * reduction steps will evaluates the function applications in the recersive function
+    * `((lambda (x) (x (x 1))) 5) ` $\rightarrow^{\beta}$ `(5 (5 1))`
+  
+    * `( lambda (x) (x x x x x)) (1 2 3 4 5)` $\rightarrow^{\beta}$ `((1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5))`
+    `x = (1 2 3 4 5)`
 * Alpha reduction
   * $\rightarrow^{\alpha}$ means renaming variables
   * Intuition: changing the name of local variables in a function does not change the meaning
   * *name conflict* between arguments:
     * `(defun f(x x) (- x x))`
-    * this gives a compile-time error: variable x occurs more than once in a lambda expression
-  * In lambda calculus, a *bound* variable's name can be replaced by another if the latter does not cause any name conflict
-  * it is always safe if you use a new name, that does not occur anywhere else in the whole lambda expression
-    * example: `(lambda (x) (+ x y))`
+    * this gives a compile-time error in SBCL: variable x occurs more than once in a lambda expression
+  * Example: `(lambda (x) (+ x y))`
     * `x` is **bound** in the scope of `( lambda (x) ...)`
     * `y` is **free**
     * `x` can be renamed to anything except `y`
     * `y` cannot be renamed
   * Free vs bound variables
-    * free and bound are not absolute concepts, they depend on their scopes
+    * depend on their scopes
     * like global and local variables
-  * Avoid name conflicts in beta reduction
+  * In lambda calculus, a bound variable's name can be replaced by another if the latter does not cause any name conflict
     * use a new variable name
     * called alpha reduction
     * without alpha reduction, direct substitution does not always work
-* Perform alpha reduction first!
+* **Note**: Perform alpha reduction first!
   * $(( \lambda x (\lambda z (x z)) ) z)$
   * rename the $z$ in $(\lambda z \dots)$
     * $((\lambda x (\lambda u (x u))) z)$
@@ -423,33 +410,46 @@
 
 * Summary of reductions
   * one $\beta$-reduction corresponds to a one-step function application
+  * direct substitution does not always work, variables may need to be renamed before the substitution step
   * the substitution of the formal variable by the argument must be done carefully to avoid name conflicts
   * $\alpha$-reduction renames function arguments
   * after using such renaming where necessary, a simple substitution in the body gives a correct beta-reduction
   * to be safe can always use $\alpha$-reduction with names for bound variables
-
-TODO FINISH NOTES
-- normal expressions
-
 ## Lecture 9
 
-## Lecture 10: Interpreter based on context and closure
-* specs:
-  * only lambda functions
-  * similar to `eval` in lisp, `(eval expr)` takes an s-expr and keep reducing it
-* main issues:
-  * reduction order
-  * how to compute efficiently
-* new, efficient approach different from basic NOR, AOR
-* based on two concepts: **context** and **closure**
+### Normal form, order of reduction and Church Rosser Theorem
+* **Normal form**: a lambda expression that cannot be reduced further (by beta reduction)
+* not all lambda expressions have a normal form
+  * apply a sequence of reductions and the same expression will be obtained
+* `( ( lambda (x) (x x)) (lambda (z) (z z)) )` does not have a normal form
+* order of reduction
+  * Normal order reduction (NOR):
+    * evaluate leftmost outermost application
+  * Applicative order reduction (AOR):
+    * evaluate leftmost innermost application
+* tie-breaking rules:
+  * choose the leftmost one for either order when dealing with multiple choices
+* Efficiency
+  * AOR is generally more efficient
+  * NOR terminates more often, AOR might get into infinite reduction
+* Church Rosser theorem
+  * Church and Rosser proved two important properties of reductions and normal forms
+    * If A reduces to B and A reduces to C then there exists an expression D such that B reduces to D and C reduces to D
+    * If A has a normal form E then there is a **NOR** from A to E
+  * Remarks
+    * If A reduces to B and A reduces to C then there exists an expression D such that B reduces to D and C reduces to D
+      * ![](6.PNG)
+    * No matter what reduction strategies are used initially to get from A to B and C, there is always a way to converge from both B and C back to the same expression D
+    * There is always at most one normal form
+    * If A has a normal form E then there is an NOR from A to E
+    * NOR guarantees termination if the given expression has a normal form
+      * can be inefficient
+    * Theorem does not tell us if a normal exists
 
-* Context and closure
-  * context: current variables and their bindings
-  * closure: a pair
-    * an s-expr
-    * a context in which to evaluate the expression
-  * we will write `eval` to:
-    * evaluate an s-expr in the current context (which might contain some closures)
+
+## Lecture 10: Interpreter based on context and closure
+* implement an interpreter for a Lisp-like language based program, only consisting of lambda functions
+* interpreter based on two concepts: **context** and **closure**
 * Language
   * variables
   * constant expressions: `(quote e)`
@@ -462,7 +462,7 @@ TODO FINISH NOTES
   * function call
   * simple block `(let (x1.e1) ... (xk.ek) e)`
   * (optional) recursive block
-  * `(let (x1 . e1) ... (xk . ek) e)`, instead of the Lisp way to simplify
+  * `(letrec (x1 . e1) ... (xk . ek) e)`, instead of the Lisp way to simplify
 
 * Why not just use $\beta$-reductions?
   * determine the scope of each parameter
@@ -471,40 +471,36 @@ TODO FINISH NOTES
   * implement direct substitutions
   * it is possible to do it, but not very efficient
   * main problem:
-    * need to all the above repeatedly
-    * ... after each substitution step
+    * need to check all the above repeatedly after each substitution step
 
 * new idea
-  * key idea: delay the subsitutions by using contexts and closures
+  * key idea: *delay* the subsitutions by using contexts and closures
   * this technique is used in real Lisp interpreters
   * also helps with understanding compilation
 
-* definition of a context
-  * a context is a list of bindings
+* **Context**
+  * a context is *a list of bindings*
     $[n_1 \rightarrow v_1 \dots n_k \rightarrow v_k]$
     * where $n_i$ are identifiers, $v_i$ are expressions (value that the variable is bound to)
     * $v_i$ can also be a closure, represents the state of an incomplete evaluation
-  * a context is used to record of lookup name bindings
+  * a context is used to keep record of lookup name bindings
   * a context can be *extended* when a new binding $n \rightarrow v$ is created in a function application
-* evaluation with a context
+* **evaluation with a context**
   * always begin with an empty context
   * compare with other programming languages
     * may have global variables already bound to values
   * in the middle of evaluating an expression, the context is usually non-empty
   * substitutions are delayed to the point where the value of a variable is really needed for the evaluation to continue
-  * variables are left as-is (such as `x` in `(+ x 4)` above)
+  * variables are left as-is
   * a variable is bound as "needed"...
     * if binding can be found in context
-* definition of a closure
+* **Closure**
   * pair `[f, CT]`
   * `f` is a lambda function
   *  `CT` is a (possibly empty) context
-  * remember - a lambda function consists of two parts
-  * function parameters, eg. `(x y)`
-  * the body `(+ x y)`
   * when function `f` is applied we know the parameters and body
-  * we get values for the variables from the context which are used in the body of `f`
-* function application in a context - algorithm
+  * we get values for the variables **from the context** which are used in the body of `f`
+* **Function application in a context - Algorithm**
   * when interpretation of a program starts, the context is empty
   * when a function is applied:
     * evaluate the arguments in the current context
@@ -514,21 +510,13 @@ TODO FINISH NOTES
       * add these bindings to current context to form the next context
     * evaluate the body of the function in this extended context
 
-* an implementation of context for interpreter
+* **Implementation of context for interpreter**
   * define a data structure to represent a context
   * two lists, name list and value list
   * both lists are in sync
-    * for each name there is a corresponding value ...
-    * ... stored in the same location in the other list
-* name list and value list
-  * each list is a list of list
-    * `(list1 list2 ... listn)`
-  * a sublist contains
-    * all the names of values for one function call
-  * name list
-    * list of lists of atoms
-  * values list
-    * list of lists of s-expr
+    * for each name there is a corresponding value stored in the same location in the other list
+  * name list is a list of lists of atoms 
+  * value list is a list of lists of symbolic expressions
 * example
   * name list `((x y) (z) (w s))`
   * value list `((1 2) ((lambda (x) (* x x)))`
@@ -544,7 +532,7 @@ TODO FINISH NOTES
   * the names are compiled away, replaced by relative addresses on the stack
   * in our model, we still keep the names in the context
   * we will soon see a similar compilation for Lisp, also compiling away names, in the SECD machine
-* name lookup for context
+* **name lookup for context**
   * search for a name in a context
   * walk synchronously over both name and value lists
   * if a name is found:
@@ -553,6 +541,7 @@ TODO FINISH NOTES
     * name list `n`
     * value list `v`
     * name to lookup stored in `x`
+    * linear search implementation
 
 ## Lecture SECD machine
 * programming language implementations:
