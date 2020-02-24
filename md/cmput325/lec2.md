@@ -504,11 +504,15 @@
   * when interpretation of a program starts, the context is empty
   * when a function is applied:
     * evaluate the arguments in the current context
-    * evaluate the functional part in the current context
+    * evaluate the function part to its simplified form
     * extend the context
       * bind the parameter names to the evaluated arguments
       * add these bindings to current context to form the next context
     * evaluate the body of the function in this extended context
+
+  * example
+    ![](7.PNG)
+    ![](8.PNG)
 
 * **Implementation of context for interpreter**
   * define a data structure to represent a context
@@ -519,10 +523,17 @@
   * value list is a list of lists of symbolic expressions
 * example
   * name list `((x y) (z) (w s))`
-  * value list `((1 2) ((lambda (x) (* x x)))`
+  * value list `((1 2) ((lambda (x) (* x x))) ((a b) e))`
   * list of three sublists
     * corresponds to three (nested) lambda function applications
   * in previous notation, this implements the context
+    ```
+    [ x --> 1,
+      y --> 2,
+      z --> (lambda (x) (* x x)),
+      w --> (a b),
+      s --> e]
+    ```
 
 * compare context and closure model with runtime execution model of programs
   * compare to runtime model of a programming language
@@ -541,7 +552,25 @@
     * name list `n`
     * value list `v`
     * name to lookup stored in `x`
-    * linear search implementation
+    * linear search implementation using `assoc`
+* **implementation of `assoc` in `Fun`**
+  * `assoc` iterates over sublists `ns`, `vs` of both `n` and `v`
+  * `locate` iterates over elements in one such pair of sublists
+  * ```
+    assoc(x, n, v)
+      = if null(n) then nil
+          else if member(x, car(n)) then
+            locate(x, car(n), car(v))
+          else
+            assoc(x, cdr(n), cdr(v))
+
+    locate(x, ns, vs)
+      = if eq(x, car(ns)) then 
+          car(vs)
+        else
+          locate(x, cdr(ns), cdr(vs))
+    ```
+* `eval` stuff, use the slides :)
 
 ## Lecture SECD machine
 * programming language implementations:
