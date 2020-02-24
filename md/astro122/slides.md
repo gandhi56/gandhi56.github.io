@@ -311,3 +311,48 @@
         * core helium fusion generates about the same amount of power in most stars
         * core helium burning eventually exhausts the helium supply leaving an inert carbon core at the centre ==> shrinks ==> enters second red giant phase
 TODO
+
+
+# lec 18: Special relativity 1
+* special relativity deals with the nature of motion and light
+    * no acceleration
+* general relativity deals with the nature of gravity
+* in relativity, space and time are part of a composite entity called **spacetime**.
+    * observers moving at different speeds measure time differently
+    * concept of simulateneous events is observer-dependent
+    * this is necessary to understand effects when objects move at about the speed of light
+* name comes from the idea that **motion is always relative**.
+* example:
+    * a plane travelling at exactly the Earth's rotations speed in the opposite direction will appear as stationary to a distant observer
+* two absolutes:
+    * laws of nature are the same for everyone
+    * speed of light is the same for everyone (same value is measured by all observers)
+* all predictions from the theory follow these two premises
+* point of view for measuring motion is called a **reference frame**.
+    * two observers are in the same reference if they do not move relative to each other
+* Michelson-Moreley experiment showed that the speed of light is independent on the earth's velocity
+* relative motion
+    * to avoid gravity, consider spaceships in deep space (away from planets, stars and galaxies)
+    * the spaceships float freely and everything is weightless.
+    * Such a reference frame is a **free float frame** (or **inertial frame**).
+* Time dilation
+    * train moving at constant speed: bounce ball vertically inside the train
+    * to observers outside the train, the ball acquires horizontal speed in addition to vertical speed: path is no longer vertical
+    * the faster the train moves, the more slanted the path followed by the ball
+
+    ![](4.png)
+
+    * ![](5.png)
+        * from your POV, them = local and you = outside
+        * from their POV, you = local and them = outside
+
+* Simultaneity
+    * at low speeds, our common sense tell us that events that occur at the same time do so in an absolute sense, independent of their location.
+    * order of simultaneity of events in different locations is frame-dependent
+    * all frames agree about the order of events occuring at the same location in space
+    * I do not understand this
+
+* Length contraction
+    * objects moving relative to you will appear shorter in the direction of motion than they would do if they were at rest
+    * direct consequence of relativistic time dilation
+    * ![](6.png)
