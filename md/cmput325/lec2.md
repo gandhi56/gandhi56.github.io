@@ -225,12 +225,6 @@
   * often used to seperate:
     * a computation pattern
     * specific repeated action
-  * Example 1:
-    * Pattern: iterate over a list
-    * Action: Compute the same function for each list element
-  * Example 2:
-    * Pattern: reduce a list to a single result
-    * Action: reduce two arguments to one
   * Some typical higher order functions
     * Map - apply some function to all elements of a list
     * Reduce - apply two argument function repeatedly
@@ -250,7 +244,7 @@
     * example in Lisp:
       * `(reduce '* '(2 6 4)) --> 48`
   * Why define high order functions?
-    * use case: a common computation pattern, where the details can vary
+    * use case: a **common computation pattern**, where the details can vary
     * removing code duplication
     * `apply` and `funcall` tells Lisp that there is a function to be called
       * only differs in syntax, same functionality
@@ -259,9 +253,6 @@
 
 ## Lecture 7
 ### Lambda Functions
-* get rid of named functions, why?
-  * a function was the result of a higher order function
-  * tried to return this newly computed function
 * lambda functions are **function definitions** without names
   * Syntax: `(lambda (x1 ... xn) body)`
   * Example: `((lambda (x y) (+ x y)) 5 3)`
@@ -290,16 +281,15 @@
   * next, the function in the closure can be called in an application
   * use `funcall` or `apply` for the application
 * `function` vs `funcall` vs `apply`
-  * `function` takes as argument a *function definition* and returns an internal representation of that definition
-  * does NOT apply the function
-  * `funcall` and `apply` are for *function application*
+  * `function` takes as argument a *function definition* and returns an internal representation of that definition, does **NOT** apply the function
+  * `funcall` and `apply` are for **function application**
 * applying lambda functions
   * use `funcall` and `apply` as usual by giving the whole lambda function as an argument
 
 ### Lambda Calculus
 * Intro to lambda calculus
   * formal, abstract language
-  * all functions are defined without giving them names
+  * all functions are lambda functions
   * Lisp is based on lambda calculus but adds a large language on top of it
   * formal language with only four concepts:
     ```
@@ -314,17 +304,15 @@
       * corresponds to sexpr in Lisp
     * `application`: both function and arguments can be any expressions
       * usually, first expression will evaluate to a lambda function and the second argument will evaluate to the arguments for the lambda function
-  * all valid expressions defined by this language are called lambda expressions
+  * all valid expressions defined by this language are called **lambda expressions**
   * lambda expressions can represent any computation
 
-* Unary vs N-ary functions
+* **Unary vs N-ary functions**
   `[function] := (lambda (x) [expression])`
   * we only have unary functions - functions that take **one** parameter
   * any **n-ary function** (function with n arguments) can be defined using **a series of unary functions**
-  * consequence:
-    * to understand the model of computation for general functional programming
-* Curried functions
-  * Goal: define an n-ary functions by a series of unary functions
+* **Curried functions**
+  * Goal: define an n-ary function by a series of unary functions
   * can solve this by using higher order functions
   * main idea:
     * series of n unary function applications
@@ -349,7 +337,7 @@
 ## Lecture 8
 
 ### Reductions in Lambda Calculus
-* Goal: reduce a lambda expression to its **simplest possible form**
+* <u>Goal</u>: reduce a lambda expression to its **simplest possible form**
 * This process is called *operational semantics* of lambda calculus
 * In lambda calculus, computation is **the process of reductions from one expression to another expression**
 * Example:
@@ -357,15 +345,11 @@
   ((lambda (x) (x 2)) (lambda (z) (+ z 1))) → (+ 2 1)
   ```
 * Shorthand notation in lambda calculus
-  ($\lambda$x ( + x 1)) for 
-  ```
-  (lambda (x) (+ x 1))
-  ```
+  ($\lambda$x ( + x 1)) for `(lambda (x) (+ x 1))`
 * In lambda calculus, we do not need any of the primitive functions
   * numbers can be represented by lambda expressions
 * Beta reduction
-  * function application
-  * written as $\rightarrow^{\beta}$
+  * function application, written as $\rightarrow^{\beta}$
   * rule:
     * given an expression `(( lambda (x) body ) a)`, reduce it to body
     * replace all occurences of `x` in body by `a`
@@ -375,8 +359,7 @@
     * `( lambda (x) (x x x x x)) (1 2 3 4 5)` $\rightarrow^{\beta}$ `((1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5) (1 2 3 4 5))`
     `x = (1 2 3 4 5)`
 * Alpha reduction
-  * $\rightarrow^{\alpha}$ means renaming variables
-  * Intuition: changing the name of local variables in a function does not change the meaning
+  * renaming variables, written as $\rightarrow^{\alpha}$
   * *name conflict* between arguments:
     * `(defun f(x x) (- x x))`
     * this gives a compile-time error in SBCL: variable x occurs more than once in a lambda expression
@@ -390,19 +373,18 @@
     * like global and local variables
   * In lambda calculus, a bound variable's name can be replaced by another if the latter does not cause any name conflict
     * use a new variable name
-    * called alpha reduction
     * without alpha reduction, direct substitution does not always work
 * **Note**: Perform alpha reduction first!
-  * $(( \lambda x (\lambda z (x z)) ) z)$
+  * ( ( $\lambda$ x ( $\lambda$ z ( x z ) ) ) z)
   * rename the $z$ in $(\lambda z \dots)$
-    * $((\lambda x (\lambda u (x u))) z)$
+    * ( ( $\lambda$ x ( $\lambda$ u ( x u ) ) ) z)
   * now the bound variable is called $u$ and will not conflict with the argument $z$
   * finally replace $x$ by $z$ in body
-    * $(\lambda (u) (z u))$
+    * ( $\lambda$ ( u ) ( z u ))
 
 * Scope of variables and beta-reduction
   * scope of a variable should be preserved by variable renaming to ensure that reduction is correct
-    * $((\lambda x (\lambda z (x z))) z) \rightarrow^{\beta} (\lambda u (z u))$
+    * (( $\lambda$ x ( $\lambda$ z ( x z ))) z) $\rightarrow^{\beta}$ ( $\lambda$ u ( z u ))
     * where $u$ is some new variable
     * exercise: fill in the steps
   * correct beta reductions can always be achieved by renaming (alpha-reduction), if needed
@@ -411,9 +393,7 @@
 * Summary of reductions
   * one $\beta$-reduction corresponds to a one-step function application
   * direct substitution does not always work, variables may need to be renamed before the substitution step
-  * the substitution of the formal variable by the argument must be done carefully to avoid name conflicts
-  * $\alpha$-reduction renames function arguments
-  * after using such renaming where necessary, a simple substitution in the body gives a correct beta-reduction
+  * $\alpha$-reduction renames **function arguments**
   * to be safe can always use $\alpha$-reduction with names for bound variables
 ## Lecture 9
 
@@ -432,14 +412,12 @@
 * Efficiency
   * AOR is generally more efficient
   * NOR terminates more often, AOR might get into infinite reduction
-* Church Rosser theorem
+* **Church Rosser theorem**
   * Church and Rosser proved two important properties of reductions and normal forms
-    * If A reduces to B and A reduces to C then there exists an expression D such that B reduces to D and C reduces to D
-    * If A has a normal form E then there is a **NOR** from A to E
+    1. If A reduces to B and A reduces to C then there exists an expression D such that B reduces to D and C reduces to D
+      ![](6.PNG)
+    2. If A has a normal form E then there is a **NOR** from A to E
   * Remarks
-    * If A reduces to B and A reduces to C then there exists an expression D such that B reduces to D and C reduces to D
-      * ![](6.PNG)
-    * No matter what reduction strategies are used initially to get from A to B and C, there is always a way to converge from both B and C back to the same expression D
     * There is always at most one normal form
     * If A has a normal form E then there is an NOR from A to E
     * NOR guarantees termination if the given expression has a normal form
