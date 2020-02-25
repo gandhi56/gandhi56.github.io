@@ -555,31 +555,28 @@
   * interpreter
   * compiler to assembly, real machine code
   * compiler to virtual machine
-* SECD is a virtual machine that runs simple Lisp programs
-* virtual machines
-  * not real hardware, but has its own set of instructions
-  * to run, implement on a real machine
+* **SECD** is a virtual machine that runs simple Lisp programs
 * SECD usage
-  * compiler from Lisp to SECD machine code
-  * execute the compiled code on an abstract cmachine
+  * compile from Lisp to SECD machine code
+  * execute the compiled code on an abstract machine
   * main differences to interpreter
     * once compiled, code can be executed many times
     * code optimization is possible
 * SECD Machine
   * consists of four stacks
-    * s: Stack used for evaluation of expressions
-    * e: Environment stores the current value list
-    * c: Control stores the machine instructions
-    * d: Dump stores *suspended* invocation context
+    * s: Stack used for **evaluation of expressions**
+    * e: Environment stores **the current value list**
+    * c: Control stores the **machine instructions**
+    * d: Dump stores **suspended invocation context**
 * SECD operations and functions
   * NIL: push a nil pointer
-  * LD: load from environment
-  * LCD: load constant
-  * LDF: load function
+  * LD: load from environment (get a value from context)
+  * LDC: load constant
+  * LDF: load function        (get a closure)
   * AP: apply function
-  * RTN: return
+  * RTN: return               (restore calling environment)
   * SEL: select in if statement
-  * JOIN: rejoin main control
+  * JOIN: rejoin main control (used with SEL)
   * builtin funtions: +, *, ATOM, CAR, CONS, EQ, etc.
 * definition of SECD operations
   * each operation is defined by its effect on the four stacks
@@ -590,3 +587,25 @@
     * first position `(car s)` = top of the stack
     * push onto stack `s ---> (e.s)`
     * pop from the stack `(e.s) ---> s`
+* push objects onto stack
+  * NIL, LDC, LD
+* more on `locate`
+  * `locate` is a helper function
+    * Let `e` correspond to the value list (environment stack) in the interpreter
+    * `e` is a list of sublists where each sublist is a list of actual parameters
+    * returns the j-th element of the i-th sublist in `e`
+    * instead of lookup by name, lookup by index of list and position within list
+* Function evaluation
+  * push arguments onto stack first, in reverse order
+  * finally push the operation to be done and apply
+  * this is called reverse polish notation
+* Compilation of built-in functions
+  * given built-in function application of the form
+    `(OP e1 ... ek)`
+  * Compile into:
+    `ek' || ... || e1' || (OP)`
+    * where `ei'` is the compiled code for `ei`, in particular `ei'` is a list of machine instructions
+    * `A||B` means append(A, B)
+    * example:
+      `(* (+ 6 2) 3)` compiled to `(LDC 3 LDC 2 LDC 6 + *)`
+
