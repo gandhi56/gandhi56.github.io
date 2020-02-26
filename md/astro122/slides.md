@@ -356,3 +356,26 @@ TODO
     * objects moving relative to you will appear shorter in the direction of motion than they would do if they were at rest
     * direct consequence of relativistic time dilation
     * ![](6.png)
+
+# lec 19: Special and general relativity
+* Special relativity
+    * mass increase
+        * ![](8.png)
+        * Where does $E = mc^2$ come from ?
+            * Taylor expand the mass increase formula
+        * $m_{moving} c^{2}$ is the total energy of an object, including rest mass and kinetic energy
+        * Lorentz factor
+            ![](9.png)
+
+        * total energy = $\gamma m_{rest} c^{2}$
+    * addition of velocities
+        * nonlinear
+        * always less than c
+    * length contraction: interstellar travel
+        * ![](10.png)
+
+* General relativity
+    * general relativity is about matter causing **spacetime to curve**, altering the motion of objects
+    * observed that introducing acceleration would break the relativity of motion
+    * equivalence principle: effects of gravity are equivalent to the effects of acceleration
+    * Einstein understood that matter in gravitational fields moves along the shortest possible path in a curved spacetime, which appears as though a force is acting.
