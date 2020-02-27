@@ -270,48 +270,56 @@
 
 # lec 16
 * inital mass $\in [0.08M_{sun}, 150M_{sun}]$
-    * lower limit obtain by minimal mass that will sustain nuclear fusion of hydrogen
-    * maximal mass is set by force of radiation pressure
-* techniques to measure mass distribution
-    * count stars with different masses in young star clusters
-    * count stars with different masses in the solar neighbourhood
-* more stars of low mass, less stars of high mass
+    * lower limit is set by the amount of hydrogen available for nuclear fusion
+    * upper limit is set by force of radiation pressure
+* techniques to measure this distribution:
+    * count stars with different masses in **young star clusters**
+    * count stars with different masses in **the solar neighbourhood**
+* lifecycle of stars and origin of elements
+    * hydrogen, helium and very little traces of Lithium and Berrilium were made in the big bang
+    * other elements are made in stars
+    * life cycle of stars is shaped by a constant competition between **gravity** and **pressure** throughout the star's life
+* stellar mass and lifetime
+    * higher mass ==> shorter main sequence lifetime
+    * larger weight of the different layers must be supported by 
+    **higher central pressure**, this demands **higher central temperature**
+    * **nuclear fusion** is extremely sensitive to **temperature**, so a moderate increase in the mass, results in a dramatic increase in the fusion rate and hence stellar luminosity
+    * high mass stars are born with more hydrogen and they exhaust it at a very fast rate
+* groups of stars based on mass:
+    * low mass (mass less than $2M_{sun}$)
+    * intermediate mass (mass between $2M_{sun}$ and $8M_{sun}$)
+    * high mass (rest)
+* low mass star evolution
+    * after hydrogen burning reaches a self-sustaining rate, the star joins the main sequence
+    * low mass stars have structure similar to the sun
+        * energy is generated in the core and transported outward by radiative diffusion and convection
+* low mass stars: main sequence
+    * interiors differ primarily by the depth of their **convection zones**
+    * cooler interiors
+    * radiative diffusion is most efficient when the temperature is high and matter is fully ionized
+    * deeper the convection zone, the more **stellar flares** are generated ==> bright X-ray outburts from low mass stars
+* low mass stars: red giant phase
+    * hydrogen is depleted, there is no more energy to balance gravity and the core starts to shrink
+    * inert core is made of heium but its surroundings are made of hydrogen that has not yet been burned
+    * this hydrogen eventually burns and the star is in the red giant phase
+    * core contracts and luminosity continues to increase
+    * after enough compression, helium core becomes dominated by degeneracy pressure. When this process stops, the stellar core becomes a helium white dwarf
+* low mass stars: helium flash
+    * triple alpha reaction: 3 He nuclei ---> 1 Carbon nucleus
+    * core heats up and nuclear energy is generated, called helium flash
+    * push back against gravity and expanding the core
+* low mass stars: core helium burning
+    * after the helium flash expands the core, helium burns in the core and hydrogen burns in a shell at a lower temperature than in the red giant phase, resulting in lower luminosity.
+* low mass stars: double shell burning
+    * helium and hydrogen shells burning at the same time
+    * helium shell burning is not stable, and the star undergoes large spikes in nuclear burning called thermal pulses
+* low mass stars: planetary nebulae
+    * carbon core is left behind as white dwarf
+    * high UV radiation
 
-## ch17
-* lifecycle of stars is shaped by a constant competition between gravity and pressure throughout the star's life
-    * high mass stars are born with more hydrogen hence they exhaust at a very fast rate
-* stars of higher mass have shorter lifetimes
-* larger weight of the different layers must be supported a higher central pressure, which requires higher central temperature
-* nuclear fusion is extremely sensitive to temperature, hence luminosity is also affected
-* low mass stars
-    * less than $2M_{sun}$
-    * similar structure to the sun
-    * energy is generated in the core and transported outward by radiative diffusion and then convection in the outermost layer
-    * interior primarily differ by the depth of their convection zones
-    * radiative diffusion is most efficient when the temperature is high and matter is fully ionized, but stars of lower mass have cooler interiors
-    * hence, smaller radii and they even disappear altogether for very low mass stars, which are fully convective
-    * deeper the convection zone, more stellar flares are generated which results in bright x-ray outbursts
-    * core contracts slowly as the number of particles decreases
-    * red-giant phase
-        * once hydrogen is depleted, no more energy is generated and therefore there is not enough pressure to balance gravity, and the core starts to shrink
-        * due to the increase in pressure, temperature goes up.
-        * inert core is made of helium, but its surroundings are made of hydrogen that has not yet been burned
-        * eventually, increase in temperature is such that hydrogen begins burning in a shell outside the inner helium core
-        * the star is now in the red giant phase
-        * hydrogen shell fusion occurs at a higher temperature than the hydrogen burning during the main sequence
-        * as a consequence of the higher energy generation, the layers outside the core expands and the radius increases
-        * core will continue to contract and the luminosity of the star will continue to increase as long as the helium core remains inert, because the thermostat mechanism cannot work for the core
-        * this causes inflation of the outer layers of the red giant, with a significant increase in the mass loss via stellar wind from the surface
-        * although enough compression, the helium core becomes dominated by degeneracy pressure. For very low mass stars, collapse is halted and the evolution stops here. The outer layers are expelled and the bare stellar core remnant becomes a heium white dwarf
-        * For stars between $0.5M_{sun}$ and $2M_{sun}$, the degenerate helium core reaches a temperature of about 100 million K which allows fusion of heium into carbon via the triple alpha reaction
-        * once helium ignites, the core temperature increases quickly but degeneracy pressure is insensitive to temperature: the core continues to heat up and nuclear energy generation spikes. This process is called the helium flash.
-        * helium flash releases a great amount of energy, increasing temperature to the point where thermal pressure becomes dominant again, pushing back against gravity and expanding the core
-        * expansion of the core lowers the temperature and hence, the luminosity
-        * after the helium flash expands the core, helium burns in the core and hydrogen burns in a shell at lower temperature than in the red giant phase, resulting in a lower luminosity
-        * core helium fusion generates about the same amount of power in most stars
-        * core helium burning eventually exhausts the helium supply leaving an inert carbon core at the centre ==> shrinks ==> enters second red giant phase
+
+## lec 17
 TODO
-
 
 # lec 18: Special relativity 1
 * special relativity deals with the nature of motion and light
