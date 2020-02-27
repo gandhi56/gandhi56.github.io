@@ -1796,6 +1796,10 @@ input, select, textarea {
 			font-weight: 700;
 			margin-top: -0.75em;
 		}
+	
+	b.proj {
+		color: #0c056e;
+	}
 
 /* Form */
 

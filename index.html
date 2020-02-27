@@ -49,13 +49,22 @@
 								<div class="image main" data-position="center">
 									<img src="images/banner.jpeg" alt="" />
 								</div>
+
 								<div class="container">
 									<header class="major">
-										<h3>My story so far</h3>
+										<h2>Intro</h2>
+										<h3>Here I am</h3>
 									</header>
 									<p>
-										I am currently a third year student pursuing an undergraduate degree with a double major in Computing Science and Mathematics. I am a passionate programmer who thoroughly enjoys learning about various algorithms and data structures. I am also very fascinated about mathematics, graph theory and number theory in particular. Ultimately, I combine my passion and skills to solve problems and hope to become a better programmer everyday.
+										I am currently a third year student pursuing an undergraduate degree with a double major in Computing Science and Mathematics at the University of Alberta. I am a passionate programmer who thoroughly enjoys learning about various algorithms and data structures. I am also very fascinated about mathematics, graph theory and number theory in particular. Ultimately, I combine my passion and skills to solve problems and hope to become a better programmer everyday.
 									</p>
+									<p>
+										Alongside my academia, I am working on my Python Just-in-time compiler called PyJIT which uses LLVM libraries. To learn more about PyJIT or any other projects I have worked on, check out my <a href = "https://github.com/gandhi56">Github</a>!
+									</p>
+
+									<header class="major">
+										<h3>How it all began</h3>
+									</header>
 									<p>
 										I was gifted my first laptop from my parents in 2005. Two years later, I wrote my first computer program in a turtle graphics language called LOGO. I learned BASIC from my middle school and developed several GUI application softwares using Visual Basic. After I completed my fourth grade, I took coaching classes to learn C. Besides developing application software, I played competitive chess and I have competed in district and provincial level tournaments.
 									</p>
@@ -77,7 +86,7 @@
 									</p>
 	
 									<p>
-										I have recently got myself involved with compiler design and optimization, and I hope to explore the compilers world as much as I can. I am currently ranked 184th on the Kattis judging platform, Kattis indeed enhances my capabilities as a programmer. My hobbies include dance, and playing sports like badminton, cricket, basketball and soccer. I enjoy travelling, especially in the mountains and forests. I really loved skiing when I did for the first time, I want to ski more often!
+										I have recently got myself involved with compiler design and optimization, and I hope to explore the compilers world as much as I can. I am currently ranked 184th on the Kattis judging platform, Kattis indeed enhances my capabilities as a programmer. My hobbies include dance, and playing sports like badminton, cricket, basketball and soccer. I enjoy travelling, especially in the mountains and forests. I really loved skiing when I tried for the first time, I want to ski more often!
 									</p>
 								</div>
 							</section>
@@ -85,83 +94,31 @@
 						<!-- Two -->
 							<section id="projects">
 								<div class="container">
-									<h3>Projects</h3>
+									<header class="major">
+										<h2>Projects</h2>
+									</header>
 									<p>
 										<ol>
-											<li>
-												<u>unixFS</u> is a UNIX-based file system, written in C++, which stores data files persistently on disk, represented by a file. Features include:
-												<ul>
-													<li> Disk mounting
-													<li> File/directory creation and deletion
-													<li> Read/write file
-													<li> Update buffer
-													<li> File resize
-													<li> Disk defragmentation
-												</ul>
-											</li>
-	
-											<li>
-											
-													<u>mapReduce</u> library is a programming model and a distributed computing paradigm for large-scale data processing, written in C++. It allows for applications to run tasks in parallel, making them scalable and fault-tolerant.
 
-										
-													To use the mapreduce library, developers must implement two callback functions, namely <i>map</i> and <i>reduce</i>.
-													<ul>
-														<li>
-															The <i>map</i> function takes in filename as input and generates intermediate key/value pairs from the data stored in that file.
-														</li>
-														<li>
-															The <i>reduce</i> function processes a subset of intermediate key/value pairs, summarizing all values associated with the same key.
-														</li>
-													</ul>
-											
+											<li> <a href="https://github.com/gandhi56/PyJIT"><b class="proj">PyJIT</b></a> is a Python Just-in-time compiler using LLVM libraries.
+											</li>
+
+											<li> <a href="https://github.com/gandhi56/EulerTikz"><b class="proj">EulerTikz</b></a> is a visualization tool for discrete graphs which implements the force-based layout algorithm for graph drawing.
+											</li>
+
+											<li><a href="https://github.com/gandhi56/unixfs"><b class="proj">unixFS</b></a> is a simulation of a UNIX-based file system manager which performs disk operations upon file or directory creation, destruction, resizing and disk defragmentation.
 											</li>
 	
-											<li> <u>lianshell</u> is a standalone procedurally designed UNIX-based shell program, written in C++, that supports the following features:
-												<ul>
-													<li>
-														Support for built-in commands including:
-														<ul>
-															<li type = "circle">changing working directory</li>
-															<li type = "circle">modifying environment variables</li>
-															<li type = "circle">killing all subprocesses</li>
-														</ul>
-													</li>
-	
-													<li>
-														Runs external programs from any specified location in the file system
-													</li>
-	
-													<li>
-														Sequential execution of multiple processes
-													</li>
-	
-													<li>
-														Redirection of output from a process to a file
-													</li>
-	
-													<li>
-														Run processes in the background
-													</li>
-	
-													<li>
-														Implement piping of output from one program to another
-													</li>
-													
-													<li>
-													Handles signal interrupts, including SIGINT and SIGTSTP.</li>
-												</ul>
-											
-	
+											<li><a href="https://github.com/gandhi56/mapreduce"><b class="proj">mapreduce</b></a> library implements a threadpool to perform thread-safe map and reduce operations on big data.
 											</li>
 	
-											<li> <u>Q3T</u> is an implementation of Quantum Tic-tac-toe. This game integrates the ideas of superposition and entanglement in the classical game of Tic-tac-toe, written in Python 3.
+											<li> <a href="https://github.com/gandhi56/lianshell"><b class="proj">Lianshell</b></a> is a standalone procedurally designed UNIX-based shell program supporting process management and interprocess communication.
 											</li>
 	
-											<li> <u>dragon</u> is a single-header library of game playing algorithms integrable with any game written in the expected format. Currently, the project includes Nex, Hex, Reversi and Tic-tac-toe as example programs. This project is written in C++.
+											<li> <a href="https://github.com/gandhi56/dragon"><b class="proj">dragon</b></a> is a single-header library of game playing algorithms integrable with any game written in a particular templated format. Currently, the project includes implementations of Nex, Hex, Reversi and Tic-tac-toe.
 											</li>
-	
-											<li> <u>EulerTikz</u> is a visualization tool for discrete graphs which implements spectral layout algorithms for graph drawing.
+
+											<li> <a href="https://github.com/gandhi56/q3t"><b class="proj">Q3T</b></a> is an implementation of Quantum Tic-tac-toe. This game integrates the ideas of superposition and entanglement in the classical game of Tic-tac-toe, written in Python 3.
 											</li>
 										</ol>
 									</p>
@@ -171,19 +128,21 @@
 						<!-- Three -->
 							<section id="education">
 								<div class="container">
-									<h3>Education</h3>
+									<header class="major">
+										<h2>Education</h2>
+									</header>
 									<p>
 										I am presently in third year of my undergraduate degree. Following is a brief overview of the courses I have completed or currently taking at the University of Alberta:
 										<ol>
 											<u>Computing Science</u>
 	
-											<li><b>GPU Programming</b>
-												 GPU programming in CUDA, 
+											<li><b class="proj">GPU Programming</b>
+												 CUDA programming, 
 												 Functionality and maintainability of GPU, 
 												 Scalability and portability.
 											</li>
 	
-											<li><b>Tangible Computing</b>
+											<li><b class="proj">Tangible Computing</b>
 											
 												 Key concepts of procedural programming, basic algorithm design and analysis.
 												 Programming on the Arduino platform in C/C++ and an introduction to the UNIX environment.
@@ -192,7 +151,7 @@
 												
 											</li>
 	
-											<li> <b>Computer Organization and Architecture</b>
+											<li> <b class="proj">Computer Organization and Architecture</b>
 											
 												 General introduction to number representation, 
 												 Architecture and organization concepts of Von Neumann machines, 
@@ -204,7 +163,7 @@
 												
 											</li>
 	
-											<li> <b>Advanced algorithm design and analysis</b>
+											<li> <b class="proj">Advanced algorithm design and analysis</b>
 											
 												 Greedy algorithms and matroid theory, 
 												 Dynamic Programming, 
@@ -215,7 +174,7 @@
 												
 											</li>
 	
-											<li> <b>Operating Systems</b>
+											<li> <b class="proj">Operating Systems</b>
 											
 												 Process and thread management, 
 												 CPU Scheduling, 
@@ -224,7 +183,7 @@
 												 Disk management.
 											</li>
 	
-											<li> <b>Formal Language, Automata and Computability</b>
+											<li> <b class="proj">Formal Language, Automata and Computability</b>
 											
 												 Regular languages and finite state machines, 
 												 Context-free languages and push-down automata, 
@@ -234,24 +193,24 @@
 												
 											</li>
 	
-											<li> <b>Reinforcement learning</b>
+											<li> <b class="proj">Reinforcement learning</b>
 													Bandit problem, Markov Decision Processes and Dynamic Programming, 
 													Monte-Carlo and Temporal Difference methods, 
 													Model-based learning, 
 													Function approximation and gradient-based learning.
 											</li>
 
-											<li><b>Functional programming in Lisp and logic Programming in Prolog</b></li>
+											<li><b class="proj">Functional programming in Lisp and logic Programming in Prolog</b></li>
 
 											<u>Mathematics</u>
-											<li> <b>Analysis</b>
+											<li> <b class="proj">Analysis</b>
 													Single-variable and multivariable calculus, 
 													Complex Analysis, 
 													Introductory differential equations.
 											</li>
-											<li> <b>Algebra</b> Linear Algebra,	Rings and modules, Group theory, Representation theory, Lie theory, Graph theory, Coding theory.
+											<li> <b class="proj">Algebra</b> Linear Algebra,	Rings and modules, Group theory, Representation theory, Lie theory, Graph theory, Coding theory.
 											</li>
-											<li> <b>Statistics</b>
+											<li> <b class="proj">Statistics</b>
 													Discrete random variables and distributions,
 													Continuous random variables and distributions,
 													Multivariate distributions.
@@ -264,7 +223,9 @@
 
 							<section id="contests">
 								<div class="container">
-									<h3>Contests</h3>
+									<header class="major">
+										<h2>Contests</h2>
+									</header>
 									<p>
 										Competitive programming fills my life with excitement; underperforming motivates me to work harder whereas performing well congratulates me for choosing the right path.
 									</p>
@@ -274,88 +235,67 @@
 									</p>
 									<p>
 										Here is a list of programming contests I have participated in, starting from the most recent:
-	
-										<ol>
-	
-											<li>
-												Alberta Collegiate Programming Contest 2019
-												<ul>
-													<li>Ranked 9th out of 41 official teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												Communitech's Code to Win Challenge 2019
-												<ul>
-													<li> Top 75 out of 1000 across Canada
-												</ul>
-											</li>
-											<li>
-												Rocky Mountain Regional Contest 2019
-												<ul>
-													<li>Ranked 3rd out of 75 teams</li>
-													<li>Silver medalist on the University of Alberta site</li>
-												</ul>
-											</li>
-	
-											<li>
-												2019 North American Regionals Practice Contest 4
-												<ul>
-													<li>Ranked 9th out of 26 teams</li>
-												</ul>
-											</li>
-											<li>
-												2019 North American Regionals Practice Contest 3
-												<ul>
-													<li>Ranked 7th out of 32 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												2019 North American Regionals Practice Contest 2
-												<ul>
-													<li>Ranked 6th out of 30 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												2019 North American Regionals Practice Contest 1
-												<ul>
-													<li>Ranked 10th out of 45 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												UBC Practice Contest 2019
-												<ul>
-													<li>Ranked 10th out of 83 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												University of Alberta Programming Contest 2019
-												<ul>
-													<li>Ranked 3rd out of about 30 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												Rocky Mountain Regional Contest 2018
-												<ul>
-													<li>Ranked 23rd out of 65 teams</li>
-												</ul>
-											</li>
-	
-											<li>
-												Alberta Collegiate Programming Contest 2018
-												<ul>
-													<li>Ranked 15th out of 44 teams</li>
-												</ul>
-											</li>
-	
-										</ol>
-	
 									</p>
+
+										<style type="text/css">
+											.tg  {border-collapse:collapse;border-spacing:2;border-color:#000000;}
+											.tg td{font-family:Lato, sans-serif;font-size:16px;padding:10px 20px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;border-color:#000000;color:#000000;background-color:#EBF5FF;}
+											.tg th{font-family:Lato, sans-serif;font-size:16px;font-weight:normal;padding:10px 20px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;border-color:#000000;color:#fff;background-color:#0c056e;}
+											.tg .tg-2poh{font-family:"Lato", "Book Antiqua", Palatino, serif !important;;border-color:#000000;text-align:center;vertical-align:top}
+											.tg .tg-c3ow{border-color:#000000;text-align:center;vertical-align:top}
+											.tg .tg-p8sp{font-size:20px;border-color:#000000;text-align:center;vertical-align:top}
+											</style>
+											<table class="tg">
+											  <tr>
+												<th class="tg-p8sp"><span style="font-weight:bold">Contest</span></th>
+												<th class="tg-p8sp"><span style="font-weight:bold">Result</span></th>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">Alberta Collegiate Programming Contest 2019<br></td>
+												<td class="tg-2poh">Ranked 9th out of 41 official teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">Communitech's Code to Win Challenge 2019</td>
+												<td class="tg-c3ow">Top 75 out of 1000 across Canada</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">Rocky Mountain Regional Contest 2019</td>
+												<td class="tg-c3ow">Ranked 3rd out of 75 teams<br>Silver medalist on the University of Alberta site</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">2019 North American Regionals Practice Contest 4</td>
+												<td class="tg-c3ow">Ranked 9th out of 26 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">2019 North American Regionals Practice Contest 3</td>
+												<td class="tg-c3ow">Ranked 7th out of 32 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">2019 North American Regionals Practice Contest 2</td>
+												<td class="tg-c3ow">Ranked 6th out of 30 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">2019 North American Regionals Practice Contest 1</td>
+												<td class="tg-c3ow">Ranked 10th out of 45 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">UBC Practice Contest 2019</td>
+												<td class="tg-c3ow">Ranked 10th out of 83 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">University of Alberta Programming Contest 2019</td>
+												<td class="tg-c3ow">Ranked 3rd out of about 30 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">Rocky Mountain Regional Contest 2018</td>
+												<td class="tg-c3ow">Ranked 23rd out of 65 teams</td>
+											  </tr>
+											  <tr>
+												<td class="tg-c3ow">Alberta Collegiate Programming Contest 2018</td>
+												<td class="tg-c3ow">Ranked 15th out of 44 teams</td>
+											  </tr>
+											</table>
+	
 
 								</div>
 							</section>
@@ -363,7 +303,9 @@
 						<!-- Four -->
 							<section id="contact">
 								<div class="container">
-									<h3>Contact Me</h3>
+									<header class="major">
+										<h2>Contact Me</h2>
+									</header>
 									<form method="post" action="#">
 										<div class="row gtr-uniform">
 											<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
