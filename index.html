@@ -301,12 +301,13 @@
 							</section>
 
 						<!-- Four -->
+
 							<section id="contact">
 								<div class="container">
 									<header class="major">
 										<h2>Contact Me</h2>
 									</header>
-									<form method="post" action="#">
+									<form method="post" action="#" onsubmit="sendMsg()">
 										<div class="row gtr-uniform">
 											<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
 											<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
@@ -314,7 +315,7 @@
 											<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
 											<div class="col-12">
 												<ul class="actions">
-													<li><input type="submit" class="primary" value="Send Message" /></li>
+													<li><input type="submit" class="primary" value="Send Message" onclick="sendMsg()"/></li>
 													<li><input type="reset" value="Reset Form" /></li>
 												</ul>
 											</div>
@@ -675,6 +676,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/contact.js"></script>
 
 	</body>
 </html>
