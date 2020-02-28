@@ -384,6 +384,63 @@ TODO
 
 * General relativity
     * general relativity is about matter causing **spacetime to curve**, altering the motion of objects
+    * higher mass ==> higher curvature
+        * ![](11.png)
     * observed that introducing acceleration would break the relativity of motion
     * equivalence principle: effects of gravity are equivalent to the effects of acceleration
-    * Einstein understood that matter in gravitational fields moves along the shortest possible path in a curved spacetime, which appears as though a force is acting.
+        * origin of general relativity
+    * Einstein understood that matter in gravitational fields moves along the shortest possible path in a curved spacetime
+        * this motion is not due to force, its due to the spacetime curvature
+
+# lec 20: General relativity 2
+* spacetime dimensions
+    * 4 dimensions: x, y, z and time
+    * time is different for different observers
+    * space is different for different observers
+    * spacetime is the same for everyone
+    * can be measured using spacetime diagrams
+        * ![](12.png)
+* curvature and geometry of spacetime
+    * flat geometry (Euclidean)
+        * sum of angles of a triangle is $\pi$
+        * shortest path is straight line
+        * parallel straight lines stay parallel
+    * spherical geometry
+        * sum of angles > $\pi$
+        * shortest path is an arc of a great circle
+        * parallel lines eventually converge
+    * saddle-shaped geometry
+        * sum of angles < $pi$
+        * shortest path is a hyperbola
+        * parallel lines eventually diverge
+    * universe has no centre and no edges
+    * if you feel weightless, it means you are travelling on a path of shortest possible distance in spacetime
+        * in maths, this is called a geodesic
+    * if you feel weight, then you are not on the shortest possible path
+* Curvatures and black holes
+    * Law 1: increasing the mass of a fixed size object: gravity increases at any given distance from the object
+    * Law 2: decreasing the object's size at fixed mass: gravity does not increase far from the object, but the spacetime close to it becomes severely curved.
+    * if we decrease the size of an object continuously, there will be a point at which the curvature is so great that light cannot escape: we obtain a black hole
+    * the point of no return is called the **event horizon** of a black hole, and anything inside it cannot have any influence on our observable universe
+    * at the event horizon, the classical escape speed is equal to the speed of light. This allows us to calculate the radius of the even horizon.
+        * radius of the horizon is called the **Schwarzschild radius**, depends only on the mass of the black hole
+        * ![](13.png)
+* curvature effects on time
+    * ![](14.png)
+    * at constant speed, you are in the same reference frame and clocks run at the same rate.
+    * if the ship accelerates, the reference frame is constantly changing.
+        * if Al send periodic light flashes to you, you send periodic light flashes to you, you will measure them as less frequent than how they were emitted: you are moving awar relative to the frame in which pulses are emitted.
+* **Go over various experiments in the slides**
+
+* tests of general relativity
+    * theory of general relativity makes a number of predictions, several of which have been successfully tested. Most important:
+        1. precession of perihelion of Mercury
+        2. gravitational lensing
+        3. gravitational time dilation
+        4. gravitational waves
+* perihelion of Mercury
+    * Newton's gravity predicts that Mercury's orbit should precess slowly around the sun due to the gravitational pull from other planets
+    * However, observations showed that the actual precession is larger than predicted by Newton's theory.
+    * General relativity correctly predicts the magnitude of the effect. It arises because of the curvature of space and gravitational time dilation.
+* gravitational lensing
+    * light follows the shortest possible path, so if space is curved then the path that light follows must also be curved. Effecrt first measured 1919 during solar eclipse
