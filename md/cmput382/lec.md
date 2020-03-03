@@ -251,3 +251,21 @@
   
 ## Module 6
 ### Objectives
+
+TODO
+
+## Module 7 Histogram algorithms
+### A Simple Parallel Histogram algorithm
+* **interleaved partitioning of input**
+  * for coalescing and bettery memory access performance
+* **Data race**
+  * order in which threads execute affect the outcome
+  * can be solved by using atomic operations
+* **Atomic operations**
+  * read-modify-write operation performed by a single hardware instruction on a memory location address
+* **Atomic operations performance**
+  * each read-modify-write has two full memory access delays
+    * all atomic operations on the same variable are serialized
+  * throughput of atomic operations on the same DRAM location is the rate at which the application can execute an atomic operation
+  * rate for atomic operation on a particular location is limited by the total latency of the read-modify-write sequence, typically more than 1000 cycles for memory locations
+

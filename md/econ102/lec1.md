@@ -408,3 +408,70 @@
   * effect of employment insurance is ambiguous because:
     * people might not look as hard for work if payment is generous
     * if people don't have to rush into taking the first job they are offered, they are more likely to find the right job for them
+
+### Chapter 8 Aggregate demand and aggregate supply
+* three features of the economy: output (GDP), prices and unemployment
+  * do not fluctuate independently
+* model of aggregate demand and aggregate supply shows how output, prices, and employment are all tied together as part of a single economic equilibrium
+* when people buy an asset only because they believe the price will rise, it often creates an **asset-price bubble**.
+* **aggregate demand** is equal to GDP
+  * $AD = GDP = C + I + G + NX$
+  * aggregate demand curve shows the relationship between the overall price level in the economy and output
+    * decrease in price level ==> increases the amount of goods and services demanded
+    * ![](12.png)
+  * why does the AD curve slope downward?
+    * Consumption (wealth effect)
+      * prices rise ==> consumption fall, because their real wealth decreases
+    * Investment
+      * prices rise ==> interest rate rise ==> borrowing decreases ==> investment decreases
+    * Net Exports
+      * prices rise ==> goods become more expensive ==> imports increase and exports decrease
+    * government spendings cause no effect
+  * shifting the AD curve
+    * when a nonprice factor increases (decreases) a component of AD, the entire AD curve shifts to the right (left)
+    * ![](13.png)
+* **aggregate supply** is the sum total of the production of all the firms in the economy
+  * shows relationship between the overall price level in the economy and total production by firms
+  * represents production in the economy as a *whole*
+  * can be expressed for long-run and short-run curves
+  * short-run aggregate supply (SRAS)
+  * ![](14.png)
+  * prices of final goods increase more quickly than input prices
+  * long run aggregate supply
+    * long-run refers to the time required for input prices to fully adjust to economic conditions
+    * when input costs adjust, firms no longer earn positive economic conditions
+    * economy returns to where it started
+    * changes in the price level do not affect aggregate supply in the long run, in the long-run aggregate supply curve is fixed.
+* business cycle
+  * fluctuations of output around the level of potential output
+  * output > potential output ==> economy is in a boom
+* shifts in the SRAS curve
+  * inputs become more expensive ==> decrease in short-run supply ==> left shift
+  * supply shocks are significant events that directly affect production and the AS curve in the short-run
+* in LRAS curve, production decisions are influenced by inputs, regardless of the overall price level
+  * LRAS curve shifts outward if there is an increase in available inputs
+  * everything that shifts LRAS also shifts SRAS
+* economic fluctuations
+  * equilbrium is at the point where AD = AS
+* demand (supply) shock = sudden surprise event that temporarily increases or decreases demand (supply)
+* role of public policy
+  * it can take a long time for the economy to fully adjust to demand and supply shocks
+  * waiting for adjustments is often difficult for producers and consumers
+  * voters often call upon politicians to respond during a recession
+  * government can try to boost the economy out of a recession through government spending
+  * government can try to counter this negative demand shock by spending more to cause aggregate demand to increase
+  * such policies are challenging to implement
+    * difficult to gauge the overall effect of government spending on AD
+    * rare to perfectly design policy to restore AD to its original level
+    * government intervention impacts the long-run outcomes
+* government spending summarized
+  * not based on changed in the price level
+  * long-run result of government intervention is higher prices but output may more quickly return to long-runn levels
+  * why would the government ever choose to intervene?
+    * speed of recovery could be slow otherwise
+    * lower prices are not always good for certain goods and services
+  * government spending is a short-term policy action used to address short-term shocks
+
+
+
+    

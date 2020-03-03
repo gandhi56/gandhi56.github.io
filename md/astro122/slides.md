@@ -410,7 +410,7 @@ TODO
         * shortest path is an arc of a great circle
         * parallel lines eventually converge
     * saddle-shaped geometry
-        * sum of angles < $pi$
+        * sum of angles < $\pi$
         * shortest path is a hyperbola
         * parallel lines eventually diverge
     * universe has no centre and no edges
@@ -432,15 +432,37 @@ TODO
         * if Al send periodic light flashes to you, you send periodic light flashes to you, you will measure them as less frequent than how they were emitted: you are moving awar relative to the frame in which pulses are emitted.
 * **Go over various experiments in the slides**
 
-* tests of general relativity
+* **tests of general relativity**
     * theory of general relativity makes a number of predictions, several of which have been successfully tested. Most important:
         1. precession of perihelion of Mercury
         2. gravitational lensing
         3. gravitational time dilation
         4. gravitational waves
-* perihelion of Mercury
+* **perihelion of Mercury**
     * Newton's gravity predicts that Mercury's orbit should precess slowly around the sun due to the gravitational pull from other planets
     * However, observations showed that the actual precession is larger than predicted by Newton's theory.
     * General relativity correctly predicts the magnitude of the effect. It arises because of the curvature of space and gravitational time dilation.
-* gravitational lensing
+* **gravitational lensing**
     * light follows the shortest possible path, so if space is curved then the path that light follows must also be curved. Effecrt first measured 1919 during solar eclipse
+
+# lec 21: General relativity and stellar remnants
+* **gravitational time dilation**
+    * equivalence principle: situation is the same as if the ship was sitting still in a gravitational field
+    * time runs more slowly deeper into a gravitational field
+    * effect is called **gravitational time dilation**
+    * examples of time dilation:
+        * in spectral lines from the sun
+        * by comparing differences in two atomic clocks at heights differing less than 1 meter
+* **gravitational waves**
+    * ![](15.png)
+    * time-dependent change in the curvature of spacetime in one location will generate disturbances in spacetime that propagate away from this location, **carrying away energy and angular momentum**.
+    * these perturbations travel at the speed of light and are called gravitational waves
+    * until 2015, their detection had only been indirect, through the decay of the orbit of binary stars with compact objects
+    * advanced LIGO and Virgo collaboration directly detected gravitational waves
+* **wormholes**
+    * if spacetime is curved on a higher dimension then there can be shortcuts: moving from a point to another
+# Comparing Stellar Remnants
+* stars of different masses leave behind different corpses.
+    * white dwarfs: remnants of stars with $M < 8M_{sun}$
+    * neutron stars: remnants of stars with $M > 8M_{sun}$
+TODO
