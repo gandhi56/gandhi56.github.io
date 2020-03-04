@@ -409,7 +409,7 @@
     * people might not look as hard for work if payment is generous
     * if people don't have to rush into taking the first job they are offered, they are more likely to find the right job for them
 
-### Chapter 8 Aggregate demand and aggregate supply
+### Chapter 11 Aggregate demand and aggregate supply
 * three features of the economy: output (GDP), prices and unemployment
   * do not fluctuate independently
 * model of aggregate demand and aggregate supply shows how output, prices, and employment are all tied together as part of a single economic equilibrium
@@ -466,12 +466,43 @@
     * government intervention impacts the long-run outcomes
 * government spending summarized
   * not based on changed in the price level
-  * long-run result of government intervention is higher prices but output may more quickly return to long-runn levels
+  * long-run result of government intervention is higher prices but output may more quickly return to long-run levels
   * why would the government ever choose to intervene?
     * speed of recovery could be slow otherwise
     * lower prices are not always good for certain goods and services
   * government spending is a short-term policy action used to address short-term shocks
 
 
-
-    
+### Chapter 12 Fiscal policy
+* **Fiscal policy** refers to government decisions about the level of taxation or goveernment spending
+  * affects the economy by influencing AD
+  * govt. spendings, tax policies directly affect consumption, which impacts AD
+  * can be either _expansionary_ or _contractiionary_:
+    * increasing gov spending and lower taxes have expansionary effects (Keynesian policy)
+      * shifts AD to the right
+    * decreasing gov spending and higher taxes have contractionary effects
+      * shifts AD to the left
+* Policy response to economic fluctuations
+  * AD/AS model illustrates how fiscal policy can counteract the effects of economic shocks
+    * model predicts that the economy can correct itself automatically
+    * lawmakers interven because automatic correction can be a painful and slow process
+* Time lags
+  * time lags between when policies are chosen and when they are implemented often cause fiscal policy to be ineffective or even harmful:
+    * information lag: understanding the current economy
+    * formulation lag: deciding on and passing legislation
+    * implementation lag: time to affect the economy
+* Policy tools: discretionary and automatic
+  * **Automatic stabilizers** are taxes and government spending that affect fiscal policy without specific action from policy-makers
+    * Taxes work as automatic stabilizers because the income tax system is progressive
+      * as earning rise, higher tax rates apply.
+    * EI and welfare programs have eligibility criteria based on income or unemployment status
+  * **Discretionary policy** may be used when automatic stabilizers are unsuccessful in correcting the economy
+* Limits of fiscal policy
+  * politicians often cut taxes in response to recessions
+  * tax cuts aren't free because the government must find a way to make up for lost tax revenue
+  * Ricardian equivalence predicts that if there are tax cuts but no decrease in spending, people will not change their behavior.
+    * govt. will have to borrow money and at some point taxes will increase
+* Multiplier model
+  * multipler measures the effects of govt. spending or tax cuts on national income
+  * **multiplier effect** is the increase in consumer spending that occurs when spending by one persono causes others to spend more too
+    * this amplifies the impact of the initial govt. policy on the economy
