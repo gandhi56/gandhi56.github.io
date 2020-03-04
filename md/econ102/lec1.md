@@ -482,27 +482,54 @@
       * shifts AD to the right
     * decreasing gov spending and higher taxes have contractionary effects
       * shifts AD to the left
-* Policy response to economic fluctuations
+* **Policy response to economic fluctuations**
   * AD/AS model illustrates how fiscal policy can counteract the effects of economic shocks
     * model predicts that the economy can correct itself automatically
     * lawmakers interven because automatic correction can be a painful and slow process
-* Time lags
+* **Time lags**
   * time lags between when policies are chosen and when they are implemented often cause fiscal policy to be ineffective or even harmful:
     * information lag: understanding the current economy
     * formulation lag: deciding on and passing legislation
     * implementation lag: time to affect the economy
-* Policy tools: discretionary and automatic
+* **Policy tools: discretionary and automatic**
   * **Automatic stabilizers** are taxes and government spending that affect fiscal policy without specific action from policy-makers
     * Taxes work as automatic stabilizers because the income tax system is progressive
       * as earning rise, higher tax rates apply.
     * EI and welfare programs have eligibility criteria based on income or unemployment status
   * **Discretionary policy** may be used when automatic stabilizers are unsuccessful in correcting the economy
-* Limits of fiscal policy
+* **Limits of fiscal policy**
   * politicians often cut taxes in response to recessions
   * tax cuts aren't free because the government must find a way to make up for lost tax revenue
   * Ricardian equivalence predicts that if there are tax cuts but no decrease in spending, people will not change their behavior.
     * govt. will have to borrow money and at some point taxes will increase
-* Multiplier model
+* **Multiplier model**
   * multipler measures the effects of govt. spending or tax cuts on national income
   * **multiplier effect** is the increase in consumer spending that occurs when spending by one persono causes others to spend more too
     * this amplifies the impact of the initial govt. policy on the economy
+  * To determine how much more GDP increases, the multiplier uses the proportion of income people spend.
+  * Consumption is based on the amount of income left after paying taxes
+  * The amount consumption increases when after-tax income increases by 1 dollar is called the **marginal propensity to consume (MPC)**.
+    * between 0 and 1
+    * equals the fraction of an additional dollar that is spent when an individual receives an additional dollar of income
+  * **Government spending multiplier** is the amount that GDP increases when government spending increases by 1 dollar
+    * government spending multiplier = $ \frac{ 1 }{ 1 - MPC } $
+    * smaller MPC ==> smaller government spending multiplier
+    * larger MPC ==> larger government spending multiplier
+  * **taxation multiplier** is the amount that GDP decreases by when taxes increase by 1 dollar
+    * taxation multiplier = $\frac{-MPC}{1 - MPC}$
+    * multiplier effect of tax cuts is smaller than the effect of government spending
+    * Tax cuts boost HDP indirectly through an effect on consumption
+* **government budget**
+  * by changing spending or taxes
+  * may require the government to go into debt
+  * contain tax revenues as their source of income and government purchases and transfer payments as expenditures
+    * transfer payments are payments from the government to individuals for programs that don't involve a purchase of goods and services
+  * **budget deficit** is the amount of money a government spends beyond its revenue
+  * **budget surplus** is the amount of revenue a government brings in beyond what it spends
+* **Government debt**
+  * benefits
+    * allows govt to be flexible when something unexpected happens
+    * can pay for investments
+  * costs
+    * pay the amount + interest
+    * indirect costs associated with govt debts distorting credit markets
