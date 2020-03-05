@@ -609,3 +609,64 @@
     * example:
       `(* (+ 6 2) 3)` compiled to `(LDC 3 LDC 2 LDC 6 + *)`
 
+TODO
+
+
+
+## Lecture Intro to Prolog
+* logic programming is a theorem proving process
+* length of a list:
+  * ```
+    len([], 0).
+    len([First|Rest], N) :- len(Rest, NRest), N is NRest + 1.
+    ```
+  * predicate `len` - length of a list
+* prolog program cosists of clauses
+  * a clause can be a fact (unconditional) or a rule (conditional)
+* lists
+  * enclosed in `[ ... ]`
+  * construct with a vertical bar `|`, or manually listing items, or a mix of both
+    * `[First|Rest]`
+    * `[a, b, c, d]`
+  * can be nested
+* variables and constants
+  * case-sensitive
+  * variables are in title-case, otherwise constant
+  * free variables can match to anything upon a query
+* why logic programming?
+  * declarative style: style of building the structure and elements of a program
+  * search process
+  * control is more indirect
+  * workflow: specify properties a solution should have, then let Prolog search for it
+* syntax
+  * rules about what are well-formed formulas in logic
+* semantics
+  * meaning of the program
+  * description of all logical consequences of a formula
+* inference rules
+  * can be used to derive new formulas from the given set of formulas
+* atoms in predicate calculus
+  * `p(t1, ..., tn)`
+    * `p` is a predicate symbol
+    * `ti` are terms (like sexpr in Lisp)
+      * can only be used are arguments in predicates
+      * functions, constants and variables are terms
+      * if `s1, ..., sk` are terms and `f` is a k-ary function symbol, then `f(s1, ..., sk)` is a term
+* functions and predicates
+  * function symbols and predicates in Prolog start with a lowercase letter
+* Binding variables
+  * variables can be bound to values
+  * use `=`, eg. `X = 2.`
+  * there are other ways to bind variables using unification, coming up soon
+  * two variables can be made equal without giving them value, `X = Y.`
+    * Prolog will take that as a constraint
+* rules
+  * `:-` can be read as "if"
+  * `parent(X, Y) :- father(X, Y)`
+    * head = `parent(X, Y)`
+    * body = `father(X, Y)`
+  * head is true if its body is true or another predicate with the same head is true
+  * in general 'A :- B1, B2, ..., Bn`
+    * `,` in the body means "and"
+
+
