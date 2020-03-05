@@ -684,18 +684,28 @@ TODO
   * any variable that occurs only once in a rule should be anonymized like this
 * Built-in operators - arithmetic and `is`
   * `Var is Expression`: evaluates expression, match with Var
+  * operators include arithmetic operators (+, -, *, /), comparison operators (>, <, >= , =<)
     * `Var` can also be a constant
-  * Examples:
-    * ```
-      ?- X is 1 + 2 * 3.
-      X = 7.
-      ```
-* TODO
+  * equality operators
+    * `X = Y` tries to match X, Y equal by unification (pattern matching)
+    * `X is Expr` evaluates `Expr`, then tries to make result equal to `X`
+    * `T1 == T2`, are two terms currently identical? (no unification)
+  * non-equality operators
+    * `T1 \== T2`, are two terms not identical? (no unification)
+    * `E1 =:= E2`, are `E1` and `E2` equal-valued arithmetic expressions
+    * `E1 =\= E2`, are `E1` and `E2` different-valued arithmetic expressions?
+  * `is`
+    * evaluates and assigns
+    * order of evaluation is leftmost first, when `X+5` is evaluated `X` is free
+* Meta-logical predicates
+  * `var(X)`: test whether `X` is instatiated
+  * `nonvar(X)`: opposite of `var(.)`
+  * `atom(X)`: check if `X` is instatiated to an atom
+  * `integer(X)`
+  * `number(X)`
+  * `atomic(X)`: true if `X` is either an atom or number
 
 ### Data structures in Prolog
-* unification
-  * settings things equal may cause variables to be bound
-
 * list predicates
   * ```
     append([], L, L).
@@ -713,10 +723,22 @@ TODO
     not_member(_, []).
     not_member(X, [Y, L]) :- X \== Y, not_member(X, L).
     ```
-
-
-
-
+  * Reverse a list
+    * ```
+      reverse([], []).
+      reverse([A|Rest], Rev) :- reverse(Rest, RevRest), append(RevRest, [A], Rev).
+      ```
+* prolog clauses are NOT like if-then-else statements, they always use all matching clauses
+  * set up exact conditions for when a clause should be used
+  * Example:
+    ```
+    p(Input, result1) :- test(Input).
+    p(Input, result2) :- opposite-of-test(Input).
+    ```
+    ```
+    p(Input, result1) :- test1.
+    p(Input, result2) :- opposite-of-test1, test2.
+    p(Input, result3) :- opposite-of-test1, opposite-of-test2, opposite-of-test3.
 
 
 
