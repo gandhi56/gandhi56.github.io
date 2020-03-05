@@ -669,4 +669,54 @@ TODO
   * in general 'A :- B1, B2, ..., Bn`
     * `,` in the body means "and"
 
+## Lecture Basic builtin operators and predicates in Prolog
+* when predicates are used in a specific way, mark them in the specs:
+  * **++**: ground: no variables
+  * **+**: structure is clear
+  * **-**: output parameter
+  * **?**: param that can be used as either input or output
+* anonymous variable: _ underscore
+  * ```
+    len([], 0).
+    len([_|Rest], N) :- len(Rest, NRest), N is NRest + 1.
+    ```
+  * `First` is not needed in the `len` example above, replace it by an underscore to avoid `Singleton variables` warning
+  * any variable that occurs only once in a rule should be anonymized like this
+* Built-in operators - arithmetic and `is`
+  * `Var is Expression`: evaluates expression, match with Var
+    * `Var` can also be a constant
+  * Examples:
+    * ```
+      ?- X is 1 + 2 * 3.
+      X = 7.
+      ```
+* TODO
+
+### Data structures in Prolog
+* unification
+  * settings things equal may cause variables to be bound
+
+* list predicates
+  * ```
+    append([], L, L).
+    append([A|L1], L2, [A|L3]) :- append(L1, L2, L3).
+    ```
+    * ```
+      append([a1, a2], [b1], A). 
+      A = [a1, a2, b1].
+      ```
+  * ```
+    member(X, [X|_]).
+    member(X, [_|L]) :- member(X, L).
+    ```
+  * ```
+    not_member(_, []).
+    not_member(X, [Y, L]) :- X \== Y, not_member(X, L).
+    ```
+
+
+
+
+
+
 
