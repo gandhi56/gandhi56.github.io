@@ -349,21 +349,17 @@
 
 
 ### Chapter 10 Unemployment and the demand for labor
-* How do we measure labor market?
-* Why people are not working?
 * Defining and measuring unemployment
-  * unemployment is a situation where someone wants to work but cannot find a job in the current market
-    * people who do nnot have jobs and are not interested in obtaining one are *not* counted as unemployed
   * Statistics Canada defines unemployment as people who
     1. did not work at all in the previous week
     2. were available to work if they had been offered a job
     3. were making efforts to look for a job
 
 * Measuring unemployment
-  * the labour force refers to the people who are in the working-age population and are either employed or unemployed
+  * the labour force refers to the people who are in the working-age population (aged 15 years or above) and are either employed or unemployed
   * the unemployment rate is the number of unemployed people divided by the number of people in the labour force:
-    unemployment rate = $\frac{unemployed}{labour force} \times 100%$
-    where labour force = number of employed and unemployed
+    * unemployment rate = $\frac{unemployed}{labour force} \times 100%$
+    * where labour force = number of employed and unemployed
   * labor-force participation rate (LFPR) determines the state of the economy is also understood by looking at the *labor-force participation rate*
     LFPR = (labor force / working-age-population) x 100%
   * LFP indicates what fraction of the population wants to be working, regardless of whether or not they actually have a job
@@ -474,7 +470,8 @@
 
 
 ### Chapter 12 Fiscal policy
-* **Fiscal policy** refers to government decisions about the level of taxation or goveernment spending
+#### Fiscal policy
+  * government policies: taxation or government spending
   * affects the economy by influencing AD
   * govt. spendings, tax policies directly affect consumption, which impacts AD
   * can be either _expansionary_ or _contractiionary_:
@@ -482,11 +479,16 @@
       * shifts AD to the right
     * decreasing gov spending and higher taxes have contractionary effects
       * shifts AD to the left
-* **Policy response to economic fluctuations**
+#### Policy response to economic fluctuations
   * AD/AS model illustrates how fiscal policy can counteract the effects of economic shocks
     * model predicts that the economy can correct itself automatically
     * lawmakers interven because automatic correction can be a painful and slow process
-* **Time lags**
+    * during a demand-side shock:
+      * AD shifts to the left
+      * lawmakers implement expansionary policies to shift AD almost back to the equilibrium point
+    * positive economic shock: increase in economy rapidly
+      * implement contractionary policies to shift AD almost back to equilibrium  
+#### Time lags
   * time lags between when policies are chosen and when they are implemented often cause fiscal policy to be ineffective or even harmful:
     * information lag: understanding the current economy
     * formulation lag: deciding on and passing legislation
