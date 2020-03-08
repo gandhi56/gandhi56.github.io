@@ -526,6 +526,7 @@
     * transfer payments are payments from the government to individuals for programs that don't involve a purchase of goods and services
   * **budget deficit** is the amount of money a government spends beyond its revenue
   * **budget surplus** is the amount of revenue a government brings in beyond what it spends
+  * debt is the cumulative sum of all deficits and surpluses
 * **Government debt**
   * benefits
     * allows govt to be flexible when something unexpected happens
@@ -533,3 +534,4 @@
   * costs
     * pay the amount + interest
     * indirect costs associated with govt debts distorting credit markets
+* balance budget is when revenue equals expenditure
