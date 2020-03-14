@@ -6,40 +6,97 @@
 -->
 <html>
 	<head>
-		<title>Anshil Gandhi</title>
+		<title>Anshil's blog</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		
 		<meta name="description" content="Anshil Gandhi">
-		
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
-			<section id="header">
-				<header>
-					<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
-					<h1 id="logo">Anshil Gandhi</h1>
-				</header>
-				<nav id="nav">
-					<ul>
-						<li><a href="#intro" class="active">Intro</a></li>
-						<li><a href="blog.html">My blog</a></li>
-						<li><a href="#projects">Projects</a></li>
-						<li><a href="#education">Education</a></li>
-						<li><a href="#contests">Contests</a></li>
-						<li><a href="#contact">Contact</a></li>
-						<li><a href="resume.pdf">Resume</a></li>
-					</ul>
-				</nav>
-				<footer>
-					<ul class="icons">
-						<li><a href="https://github.com/gandhi56" class="icon brands fa-github"><span class="label">Github</span></a></li>
-						<li><a href="mailto:gandhi21299@gmail.com?Subject=Hello%20again" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-				</footer>
-			</section>
+        <section id="header">
+            <header>
+                <span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+                <h1 id="logo">Anshil Gandhi</h1>
+            </header>
+            <nav id="nav">
+                <ul>
+                    <li><a href="#blog1" class="active">Mini-battleship problem</a></li>
+                    <li><a href="#blogn">Something else</a></li>
+                    <li><a href="index.html">Back to my site</a></li>
+                </ul>
+            </nav>
+            <footer>
+                <ul class="icons">
+                    <li><a href="https://github.com/gandhi56" class="icon brands fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="mailto:gandhi21299@gmail.com?Subject=Hello%20again" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+                </ul>
+            </footer>
+        </section>
+            
+
+        <div id="wrapper">
+
+            <section id="banner">
+                <div class="image main" data-position="center">
+                    <img src="images/banner.jpeg" alt="" />
+                </div>
+            </section>
+
+            <section id="blog1">
+                <div class="container">
+                    <header class="major">
+                        <h2>Mini-battleship</h2>
+                    </header>
+                    <p>
+                        Mini-battleship is a problem on Open-kattis which was hosted in the ICPC North American Championship 2020. If you have ever played the game of battleship before, the solution to this program might be exactly what you would like to have with you when you are playing this game in reality. Nevertheless, I can briefly explain the problem here:
+                    </p>
+
+                    <p>
+                        <h4>Problem</h4>
+                        <i>
+                            Battleship is a two-player board game, each player has their own grid which is hidden from their opponent. Each player secretly places some ships on their grid, each ship covers horizontal or vertical straight line of one of more contiguous squares without overlappings. Each player takes turns taking shots at their opponent's ships by calling out their opponent's grid and the opponent will say whether the shot was a hit or a miss.
+                        </i>
+                    </p>
+
+                    <p>
+                        <i>
+                            We are given an n x n grid, where 1 <= n <= 5, of what we have seen in our opponent's grid so far. Each cell in the grid can either be:
+                            <ul>
+                                <li>X representing a miss</li>
+                                <li>O representing a hit</li>
+                                <li>. representing a square where no shot has been taken yet</li>
+                            </ul>
+                            We are also given the number of ships and their sizes our opponent has placed on their grid. Our goal is to write a program that counts the number of possible configurations with all ships placed in the grid and our shots are satisfied in each configuration.
+                        </i>
+                    </p>
+
+                    <p>
+                        <h4>My Experience solving this problem</h4>
+                        Observing how small the value of n can be and comparing it with the time limit of 6 seconds, I was confident that a brute force approach would give me the correct solution. So I implemented my solution, debugged it, tested it, debugged it again and tested it again. Everything <i>seemed</i> normal to me since this is exactly what happens when I am solving such brute force problems. No surprises so far! Until I reached a point where I satisfied two of the three sample inputs given. All three test cases are not trivial at all! I read my code multiple times, no clue appeared to me as to why I was not satisfying all three test cases or even why only the first and third test cases were satisfied.
+                        
+                    </p>
+
+                    <p>
+                        I informed my competitive programming coach about this and during our discussion, I realized that I swapped X's and O's in my code! That is, my code imagined that X's are supposed to be hits and O's are supposed to be misses. I swapped them immediately after realizing and tested against the sample inputs. All sample inputs satisfied! Without any further testing only because I was confident enough about my solution, I submitted my code to the judging system and my solution was accepted! It was an interesting experience trying to get my code accepted for this problem mainly because the sample test cases were designed so deceptively.
+                    </p>
+
+                    
+                </div>
+            </section>
+
+            <section id="blogn">
+                <div class="container">
+                    <header class="major">
+                        <h2>Something else</h2>
+                    </header>
+                    <p>
+                        it will be here when time comes :)
+                    </p>
+                </div>
+            </section>
+        </div>
 
 		<!-- Wrapper -->
 			<div id="wrapper">
@@ -49,288 +106,9 @@
 
 						<!-- One -->
 							<section id="intro">
-								<div class="image main" data-position="center">
-									<img src="images/banner.jpeg" alt="" />
-								</div>
-
-								<div class="container">
-									<header class="major">
-										<h2>Intro</h2>
-										<h3>Here I am</h3>
-									</header>
-									<p>
-										I am currently a third year student pursuing an undergraduate degree with a double major in Computing Science and Mathematics at the University of Alberta. I am a passionate programmer who thoroughly enjoys learning about various algorithms and data structures. I am also very fascinated about mathematics, graph theory and number theory in particular. Ultimately, I combine my passion and skills to solve problems and hope to become a better programmer everyday.
-									</p>
-									<p>
-										Alongside my academia, I am working on my Python and C++14 Just-in-time compiler called Ammo which uses LLVM libraries. To learn more about Ammo or any other projects I have worked on, check out my <a href = "https://github.com/gandhi56">Github</a>!
-									</p>
-
-									<header class="major">
-										<h3>How it all began</h3>
-									</header>
-									<p>
-										I was gifted my first laptop from my parents in 2005. Two years later, I wrote my first computer program in a turtle graphics language called LOGO. I learned BASIC from my middle school and developed several GUI application softwares using Visual Basic. After I completed my fourth grade, I took coaching classes to learn C. Besides developing application software, I played competitive chess and I have competed in district and provincial level tournaments.
-									</p>
-	
-									<p>
-										I learned Python in my high school Computer Science class. I developed simulations and games using the Pygame library. I participated in the Iverson exam in grade 10, this exam introduced me to the field of algorithms. My team ranked first place in the Iverson exam which was held in 2017. I also participated in several math contests in my high school career. I was a high school intern at the University of Alberta assisting the development of a reinforcement learning platform.
-									</p>
-	
-									<p>
-										I attended the programming club meetings at the University of Alberta during my high school internship. Algorithmic problem solving was completely novel to me but I found it quite enjoyable. I continued attending these meetings since high school, as regularly as I can. I have gained an abundant volume of knowldge regarding algorithms and data structures through the programming club at the University of Alberta. Consequently, I am motivated to practice for programming contests and become a strong competitive programmer.
-									</p>
-	
-									<p>
-										During high school, I persuaded myself to explore various areas in Computing science and find the ideal area for myself. By the end of first year in my undergraduate degree, due to my distinguished passion for algorithm design, I decided to inflame my mind with advanced algorithms and data structures. Indeed, my will to perform well in programming contests has impacted highly towards my future career options. Moreover, I believe having insight into various algorithms is essential to become a competent programmer and a computer scientist.
-									</p>
-	
-									<p>
-										I performed quite poorly in every programming contest I participated in my first year. However, my enthusiasm encouraged me to work hard and within a span of four months, I earned a 6-star badge on the Hackerrank coding platform. I was selected in one of three teams representing the University of Alberta at the Rocky Mountain Regional Contest 2018. My team ranked 23 out of 65 teams. In March of 2019, I competed in the UAPC where my team ranked third place. After my second year, I interned at the NexOptic Technology Corporation. Along with my internship, I spent most of my spare time training on the Open Kattis coding platform for the regional contest that was coming soon. My team ranked third place in the Rocky Mountain Regional Contest 2019 with a Silver medal on site. I also participated in Communitech's Code to Win challenge, where I ranked in the top 75 out of roughly 1000 participants and was invited to the Waterloo region to compete in the final round of the Code to Win challenge. Besides my participation in programming contests, I participated in the HackEd 2019 where my team worked on a graph drawing tool called EulerTikz. I was also a member of the software team in a student group at the University of Alberta, AlbertaSat.
-									</p>
-	
-									<p>
-										I have recently got myself involved with compiler design and optimization, and I hope to explore the compilers world as much as I can. I am currently ranked 184th on the Kattis judging platform, Kattis indeed enhances my capabilities as a programmer. My hobbies include dance, and playing sports like badminton, cricket, basketball and soccer. I enjoy travelling, especially in the mountains and forests. I really loved skiing when I tried for the first time, I want to ski more often!
-									</p>
-								</div>
-							</section>
-
-						<!-- Two -->
-							<section id="projects">
-								<div class="container">
-									<header class="major">
-										<h2>Projects</h2>
-									</header>
-									<p>
-										<ol>
-
-											<li> <a href="https://github.com/gandhi56/Ammo"><b class="proj">Ammo</b></a> is a Python and C++14 Just-in-time compiler using LLVM libraries.
-											</li>
-
-											<li> <a href="https://github.com/gandhi56/EulerTikz"><b class="proj">EulerTikz</b></a> is a visualization tool for discrete graphs which implements the force-based layout algorithm for graph drawing.
-											</li>
-
-											<li><a href="https://github.com/gandhi56/unixfs"><b class="proj">unixFS</b></a> is a simulation of a UNIX-based file system manager which performs disk operations upon file or directory creation, destruction, resizing and disk defragmentation.
-											</li>
-	
-											<li><a href="https://github.com/gandhi56/mapreduce"><b class="proj">mapreduce</b></a> library implements a threadpool to perform thread-safe map and reduce operations on big data.
-											</li>
-	
-											<li> <a href="https://github.com/gandhi56/lianshell"><b class="proj">Lianshell</b></a> is a standalone procedurally designed UNIX-based shell program supporting process management and interprocess communication.
-											</li>
-	
-											<li> <a href="https://github.com/gandhi56/dragon"><b class="proj">dragon</b></a> is a single-header library of game playing algorithms integrable with any game written in a particular templated format. Currently, the project includes implementations of Nex, Hex, Reversi and Tic-tac-toe.
-											</li>
-
-											<li> <a href="https://github.com/gandhi56/q3t"><b class="proj">Q3T</b></a> is an implementation of Quantum Tic-tac-toe. This game integrates the ideas of superposition and entanglement in the classical game of Tic-tac-toe, written in Python 3.
-											</li>
-										</ol>
-									</p>
-								</div>
-							</section>
-
-						<!-- Three -->
-							<section id="education">
-								<div class="container">
-									<header class="major">
-										<h2>Education</h2>
-									</header>
-									<p>
-										I am presently in third year of my undergraduate degree. Following is a brief overview of the courses I have completed or currently taking at the University of Alberta:
-										<ol>
-											<u>Computing Science</u>
-	
-											<li><b class="proj">GPU Programming</b>
-												 CUDA programming, 
-												 Functionality and maintainability of GPU, 
-												 Scalability and portability.
-											</li>
-	
-											<li><b class="proj">Tangible Computing</b>
-											
-												 Key concepts of procedural programming, basic algorithm design and analysis.
-												 Programming on the Arduino platform in C/C++ and an introduction to the UNIX environment.
-												 Algorithm design paradigms
-												 Programming in Python
-												
-											</li>
-	
-											<li> <b class="proj">Computer Organization and Architecture</b>
-											
-												 General introduction to number representation, 
-												 Architecture and organization concepts of Von Neumann machines, 
-												 Assembly programming in MIPS on the SPIM simulator, 
-												 Floating point representations, 
-												 Memory management, 
-												 Pipelining in the processor, 
-												 Cache memory.
-												
-											</li>
-	
-											<li> <b class="proj">Advanced algorithm design and analysis</b>
-											
-												 Greedy algorithms and matroid theory, 
-												 Dynamic Programming, 
-												 Network Flow, 
-												 Linear Programming, 
-												 Computational complexity and NP-Completeness, 
-												 Approximation algorithms.
-												
-											</li>
-	
-											<li> <b class="proj">Operating Systems</b>
-											
-												 Process and thread management, 
-												 CPU Scheduling, 
-												 Memory management, 
-												 File System implementation and file I/O, 
-												 Disk management.
-											</li>
-	
-											<li> <b class="proj">Formal Language, Automata and Computability</b>
-											
-												 Regular languages and finite state machines, 
-												 Context-free languages and push-down automata, 
-												 Turing machines, 
-												 Decidability and Reducibility, 
-												 Basic complexity theory.
-												
-											</li>
-	
-											<li> <b class="proj">Reinforcement learning</b>
-													Bandit problem, Markov Decision Processes and Dynamic Programming, 
-													Monte-Carlo and Temporal Difference methods, 
-													Model-based learning, 
-													Function approximation and gradient-based learning.
-											</li>
-
-											<li><b class="proj">Functional programming in Lisp and logic Programming in Prolog</b></li>
-
-											<u>Mathematics</u>
-											<li> <b class="proj">Analysis</b>
-													Single-variable and multivariable calculus, 
-													Complex Analysis, 
-													Introductory differential equations.
-											</li>
-											<li> <b class="proj">Algebra</b> Linear Algebra,	Rings and modules, Group theory, Representation theory, Lie theory, Graph theory, Coding theory.
-											</li>
-											<li> <b class="proj">Statistics</b>
-													Discrete random variables and distributions,
-													Continuous random variables and distributions,
-													Multivariate distributions.
-											</li>
-										</ol>
-									</p>
-								</div>
-							</section>
-
-
-							<section id="contests">
-								<div class="container">
-									<header class="major">
-										<h2>Contests</h2>
-									</header>
-									<p>
-										Competitive programming fills my life with excitement; underperforming motivates me to work harder whereas performing well congratulates me for choosing the right path.
-									</p>
-	
-									<p>
-										I regularly solve programming problems, usually on the Open Kattis judging platform. As of February 23 of 2020, I am ranked 184th across the world on the Kattis judging platform. I have also earned a 6-star gold badge on Hackerrank.		
-									</p>
-									<p>
-										Here is a list of programming contests I have participated in, starting from the most recent:
-									</p>
-
-										<style type="text/css">
-											.tg  {border-collapse:collapse;border-spacing:2;border-color:#000000;}
-											.tg td{font-family:Lato, sans-serif;font-size:16px;padding:10px 20px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;border-color:#000000;color:#000000;background-color:#EBF5FF;}
-											.tg th{font-family:Lato, sans-serif;font-size:16px;font-weight:normal;padding:10px 20px;border-style:solid;border-width:2px;overflow:hidden;word-break:normal;border-color:#000000;color:#fff;background-color:#0c056e;}
-											.tg .tg-2poh{font-family:"Lato", "Book Antiqua", Palatino, serif !important;;border-color:#000000;text-align:center;vertical-align:top}
-											.tg .tg-c3ow{border-color:#000000;text-align:center;vertical-align:top}
-											.tg .tg-p8sp{font-size:20px;border-color:#000000;text-align:center;vertical-align:top}
-											</style>
-											<table class="tg">
-											  <tr>
-												<th class="tg-p8sp"><span style="font-weight:bold">Contest</span></th>
-												<th class="tg-p8sp"><span style="font-weight:bold">Result</span></th>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">Alberta Collegiate Programming Contest 2019<br></td>
-												<td class="tg-2poh">Ranked 9th out of 41 official teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">Communitech's Code to Win Challenge 2019</td>
-												<td class="tg-c3ow">Top 75 out of 1000 across Canada<br>38th out of 75 in the final round</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">Rocky Mountain Regional Contest 2019</td>
-												<td class="tg-c3ow">Ranked 3rd out of 75 teams<br>Silver medalist on the University of Alberta site</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">2019 North American Regionals Practice Contest 4</td>
-												<td class="tg-c3ow">Ranked 9th out of 26 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">2019 North American Regionals Practice Contest 3</td>
-												<td class="tg-c3ow">Ranked 7th out of 32 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">2019 North American Regionals Practice Contest 2</td>
-												<td class="tg-c3ow">Ranked 6th out of 30 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">2019 North American Regionals Practice Contest 1</td>
-												<td class="tg-c3ow">Ranked 10th out of 45 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">UBC Practice Contest 2019</td>
-												<td class="tg-c3ow">Ranked 10th out of 83 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">University of Alberta Programming Contest 2019</td>
-												<td class="tg-c3ow">Ranked 3rd out of about 30 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">Rocky Mountain Regional Contest 2018</td>
-												<td class="tg-c3ow">Ranked 23rd out of 65 teams</td>
-											  </tr>
-											  <tr>
-												<td class="tg-c3ow">Alberta Collegiate Programming Contest 2018</td>
-												<td class="tg-c3ow">Ranked 15th out of 44 teams</td>
-											  </tr>
-											</table>
-	
-
-								</div>
-							</section>
-
-						<!-- Four -->
-
-							<section id="contact">
-								<div class="container">
-									<header class="major">
-										<h2>Contact Me</h2>
-									</header>
-									<!-- TODO -->
-									<!-- <form method="post" action="#" onsubmit="sendMsg()">
-										<div class="row gtr-uniform">
-											<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-											<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-											<div class="col-12"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
-											<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
-											<div class="col-12">
-												<ul class="actions">
-													<li><input type="submit" class="primary" value="Send Message" onclick="sendMsg()"/></li>
-													<li><input type="reset" value="Reset Form" /></li>
-												</ul>
-											</div>
-										</div>
-									</form> -->
-
-									Feel free to email me at <a href="mailto:gandhi21299@gmail.com?Subject=Hello%20again">gandhi21299@gmail.com</a>
-
-								</div>
-							</section>
-
+								<!-- ADD AN IMAGE HERE -->
+                            </section>
+                            
 						<!-- Five -->
 						<!--
 							<section id="five">
