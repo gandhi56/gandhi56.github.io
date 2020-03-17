@@ -1,6 +1,6 @@
 # CMPUT 325
 
-## Lecture 2: Fun language
+## Lecture Fun language
 ### Fun
 - List elements are seperated by a space
 - In general, f( (x1 ... xn) ) --> x, notice the spacing for parameters
@@ -35,7 +35,7 @@
 - It makes sense to break the solution into smaller functions
 - One function must do only one thing
 
-## Lecture 2: Intro to LISP
+## Lecture Intro to LISP
 * `reverse( L )` using `append( L1, L2 )`
 * Abstract data type for binary tree
   * Goal: implement a binary tree and some operations, such as inserting elements
@@ -100,7 +100,7 @@
 * `nil` also represents false
 * `T` represents true
 
-## Lecture 4
+## Lecture 
 * `(if condition then-part else-part)` is a special function because not every block is run, unlike other functions
 * `trace` to see calls and returns to specific functions
 * `untrace` stops the tracing
@@ -179,7 +179,7 @@
     * what to do in each run through the loop
     * how to solve the rest of the problem by recursion
 
-## Lecture 5
+## Lecture 
 * Symbolic expressions (S-Expressions, s-expr, sexpr)
   * universal data structure for Lisp
   * generalization of atoms and lists
@@ -219,7 +219,7 @@
     * saves memory
     * simplifies direct access
 
-## Lecture 6
+## Lecture 
 * Higher order functions
   * Definition: a function that takes other function(s) as input and/or produce function(s) as output
   * often used to seperate:
@@ -251,7 +251,7 @@
       * `(apply function-name (arg1 ... argn))`
       * `(funcall function-name arg1 ... argn)`
 
-## Lecture 7
+## Lecture 
 ### Lambda Functions
 * lambda functions are **function definitions** without names
   * Syntax: `(lambda (x1 ... xn) body)`
@@ -334,7 +334,7 @@
     (lambda (x) (lambda (y) (if (< x y) x y)))
     ```
 
-## Lecture 8
+## Lecture 
 
 ### Reductions in Lambda Calculus
 * <u>Goal</u>: reduce a lambda expression to its **simplest possible form**
@@ -395,7 +395,7 @@
   * direct substitution does not always work, variables may need to be renamed before the substitution step
   * $\alpha$-reduction renames **function arguments**
   * to be safe can always use $\alpha$-reduction with names for bound variables
-## Lecture 9
+## Lecture 
 
 ### Normal form, order of reduction and Church Rosser Theorem
 * **Normal form**: a lambda expression that cannot be reduced further (by beta reduction)
@@ -425,7 +425,7 @@
     * Theorem does not tell us if a normal exists
 
 
-## Lecture 10: Interpreter based on context and closure
+## Lecture Interpreter based on context and closure
 * implement an interpreter for a Lisp-like language based program, only consisting of lambda functions
 * interpreter based on two concepts: **context** and **closure**
 * Language
@@ -610,135 +610,5 @@
       `(* (+ 6 2) 3)` compiled to `(LDC 3 LDC 2 LDC 6 + *)`
 
 TODO
-
-
-
-## Lecture Intro to Prolog
-* logic programming is a theorem proving process
-* length of a list:
-  * ```
-    len([], 0).
-    len([First|Rest], N) :- len(Rest, NRest), N is NRest + 1.
-    ```
-  * predicate `len` - length of a list
-* prolog program cosists of clauses
-  * a clause can be a fact (unconditional) or a rule (conditional)
-* lists
-  * enclosed in `[ ... ]`
-  * construct with a vertical bar `|`, or manually listing items, or a mix of both
-    * `[First|Rest]`
-    * `[a, b, c, d]`
-  * can be nested
-* variables and constants
-  * case-sensitive
-  * variables are in title-case, otherwise constant
-  * free variables can match to anything upon a query
-* why logic programming?
-  * declarative style: style of building the structure and elements of a program
-  * search process
-  * control is more indirect
-  * workflow: specify properties a solution should have, then let Prolog search for it
-* syntax
-  * rules about what are well-formed formulas in logic
-* semantics
-  * meaning of the program
-  * description of all logical consequences of a formula
-* inference rules
-  * can be used to derive new formulas from the given set of formulas
-* atoms in predicate calculus
-  * `p(t1, ..., tn)`
-    * `p` is a predicate symbol
-    * `ti` are terms (like sexpr in Lisp)
-      * can only be used are arguments in predicates
-      * functions, constants and variables are terms
-      * if `s1, ..., sk` are terms and `f` is a k-ary function symbol, then `f(s1, ..., sk)` is a term
-* functions and predicates
-  * function symbols and predicates in Prolog start with a lowercase letter
-* Binding variables
-  * variables can be bound to values
-  * use `=`, eg. `X = 2.`
-  * there are other ways to bind variables using unification, coming up soon
-  * two variables can be made equal without giving them value, `X = Y.`
-    * Prolog will take that as a constraint
-* rules
-  * `:-` can be read as "if"
-  * `parent(X, Y) :- father(X, Y)`
-    * head = `parent(X, Y)`
-    * body = `father(X, Y)`
-  * head is true if its body is true or another predicate with the same head is true
-  * in general 'A :- B1, B2, ..., Bn`
-    * `,` in the body means "and"
-
-## Lecture Basic builtin operators and predicates in Prolog
-* when predicates are used in a specific way, mark them in the specs:
-  * **++**: ground: no variables
-  * **+**: structure is clear
-  * **-**: output parameter
-  * **?**: param that can be used as either input or output
-* anonymous variable: _ underscore
-  * ```
-    len([], 0).
-    len([_|Rest], N) :- len(Rest, NRest), N is NRest + 1.
-    ```
-  * `First` is not needed in the `len` example above, replace it by an underscore to avoid `Singleton variables` warning
-  * any variable that occurs only once in a rule should be anonymized like this
-* Built-in operators - arithmetic and `is`
-  * `Var is Expression`: evaluates expression, match with Var
-  * operators include arithmetic operators (+, -, *, /), comparison operators (>, <, >= , =<)
-    * `Var` can also be a constant
-  * equality operators
-    * `X = Y` tries to match X, Y equal by unification (pattern matching)
-    * `X is Expr` evaluates `Expr`, then tries to make result equal to `X`
-    * `T1 == T2`, are two terms currently identical? (no unification)
-  * non-equality operators
-    * `T1 \== T2`, are two terms not identical? (no unification)
-    * `E1 =:= E2`, are `E1` and `E2` equal-valued arithmetic expressions
-    * `E1 =\= E2`, are `E1` and `E2` different-valued arithmetic expressions?
-  * `is`
-    * evaluates and assigns
-    * order of evaluation is leftmost first, when `X+5` is evaluated `X` is free
-* Meta-logical predicates
-  * `var(X)`: test whether `X` is instatiated
-  * `nonvar(X)`: opposite of `var(.)`
-  * `atom(X)`: check if `X` is instatiated to an atom
-  * `integer(X)`
-  * `number(X)`
-  * `atomic(X)`: true if `X` is either an atom or number
-
-### Data structures in Prolog
-* list predicates
-  * ```
-    append([], L, L).
-    append([A|L1], L2, [A|L3]) :- append(L1, L2, L3).
-    ```
-    * ```
-      append([a1, a2], [b1], A). 
-      A = [a1, a2, b1].
-      ```
-  * ```
-    member(X, [X|_]).
-    member(X, [_|L]) :- member(X, L).
-    ```
-  * ```
-    not_member(_, []).
-    not_member(X, [Y, L]) :- X \== Y, not_member(X, L).
-    ```
-  * Reverse a list
-    * ```
-      reverse([], []).
-      reverse([A|Rest], Rev) :- reverse(Rest, RevRest), append(RevRest, [A], Rev).
-      ```
-* prolog clauses are NOT like if-then-else statements, they always use all matching clauses
-  * set up exact conditions for when a clause should be used
-  * Example:
-    ```
-    p(Input, result1) :- test(Input).
-    p(Input, result2) :- opposite-of-test(Input).
-    ```
-    ```
-    p(Input, result1) :- test1.
-    p(Input, result2) :- opposite-of-test1, test2.
-    p(Input, result3) :- opposite-of-test1, opposite-of-test2, opposite-of-test3.
-
 
 

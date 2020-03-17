@@ -1,10 +1,6 @@
 # Intro to GPU programming
 
-## Module 1
-
-### Objectives
->1. To learn the major differences between latency devices (CPU cores) and throughput devices (GPU cores)
->2. To understand why high-performance applications increasingly use both types of devices
+## Module 1: Introduction
 
 ![](1.png)
 
@@ -77,14 +73,6 @@
 * most die surface for integer and fp units
 
 ## Module 2
-
-### Objectives
->1. To learn the main venues and developer resources for GPU computing
->2. Introction to CUDA C
->3. To lean the basic API functions in CUDA host code
->4. To learn about CUDA threads, the main mechanism for exploiting of data parallelism
->5. To familiarize with some tools from the CUDA toolkit including compiler flags, debuggers and profilers
-
 ### Accelerating applications
 * three ways:
   * libraries: easy to use and most performance
@@ -198,11 +186,6 @@
 
 
 ## Module 4
-### Objectives
->1. To learn to effectively use the CUDA memory types in a parallel program.
-  >2. importance of memory access efficiency
-  >3. registers, shared memory, global memory
-  >4. scope and lifetime
 
 ### Shared memory
 * a special type of memory whose contents are explicitly defined and used in the kernel source code
@@ -230,10 +213,6 @@
 
 
 ## Module 5
-
-### Objectives
->1. To understand how CUDA threads execute on SIMD hardware
-
 ### Warps
 * blocks are partitioned after linearization
   * linearized thread blocks are partitioned
@@ -249,10 +228,6 @@
     * `if (threadIdx.x > 2){}` raises control divergence
     * `if (blockIdx.x > 2){}` does not raise control divergence
   
-## Module 6
-### Objectives
-
-TODO
 
 ## Module 7 Histogram algorithms
 ### A Simple Parallel Histogram algorithm
@@ -268,4 +243,6 @@ TODO
     * all atomic operations on the same variable are serialized
   * throughput of atomic operations on the same DRAM location is the rate at which the application can execute an atomic operation
   * rate for atomic operation on a particular location is limited by the total latency of the read-modify-write sequence, typically more than 1000 cycles for memory locations
+
+
 
