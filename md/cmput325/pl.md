@@ -188,10 +188,11 @@ sqsum([L|R], N) :- sqsum(R, NRest), N is NRest + L * L.
 * replace a variable by some other term
 * a mapping *w = X1/t1, ..., Xn/tn*
   * X1, ..., Xn are distinct variables
-  * t1, ..., tn are terms
+  * t1, ..., tn are terms (objects composed of function symbols, variables and constants)
 * Substitution `w = {X/b, Y/f(Z)}`
 * Term `t = f(X, g(Y))`
 * Applying substitution results in `w(t) = f(b, g(f(Z)))`
+* each variable maps to exactly one term
 
 ### Unifier
 * definition: **unifier** of two terms `C1` and `C2`:
@@ -219,3 +220,101 @@ sqsum([L|R], N) :- sqsum(R, NRest), N is NRest + L * L.
   t2 = p(a, b)
   no unifier exists ==> t1 and t2 are not  unifiable
   ```
+
+### Most General Unifier
+* ```
+  t1 = p(f(X, Y), Z)  t2 = p(Z, f(a, Y))
+  w = {Z/f(a, Y), X/a} is a unifier
+  w' = {Z/f(a, b), X/a, Y/b} is also a unifier
+  ```
+  * `w` is a more general unifier
+  * `w'` can be obtained from `w` by adding more substitutions
+    * converse does not hold however
+* Theorem: For two unifiable terms, there always exists a **most general unifier**. It is **unique** upto renaming of variables.
+
+### Unification algorithm
+* Given two terms `t1` and `t2`, generate MGU or prove they are not unifiable efficiently and exactly.
+* Main idea:
+  * match outside-most predicate-or-function and their arity
+  * match each arg recursively
+  * this will give us a system of equations at each step
+    * the equations get simpler at each step as we "take apart" complex terms
+  * keep track of substitutions that are needed
+  * stop with failure if there is a contradiction
+  * stop with success if all equations become identities, return the latest list of substitutions
+* Example:
+  * ```
+    t1 = p(f(g(X,a)), X)
+    t2 = p(f(Y), b)  
+    ```
+
+  * system of equations `S0`
+    * `S0 = {p(f(g(X, a)), X) == p(f(Y), b)}`
+    * `w0 = {}`
+  * both have name `p` and two args
+  * match the args on each side
+    * `S1 = {f(g(X, a)) == f(Y), X == b}`
+    * `w1 = {}`
+  * easier to solve the simplest equation first
+    * `S2 = {f(g(b, a)) == f(Y), b == b}`
+    * `w2 = {X/b}`
+  * continue...
+    * `S3 = {g(b, a) == Y, b == b}`
+    * `w3 = {Y/g(b, a), X/b}`
+  * finally we have an MGU
+    * `S4 = {g(b, a) == g(b, a), b == b}`
+    * `w4 = {Y/g(b, a), X/b}`
+* this algorithm always generates a unique MGU, upto variable renaming
+  * variable renaming means `X == Y` implies either `Y == Y` or `X == X`
+
+### Occurs check
+* checking cases such as `Y == f(g(Y))` during unification is called the **occurs check**
+* expensive operation
+* many systems skip it to avoid overhead, but this makes the system not trustworthy
+
+### Inference engine of prolog - resolution and tree search
+* **Horn clause**: a single atom (predicate) at the head
+* Prolog uses only Horn clauses
+* Setting
+  * variables: identifier starting with an upper case letter
+  * constants: identifier starting with a lower case letter
+  * variables in different clauses are not related
+  * lifetime of a variable is a single clause
+  * variables in facts and rules are universally quantified
+  * variables in queries are existentially quantified
+* Notation for logic
+  * exists
+  * forall
+  * entails (S follows logically from P)
+  * negation
+* what is resolution?
+  * resolution is propositional logic without any variables
+  * take two clauses c1 and c2 that are disjunctions of literals
+  * c1 contains a variable v and c2 contains the literal ~v
+  * disjunction of everything in c1 and c2, except v and ~v dropped
+  * example: `c1 = ~a v b, c2 = a v c`
+    * resolution of c1 and c2: `b v c`
+* why is resolution valid?
+  * prove by contradiction by assuming `b v c` is false
+  * then `a ^ ~a` must be true, contradiction!
+* Derived goal, resolution for Prolog
+![](9.png)
+
+### Prolog's tree search
+* Given a goal G: `?- C1, ..., Ck.`
+* there can be a number of unifiable clauses whose head is unifiable with `C1`
+* also, any subgoal can have several derived goals
+* tree search:
+  * root = original query
+  * child of a node: a derived goal by resolution
+  * each child node represents a resolution with a different clause in the program
+  * **derivation** is a sequence of resolution steps
+  * tree contains all possible derivations for a given program and a given goal
+  * leaf node in the tree:
+    * empty goal: success
+    * failed branch: first subgoal is not unifiable with the head of any clause in the program
+  * search tree can be infinite, then a path never reaches a leaf node
+* `X/t` means variable `X` is bound to `t` by unification
+* derivation sequence from original goal `p(Y)` to empty goal `[]`:
+  * this represents a successful proof, called **refutation** (of the negation of the goal)
+* DFS better than BFS in space complexity
