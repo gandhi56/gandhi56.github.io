@@ -575,3 +575,39 @@
   * length of time the borrower has to repay the loan
   * riskiness of the transaction: likelihood that the borrower will be able to pay the money back
   * if a lender thinks that a borrower might default, they will demand a higher interest rate to make it worth taking that risk
+  * sometimes loans are secured against an asset, such as a house. If a borrower defaults on a mortgage loan, the lender takes ownership of the house as compensation for the loss. Hence, the low interest rate on mortgages than credit card loans. 
+  * Credit cards are not backed with valuable assets, so the lender's losses aer higher if someone defaults.
+  * risk of a borrower defaulting on a loan is known as **credit risk**.
+    * it is measured against the **risk-free rate** - the interest rate at which one would lend if there no risk of default
+    * risk-free rate is approximated by interest rates on Canadian government debt because the government is very unlikely to default
+  * difference between the risk-free rate and the interest rate a particular investor has to pay is called the *credit spread* or *risk premium*.
+    * During recession, the credit spread can rise dramatically as borrowers of all kinds suddenly become more likely to default.
+  * In general, the longer the term of a loan and the likely the risk of default, the higher above the risk-free rate will be the interest rate on that loan.
+
+#### Modern financial system
+##### Functions of the financial system
+* intermediation between savers and borrowers
+  * brings buyers and sellers together in the market
+  * **mutual fund** is another kind of intermediary which matches people with small amounts of money who want to buy a portfolio of various companies with institutions wanting to sell those shares.
+    * reduces transaction costs by centralizing information about share prices and providing a marketplace for transactions.
+* providing liquidity
+* diversification of risk
+
+#### Major financial assets
+* Equity
+  * when you own a part of a company and share in its profits, we say that you have *equity* in that company
+  * Financial assets that represent this partial ownership are called **equities**
+  * **stock** is a common name for an equity asset, a stock represents partial ownership of a company
+    * shareholders or stock holders are usually entitled to vote on certain aspects of how the company is run
+    * They elect the board of directors, for example
+    * Stockholders also are entitled to receive a portion of the company's profits, proportional to the size of their ownership stakes, in the form of dividends.
+    * **Dividend** is a payment made periodically, typically annually or quaterly, to all shareholders of a company
+  * Issuing stocks allows a company to raise capital without borrowing
+  * Stock is also a mechanism for turning an illiquid asset into a liquid one, that is a share that can be sold on the stock market
+* Debt
+  * To make loans more liquid, they can be standardized into a more easily tradable asset, called a *bond*.
+  * **Bond** represents a promise by the bond issuer to repay the loan at a specified maturity date, and to pay periodic interest at a specific percentage rate. Because of the set interest rate, bonds are often referred to as *fixed-income securities*.
+    * The owner of the bond is legally entitled to receive scheduled interest payments called *coupons*.
+    * Coupons are generally paid every three or six months.
+    * The bond owner also receives a final payment of the original loan amount for the bond at the maturity date.
+      * also called principal or the face value
