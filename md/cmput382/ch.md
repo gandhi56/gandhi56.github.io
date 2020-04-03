@@ -62,3 +62,29 @@ device. Only 16 × 16 blocks allow a maximal number of threads assigned to each 
 
 
 # Chapter 4: Memory and Data Locality
+
+## Importance of memory access efficiency
+* *compute to global memory access ratio* is the number of flops performed for each access to global memory within a given region of a program.
+* *memory-bound* programs are those whose execution speed is limited by memory access throughput.
+
+## CUDA Memory types
+* follows John Von Neumann model
+* ![](3.png)
+* **global memory** can be written and read by the GPU
+    * implemented as DRAM
+    * long access latency
+    * low access bandwith
+* **constant memory** supports short-latency, high bandwith *read-only* access by the GPU
+* **registers and shared memory** are on-chip high-speed memories
+    * each thread has its own registers
+    * each block has its own shared memory which can be shared among the threads in the block
+* ![](9.png)
+
+## Tiling for reduced memory traffic
+* partition the data into subsets called *tiles* so that each tile fits into shared memory
+* carpooling
+    * tiled algorithms are highly similar to carpooling arrangements
+    * commuters = threads accessing data
+    * vehicles = DRAM access requests
+    * when the rate of DRAM requests exceeds the provisioned access bandwith of the DRAM, traffic congestion arises and the arithmetic units become idle
+    * if multiple threads access data from the same DRAM location, they can potentially form a capool and combine their accesses into one DRAM request.

@@ -273,6 +273,7 @@ sqsum([L|R], N) :- sqsum(R, NRest), N is NRest + L * L.
 * many systems skip it to avoid overhead, but this makes the system not trustworthy
 
 ### Inference engine of prolog - resolution and tree search
+* resolution procedure for Horn clauses - finding a derived goal
 * **Horn clause**: a single atom (predicate) at the head
 * Prolog uses only Horn clauses
 * Setting
@@ -318,3 +319,18 @@ sqsum([L|R], N) :- sqsum(R, NRest), N is NRest + L * L.
 * derivation sequence from original goal `p(Y)` to empty goal `[]`:
   * this represents a successful proof, called **refutation** (of the negation of the goal)
 * DFS better than BFS in space complexity
+------------
+
+
+
+
+
+
+
+
+
+* unification: grab the unifier and substitute the head with its body clauses, if the query is fact then go to true.
+* for the leftmost node, apply substitution via a rule
+* is the substitution is a fact, then remove the substituted body.
+* continue
+* (each point above is exactly one step in the tree search)

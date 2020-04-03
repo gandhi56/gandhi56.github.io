@@ -466,3 +466,148 @@ TODO
     * white dwarfs: remnants of stars with $M < 8M_{sun}$
     * neutron stars: remnants of stars with $M > 8M_{sun}$
 TODO
+
+
+
+# lec 24: Milky Way I
+## Our galaxy
+* disk of the galaxy is filled with gas and dust (the interstellar medium) which obscures our view of its centre
+* **Harlow Shapley** showed that the orbits of globular clusters are centred around a point tens of thousands of light years from us
+* ![](16.png)
+    * thickness of the disk is 1/100 of its diameter
+    * we are approx. halfway between the centre and the edge of the disk
+    * about 100B stars in total
+    * member of the Local group, an association of galaxies held together by gravity
+    * it is one of the two largest members, together with Andromeda, another spiral galaxy
+* gravity of the Milky way affects smaller galaxies in its vicinity, called satellite galaxies.
+    * examples are Small magellanic cloud and the large magellanic cloud
+
+## Stellar orbit
+* clusters of stars can be classified based on their orbits:
+    * disk stars
+    * halo stars
+    * bulge stars
+
+### Disk stars
+* approx. circular orbits around the galactic centre in the horizontal plane with a vertical bobbing up and down like a merry-go-round.
+* an orbit takes ~200M years
+* general orbital motion is caused by the gravitational attraction toward the galactic centre
+* vertical bobbing is caused by the local gravitational attraction from within the disk
+
+### Halo stars
+* also orbit around the galactic centre, but the orbits have random inclinations relative to the disk
+* this is why the halo is more extended vertically than the disk
+
+### Bulge stars
+* reside close to the galactic centre packed closer together.
+* their orbits are a mixture between random inclinations like the halo and organized like the disk, given the bulge a cigar shape
+
+### Sun's orbit and the mass of the galaxy
+* sun takes about 230M years to complete an orbit around the galactic centre.
+    * this is true by measuring the speeds of globular clusters relative to the sun
+
+## Gas recycling in the galaxy
+* ![](18.png)
+
+### Returning gas form stars
+* all stars return a significant fraction of their material in two ways:
+    * stellar winds during their life
+    * death events: nebulae or supernovae
+* for a low mass star, about half of its original mass will have been returned to the interstellar medium by the time it becomes a white dwarf
+
+### Hot bubbles
+* the winds from massive stars are powerful: gas is ejected at high velocities
+* high speed gas from massive star winds sweeps up surrounding interstellar material, excavating bubbles of low density and hot ionized gas
+* bubbles from supernova are even more powerful
+    * gas is accelerated to speeds higher than the local speed of sound, generating shock fronts
+    * these fronts sweep up gas generating moving walls of gas that shine in the X-ray
+* the fast moving shocks inject energy into the interstellar medium, driving turbulence, in addition to injecting thermal energy
+* gas from hot bubbles eventually radiates away most of its original energy, merging with the rest of the interstellar medium
+* shock fronts from supernovae can also accelerate particles to high energies at the shock front: **cosmic rays**
+    * cosmic rays can affect life by generating mutations in living organisms.
+    * these are particles like electrons, protons and atomic nuclei that arrive on Earth at speeds close the speed of light
+ * superbubbles (huge hot bubbles) can form near star forming regions, since massive stars live short lives and explode into supernovae within a few million years from each other
+* in many places in the galaxy, bubbles of hot gsa are observed to expand above the galactice disk
+    * the gravity of the disk slows this outflow down (galactic fountain)
+* at the top of the outflow the gas cools and becomes denser, forming clouds.
+    * the clouds then rain back on the disk
+
+
+
+# lec 25: Miky Way II
+
+
+## Gas recycling in the galaxy
+### Cooling and atomic gas clouds
+* most gas that we see in the galaxy is colder than the hot ionized bubbles , and is in atomic form
+    * atomic hydrogen is in a higher energy state when the spin of the electron and proton are aligned
+    * the atom reaches its true ground state when the spins are anti-aligned
+* the atomic gas can be found in two seperate forms
+    * warm atomic gas: T ~10^4 K, n ~ 1 cm^3 and weak magnetic fields
+    * cold atomic gas: T ~100K, n ~ 100cm^-3 and stronger magnetic fields
+* gravity slowly draws blobs of atomic gas together, making them cool more efficiently as the density increases.
+    * this process is time-consuming and also the reason why most of the gas seen in the galaxy is in atomic form
+
+### Molecular cloud formation
+* denser parts of the atomic gas, usually at the centre of clouds, provide the conditions for the formation of molecules
+    * their density causes them to settle in the disk
+
+### Star formation
+* once stars form in molecular clouds, stellar winds start to heat up and ionize the cloud, dissociating molecules and evaporating the cloud away, preventing further star formation and generating hot bubbles
+
+## Multiwavelength picture
+* visible light: dusty clouds
+* near-infrared: starlight
+* x-ray: hot gas in the halo
+* gamma: cosmic ray collisions with gas
+* mid-infrared: thermal emission from dust
+* CO emission lines (radio): molecular clouds
+
+## Star formation in the galaxy
+* massive stars usually live in star-forming regions, because they live short lives and do not have much time to travel far away
+* ionization nebulae can be found in star forming regions.
+* UV photons from massive stars ionize the gas around them
+* when electrons recombine into atoms, they emit light at specific wavelengths which translate to specific colours in the optical band
+    * blue is most reflected starlight generating reflection nebulae
+    * black correspond to dusty clouds absorbing or scattering light away from our line-of-sight
+* when we look at the galaxy as a whole, we see that the spiral arms show all the signs of star-forming regions: 
+    * molecular clouds and clusters of young stars surrounded by ionization nebulae, while stars between the arms are redder and older
+* as the patterns propagates through the disk, stars in the density peak slow down due to gravity
+* gas clouds on the other hand are compressed, enhancing star formation
+
+## History of the galaxy
+* age
+    * globular clusters in the halo are very old, at least 12B year
+    * disk stars have various ages
+* composition
+    * spectra show that stars in the halo have smaller proportions of heavy elements than disk stars
+* astronomers divide stars into disk population and halo population
+* ![](19.png)
+* gas flattens into a disk due to angular momentum conservation
+
+# lec 26: Milky way and other galaxies
+## the galactic centre
+* full of intense activity
+* using adaptive optics, ground-based telescopes can be used to achieve very high resolution, further zooming in on the galactic centre region
+* if a black hole sits at the centre, then we would expect a large amount of activity due to an accretion disk.
+* the central source (called Sagittarius A*) is indeed a bright radio source, but there is a lack of strong and steady X-ray emission compared to accreting black holes seen in other galaxies.
+* we observe sporadic X-ray emission in the form of flares.
+    * this suggests that accretion onto the black hole proceeds in chunks rather than through smooth accretion disk.
+
+## Patterns among galaxies
+* classify galaxies into three basic types based on morphology:
+    * spiral galaxies: have disks with bulges at their centres
+    * elliptical galaxies: more rounder, no disk
+    * irregular galaxies: neither disk-like nor rounded
+### Spiral galaxies
+* thin disk and a central bulge, like the Milky Way
+* disks are filled with cold gas and dust and are actively forming stars, hence we see young stars and spiral arms
+* two components to consider:
+    * disk: cold gas and stars
+    * halo: bulge and halo
+* spiral galaxies with a bar of stars cutting across the centre with sprial arms curling away from the ends of the bar are called barred spirals
+    * ![](20.png)
+* some spiral galaxies do not show any spiral arms, these are called lenticular galaxies (resembling a lens)
+    * they are considered intermediate between elliptical and spiral because they have less cool gas than normal spirals but more than elliptical
+    * most galaxies in the universe are spiral or lenticular
+* elliptical galaxies have a halo component and no signific

@@ -547,6 +547,7 @@
   * diversifies risk: no problems if you fail to repay loan back, banks have solutions around it.
     * defaulting on a loan means the debt for a certain period of time
     * if everyone default on their loans, then banks are able to diversify risk by distributing the burden across the borrowers
+* commodities are basic goods
 
 #### Market for loanable funds: a simplified financial market
 * **savings** is the portion of income that is not immediately spent consumption of goods and services
@@ -611,3 +612,142 @@
     * Coupons are generally paid every three or six months.
     * The bond owner also receives a final payment of the original loan amount for the bond at the maturity date.
       * also called principal or the face value
+    * Maturity dates vary:
+      * corporate bonds: 10-30 years
+      * government bonds: 1-10 years
+    * generally safer but also less rewarding
+  * **Securitization** is a process to turn loans into a single large asset
+    * reduces the risk of a lender of any individual borrower defaulting on a loan
+* Derivatives
+  * Financial contracts based on the value of some other asset represent a special categoy of financial assets called **derivatives**.
+  * an asset whose value is based on another asset such as a home loan, stock, bond or barrel of oil\
+
+#### Major players in the financial system
+* Banks and other financial intermediaries
+  * commercial banks are the classic banks
+  * investment banks are those that do not take deposits nor make loans. They provide liquidity to financial markets themselves by acting as market makers.
+    * help companies issue stocks and bonds by guaranteeing to buy any that remain unsold (*underwriting*)
+* Savers and their proxies
+  * savers give their money to someone known as a proxy who decides whom to give money to
+  * mutual fund is a portfolio of stocks and other assets, managed by professional who makes decisions on behalf of clients. Types of mutual funds:
+    * index fund: buys all the stocks represented in a broad market with the goal of mirroring the same return as the market on average.
+  * pension fund: intend to provide income to company retirees, two kinds:
+    * defined benefit plans guarantee fixed payout to employees who have met certain entry requirements
+    * defined-contribution plans do not guarantee retirees a defined level of pension.
+      * Employees pay in a defined amount each year and their employers may match some portion of that contribution
+      * the fund provides payouts that depend on how the stock market performs
+  * Life insurance policies
+    * people put savings into these policies called premiums, and as with mutual funds and pension funds, a professional decides how to use them in financial markets. 
+      * only pays out to dependents when you die
+* Entrepreneurs and businesses
+* Speculators
+  * anyone who buys and sells financial assets purely for financial gain
+
+#### Trade-off between risk and return
+* Market risk or systemic risk: broady shared by the entire market
+  * example: risk of unexpected inflation
+  * harder to eliminate
+* idiosyncratic risks: unique to a particular company or asset
+  * causes the value of its stock to fall
+  * can eliminated via diversification
+
+#### Predicting returns
+* Three approaches:
+  * Fundamental analysis: estimate how much money a company will earn in the future
+  * Technical analysis: analyze movements in a stock's prices to predict future movements
+  * Throw a dart: random selection
+* efficient market hypothesis states that market prices always incorporate all available information, and therefore represent stock value as correctly as possible
+* arbitrage is the process of taking advantage of market inefficiencies to earn a profit
+
+#### Private savings, public savings and capital flows
+* private savings refers to the savings of individuals or corporations within a country
+  * income = consumption + savings
+* individuals
+  * consumption + investment = income
+* savings = investment (savings-investment identity)
+* public savings = tax rev - govt spend
+* national savings = private savings + public savings
+* incorporate govt spending and saving into the savings-investment identity yields
+  * investment = national savings
+* closed economy = no trade between countries
+  * national savings = investment holds
+* open economy = trade between countries
+  * net capital flow = capital inflow - capital outflow
+
+
+
+
+### Chapter 14 Money and the monetary system
+#### What is money?
+* money is the set of all assets that are regularly used to directly purchase goods and services
+* money is a **store of value** because it represents a certain amount of purchasing power that money retains over time
+* money is a medium of exchange, can be used to purchase goods and services
+* **barter**: goods and service for exchange
+* money provides a common unit of account
+
+#### What makes for good money?
+* stability of value
+* convenience
+  * technology allows for the development of more convenient forms of money
+##### Commodity-backed money vs fiat money
+* commodity-backed money can be legally exchanged for a fixed amount of an underlying commodity, generally gold
+* money created by rule, without any commodity backing it, is called fiat money
+
+##### Banks and the money-creation process
+* money creation process is called fractional-reserve banking
+* banks earn moeny by lending a fraction of deposited funds and collecting interest on those loans
+  * demand deposits are funds held in bank accounts that can be withdrawn by depositors at any time, without advance notice
+* reserves refers to the money that banks keep on hand
+* reserve ratio is the ratio of the total amount of demand deposits at the bank to the amount kept as cash reserves
+  * required reserves is the amount that a bank is legally required to keep on hand
+  * excess reserves is any additional amount that a bank chooses to keep beyond the requires reserves
+* a simple way to account for a bank's transactions is by using T-account formatting to record changes in banks assets and liabilities
+* **money multiplier** is the ratio of money created by lending activities of the banking system to the money created by the central bank
+  * money multiplier = $\frac{1}{reserve \ ratio}$
+* in a fractional-reserve banking system, banks keep less than 100% of their deposits on reserves
+
+
+#### Measuring money
+* money supply is the amount of money available in the economy
+* Bank of Canada classifies money types by their liquidity
+  * monetary base includes cash and bank reserves (hard money)
+  * M1 includes cash plus chequing account balances
+  * M2 includes M1 plus savings accounts and other financial instruments
+
+#### Managing the money supply
+* **central bank** is responsible for managing the nation's money supply and coordinating the banking system
+* functions of a bank:
+  * sole issuer of Canada's bank notes
+  * implementing monetary policy via managing the money supply
+  * acts as the fiscal agent for the federal government
+  * acts as a lender of last resort
+* monetary policy refers to the actions made by the central bank to manage the money supply
+* dept of finance executes fiscal policy, while the Bank of Canada executes the monetary policy
+
+#### Tools of monetary policy
+* **contractionary/expansionary monetary policy**:  when money supply is decreased/increased to lower aggregate demand
+* To fulfill its inflation control target, the Bank of Canada manages the supply of money
+  * **reserve requirement**: the amount of money banks must hold in reserve
+  * **open-market operations**: sales or purchases of government bonds by the Bank of Canada to or from banks on the open market
+  * **targeting the overnight interest rate**
+    * maintain a certain level of reserves on account at the Bank of Canada
+    * overnight rate is the rate at which commercial banks choose to lend reserves to one another in this market
+
+#### Economic effects of monetary policy
+* primary influences the economy through changes in the interest rate
+* changes in interest rate affect the appeal of borrowing and lending, which can have significant impacts on the economy
+* **liquid-preference model** refers to the idea that the quantity of money people want to hold is a function of the interest rate
+  * ![](17.PNG)
+* ![](18.PNG)
+* challenges:
+  * bank faces time lags and imperfect information
+    * a few months can pass before the bank's actions make their impact
+    * mistimizing of monetary policy could make economic conditions worse
+* advantages
+  * bank does not have to wait for politicians to come to a policy consensus, it has its own policymakers
+
+#### Two interconnected markets
+* Bank of Canada determines the interest rate by managing the supply and demand for money
+* market as a whole determines the interset rate by the interaction of savers and borrowers
+  * ![](19.PNG)
+
