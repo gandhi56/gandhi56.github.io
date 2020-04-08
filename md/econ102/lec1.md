@@ -751,3 +751,96 @@
 * market as a whole determines the interset rate by the interaction of savers and borrowers
   * ![](19.PNG)
 
+
+
+### Chapter 17 International economics
+#### International trade
+* can be analyzed by studying the flow of goods and capital in and out of a country
+  * balance of trade = exports - imports
+  * trade deficit if balance of trade is negative
+  * trade surplus if balance of trade is positive
+
+#### Foreign investment
+* imports and exports are the most visible and straightforward aspects of international economics
+* countries can interact with other countries via investment
+  * foreign direct investment (FDI) refers to when a firm runs part of its operation abroad or invests in another company abroad
+  * foreign portfolio investment is investment funded by forgein sources that is operated domestically
+* net capital outflow (NCO) is the netflow of funds invested outside of a country
+* balance of payments identity shows that NX = NCO
+  * savings - investment = NCO = NX
+* ![](20.PNG)
+
+#### How does foreign  investment work?
+* increases the GDP of the host country by giving it access to additional resources
+* increases the GDP of the investing country by providing it with ways to earn higher returns on its capital
+* improve global economy's efficiency
+* ![](21.PNG)
+* budget deficit and crowding out example:
+  * ![](22.PNG)
+
+#### Can a country save too much?
+* only in extreme conditions
+* too much savings lead to a trade imbalance
+  * low interest rates encourage capital flow abroad
+* high domestic savings can keep demand for local products low as people consume less
+
+#### Exchange rates
+* buying and selling foreign currencies
+* exchange rate is the value of one currency expressed in terms of another currency
+  * USD/CAD = 1/(CAD/USD)
+  * if value of a currency falls (rises) relative to the value of another currency then the currency is said to be depreciated (appreciated)
+    * appreciation/depreciation of a currency affects NX of the country
+      * appreciate => NX falls, ex falls, im rises
+      * depreciate => NX rises, ex rises, im falls
+  * exchange rate falls => trade deficit decreases
+    * takes time
+* demand-supply curve for exchange rates
+  * factors affecting demand
+    * interest rates: domestic and foreign
+    * perceived riskiness of investing in another country
+  * factors affecting supply
+    * interest rates
+    * investors' confidence in foreign economies
+    * consumer preferences
+  * when the price of dollars is high, foreigners will buy fewer goods from Canada, and Canadians will buy more goods from overseas
+  * to increase import, sell CAD => right shift of supply
+* if the Canadian government decides to tighten monetary policy to increase interest rate
+  * ![](23.PNG)
+  * NX does not change
+
+#### Exchange rate regimes
+* benefits to multiple countries using the same currency like EU:
+  * tourists do not have to exchange money
+  * neighbouring countries do not have to worry about exchange rate fluctuations
+* costs to such regimes
+  * countries give up the ability to conduct independent macroeconomic policy
+
+#### Fixed and floating rates
+* floating rates are the ones above
+* fixed xchange rate is the rate set by the government, preventing it to fluctuate
+  * there is still a market
+  * central bank in control instead of the market to determine the rate
+  * causes shortage of dollars (= Qs - Qd)
+* benefits of fixed rate
+  * allows predictability and stability
+  * government must either buy or sell foreign currency
+* ![](24.PNG)
+* monetary policy is more effective under floating rates
+  * monetary policy can affect investment in flexible and fixed rates
+  * monetary policy can affect NX if floating rate
+* ![](25.PNG)
+
+#### Real exchange rate
+* nominal exchange rate = stated rate for trade
+* real exchange rate = value of goods in one country expressed in terms of the same goods in another country
+  * real = nominal * domestic price level / foreign price level
+
+#### Global financial crises
+* debt crises
+  * too much debt in a country
+  * investors pull out from the country causing higher interest rates
+  * reduces public saving
+* exchange-rate crises
+  * investors lose confidence in a government's ability to defend an exchange rate
+  * investors have to suffer the loss
+* IMF is responsible for keeping the global financial system together
