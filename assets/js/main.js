@@ -124,7 +124,7 @@
 					&&	$sidebar.length > 0)
 						return $sidebar.height();
 
-				return 0;
+				return 10;
 
 			}
 		});
