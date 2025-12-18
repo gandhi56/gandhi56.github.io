@@ -142,6 +142,56 @@ footer a:hover {
     color: #888;
 }
 
+/* Archives Page Styles */
+.course-list {
+    padding-left: 1.5rem;
+}
+
+.course-list li {
+    margin-bottom: 1.5rem;
+}
+
+.proj {
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    background-color: var(--secondary-bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--bg-color);
+}
+
+th {
+    background-color: #222;
+    color: var(--accent-color);
+    font-weight: bold;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+td a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 1rem;
@@ -150,5 +200,9 @@ footer a:hover {
     h1 {
         font-size: 2rem;
     }
+    
+    th, td {
+        padding: 0.75rem;
+        font-size: 0.9rem;
+    }
 }
-
