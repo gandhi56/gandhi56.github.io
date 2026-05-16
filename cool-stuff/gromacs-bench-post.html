@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a per-kernel GROMACS benchmark harness for the Radeon RX 9070 — Anshil Gandhi</title>
+<link rel="stylesheet" href="../assets/css/glass.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '\\[', right: '\\]', display: true},
+      {left: '\\(', right: '\\)', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+<style>
+  .post-container { max-width: 880px; }
+
+  .post {
+    padding: 3.5rem 3rem 4rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .post .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin: 0 0 1.5rem 0;
+    opacity: 0.85;
+  }
+
+  .post h1 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.2rem 0;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+  }
+
+  .post .dek {
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0 0 2.5rem 0;
+    font-style: italic;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 1.1rem;
+  }
+
+  .post .meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 3rem 0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .post .meta strong { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
+
+  .post h2 {
+    font-size: 1.7rem;
+    line-height: 1.25;
+    margin: 3.5rem 0 1rem 0;
+    color: #fff;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .post h2::before {
+    content: "§ ";
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-weight: 400;
+  }
+
+  .post h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin: 2.5rem 0 0.8rem 0;
+    color: #fff;
+  }
+
+  .post h4 {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 2rem 0 0.6rem 0;
+  }
+
+  .post p {
+    margin: 0 0 1.2rem 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+  }
+  .post p + p { text-indent: 1.5em; }
+  .post h1 + p, .post h2 + p, .post h3 + p, .post h4 + p,
+  .post .dek + p, .post .meta + p, .post .lede + p,
+  .post pre + p, .post ul + p, .post ol + p, .post blockquote + p,
+  .post .callout + p, .post hr + p, .post table + p, .post .toc + p { text-indent: 0; }
+
+  .post .lede {
+    font-size: 1.1rem;
+    line-height: 1.65;
+    margin: 0 0 1.5rem 0;
+  }
+  .post .lede::first-letter {
+    font-size: 3.6rem;
+    line-height: 0.85;
+    float: left;
+    margin: 0.15rem 0.55rem 0 -0.05rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .post a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 77, 77, 0.35);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+  }
+  .post a:hover {
+    color: #f9cb28;
+    text-decoration-color: #f9cb28;
+  }
+
+  .post code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: #f3d57a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .post pre {
+    background: rgba(0, 0, 0, 0.45);
+    color: #e8ddc6;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    padding: 1.5rem 1.6rem;
+    overflow-x: auto;
+    margin: 1.8rem 0;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    font-feature-settings: "calt" 0;
+  }
+  .post pre code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  .post pre .c { color: rgba(255, 255, 255, 0.42); font-style: italic; }
+  .post pre .k { color: #ff9b7a; }
+  .post pre .s { color: #f9cb28; }
+  .post pre .f { color: #9bc4a6; }
+  .post pre .v { color: #f3d57a; }
+  .post pre .p { color: #b4c8a3; }
+
+  .post pre[data-lang]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.55rem;
+    right: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .post blockquote {
+    margin: 1.8rem 0;
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    border-left: 2px solid var(--accent-color);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .post blockquote p { margin: 0; }
+  .post blockquote code { color: #f3d57a; }
+
+  .post .callout {
+    margin: 2rem 0;
+    padding: 1.2rem 1.4rem;
+    background: rgba(249, 203, 40, 0.06);
+    border-left: 3px solid #f9cb28;
+    border-radius: 6px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+  .post .callout-good {
+    background: rgba(155, 196, 166, 0.06);
+    border-left-color: #9bc4a6;
+  }
+  .post .callout strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    color: #f9cb28;
+  }
+  .post .callout-good strong { color: #9bc4a6; }
+  .post .callout p { margin: 0; }
+  .post .callout p + p { margin-top: 0.7rem; text-indent: 0; }
+
+  .post ul, .post ol {
+    margin: 1rem 0 1.5rem 0;
+    padding-left: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .post li { margin-bottom: 0.5rem; }
+  .post li::marker { color: var(--accent-color); }
+
+  .post table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.8rem 0;
+    font-size: 0.94rem;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+  }
+  .post th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--glass-border);
+    font-weight: 600;
+  }
+  .post td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .post tr:last-child td { border-bottom: 0; }
+  .post td code { font-size: 0.86em; }
+
+  .post hr {
+    border: 0;
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--glass-border);
+  }
+  .post hr::after {
+    content: "❦";
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    opacity: 0.7;
+  }
+
+  .post .toc {
+    margin: 2.5rem 0 3rem;
+    padding: 1.6rem 1.8rem;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .post .toc-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.9rem;
+  }
+  .post .toc ol {
+    margin: 0;
+    padding-left: 1.4rem;
+    counter-reset: section;
+    list-style: none;
+  }
+  .post .toc li {
+    margin-bottom: 0.3rem;
+    counter-increment: section;
+  }
+  .post .toc li::before {
+    content: counter(section, decimal-leading-zero) ".  ";
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .post .toc a {
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .post .toc a:hover {
+    border-bottom-color: var(--accent-color);
+    color: #fff;
+  }
+
+  .post .footnote-ref {
+    font-feature-settings: "sups" 1;
+    font-size: 0.8em;
+    text-decoration: none;
+    color: var(--accent-color);
+    padding: 0 0.1em;
+    border: none;
+  }
+
+  .post .footnotes {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.65);
+  }
+  .post .footnotes h3 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1rem;
+  }
+  .post .footnotes ol { padding-left: 1.5rem; }
+  .post .footnotes li { margin-bottom: 0.8rem; }
+
+  .post .number-table th, .post .number-table td {
+    font-variant-numeric: tabular-nums;
+  }
+  .post .number-table td:not(:first-child) {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .post .colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.7;
+  }
+  .post .colophon p { margin: 0 0 0.4rem 0; text-indent: 0; font-family: var(--font-mono); font-size: 0.78rem; color: rgba(255, 255, 255, 0.5); }
+
+  @media (max-width: 700px) {
+    .post { padding: 2rem 1.4rem 3rem; font-size: 1rem; }
+    .post h1 { font-size: 1.9rem; }
+    .post h2 { font-size: 1.35rem; }
+    .post pre { font-size: 0.74rem; padding: 1rem 1.1rem; }
+    .post .meta { gap: 0.9rem; font-size: 0.72rem; }
+    .post-container { padding: 0 0.8rem; }
+  }
+</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../github.html">GitHub</a></li>
+                <li><a href="../ualberta-archives.html">Archives</a></li>
+                <li><a href="gromacs-bench-post.html" style="color: #fff; text-shadow: 0 0 10px rgba(255, 77, 77, 0.6);">Cool Stuff</a></li>
+                <li><a href="../anshil_gandhi_resume.pdf">CV</a></li>
+                <li><a href="mailto:gandhi21299@gmail.com">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container post-container">
+    <article class="post glass-card">
+
+<p class="eyebrow">A field report</p>
+
+<h1>Building a per-kernel GROMACS benchmark harness for the Radeon RX 9070</h1>
+
+<p class="dek">Notes from one weekend of plumbing — ROCm 7.12, a custom LLVM, a homemade Discord agent, and an attempt to turn molecular dynamics into a tight compiler-iteration loop on a brand-new GPU.</p>
+
+<div class="meta">
+  <span><strong>Author</strong> Anshil Gandhi</span>
+  <span><strong>Reading time</strong> ~30 min</span>
+</div>
+
+<p class="lede">I'm a GPU compiler developer at AMD. I work on the AMDGPU backend in LLVM — the part that turns HIP and OpenCL source into the ISA that runs on Radeon and Instinct silicon. When my workstation showed up with a brand-new Radeon RX 9070 (RDNA 4, <code>gfx1201</code>), the first thing I wanted was a tight feedback loop: edit a backend pass, rebuild LLVM, rebuild a real GPU application, run a benchmark, see whether the kernels got faster. Six minutes between hitting save and seeing a number.</p>
+
+<p>This is a writeup of the harness I ended up with. It runs <a href="https://www.gromacs.org/">GROMACS</a> molecular dynamics workloads under <a href="https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/">rocprofv3</a>, parses the per-kernel timings, diffs them against a stable baseline, and pings me on Discord with the verdict. The published <a href="https://www.mpinat.mpg.de/grubmueller/bench">Kutzner benchmark suite</a> from MPI-NAT (the canonical GROMACS performance inputs) is the fixed point.</p>
+
+<div class="toc">
+  <p class="toc-title">Contents</p>
+  <ol>
+    <li><a href="#hardware">The stack: ROCm 7.12 on RDNA 4</a></li>
+    <li><a href="#gromacs">Two GROMACS builds, one custom LLVM</a></li>
+    <li><a href="#inputs">Benchmark inputs: Kutzner benchMEM and benchRIB</a></li>
+    <li><a href="#scripts">The wrapper scripts</a></li>
+    <li><a href="#kernels">Per-kernel profiling with rocprofv3</a></li>
+    <li><a href="#methodology">Methodology and the gotchas worth knowing</a></li>
+    <li><a href="#agent">Aside: the Discord agent</a></li>
+    <li><a href="#caveats">What I haven't verified yet</a></li>
+  </ol>
+</div>
+
+<h2 id="hardware">The stack: ROCm 7.12 on RDNA 4</h2>
+
+<p>The reference platform:</p>
+
+<table class="number-table">
+  <thead><tr><th>Component</th><th>Choice</th></tr></thead>
+  <tbody>
+    <tr><td>CPU</td><td>AMD Ryzen 7 9800X3D (Zen 5, 8 cores, 96 MB 3D V-Cache)</td></tr>
+    <tr><td>GPU</td><td>AMD Radeon RX 9070 (RDNA 4, gfx1201, 16 GB VRAM)</td></tr>
+    <tr><td>Memory</td><td>32 GB DDR5</td></tr>
+    <tr><td>OS</td><td>Ubuntu 24.04.4 LTS, kernel 6.17 (HWE)</td></tr>
+    <tr><td>ROCm</td><td>7.12.0, installed under <code>/opt/rocm/core-7.12/</code></td></tr>
+    <tr><td>GROMACS source</td><td>GitLab branch <code>4947-hip-feature-enablement</code></td></tr>
+    <tr><td>LLVM</td><td>github.com/gandhi56/llvm-project at commit <code>d7fead0f</code> (clang-23)</td></tr>
+  </tbody>
+</table>
+
+<pre data-lang="bash"><code><span class="c"># Pinned ROCm environment</span>
+<span class="k">sudo tee</span> /etc/profile.d/rocm.sh &gt; /dev/null &lt;&lt;<span class="s">'EOF'</span>
+<span class="k">export</span> <span class="v">ROCM_PATH</span>=/opt/rocm/core-7.12
+<span class="k">export</span> <span class="v">HIP_PATH</span>=/opt/rocm/core-7.12
+<span class="k">export</span> <span class="v">PATH</span>=<span class="v">$ROCM_PATH</span>/bin:<span class="v">$PATH</span>
+<span class="k">export</span> <span class="v">LD_LIBRARY_PATH</span>=<span class="v">$ROCM_PATH</span>/lib:<span class="v">${LD_LIBRARY_PATH:-}</span>
+<span class="s">EOF</span></code></pre>
+
+<p>Two ROCm-specific tools deserve a mention: <code>rocprofv3</code> for kernel-level tracing, and <code>rocprof-compute</code> (the renamed Omniperf) for counter-level analysis. Both ship with ROCm 7.x; both work on gfx1201, with the caveat that rocprof-compute's roofline reference isn't calibrated for RDNA 4 yet (kernel-level analysis works fine, just the roofline overlay is approximate).</p>
+
+<h2 id="gromacs">Two GROMACS builds, one custom LLVM</h2>
+
+<p>GROMACS has two HIP-enabled paths right now:</p>
+
+<ul>
+  <li>The 2026 mainline, which has HIP merged for the NBNxM kernels only — stable, conservative.</li>
+  <li>The <code>4947-hip-feature-enablement</code> branch on GitLab, AMD-maintained, tracking 2025.4 rolling into 2026, with the full HIP optimizations including PME spread/solve/gather and the bonded kernels. This is where AMD's GROMACS performance work lives, and where the kernels you'd want to tune for RDNA 4 actually exist.</li>
+</ul>
+
+<p>My setup uses two parallel builds installed side by side:</p>
+
+<table>
+  <thead><tr><th>Build</th><th>Compiler</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>/opt/gromacs/stable-rocm7.12</code></td><td>Stock <code>hipcc</code> + <code>amdclang++</code></td><td>Reference baseline. Untouched between LLVM iterations.</td></tr>
+    <tr><td><code>/opt/gromacs/dev-llvm-&lt;hash&gt;-&lt;timestamp&gt;</code></td><td>My LLVM directly (<code>clang++</code>)</td><td>What I iterate on. A new install prefix per build, never overwriting the last.</td></tr>
+    <tr><td><code>/opt/gromacs/dev-current</code></td><td>(symlink)</td><td>Points at the most recent dev install. Scripts dereference this.</td></tr>
+  </tbody>
+</table>
+
+<p>The stable build is straightforward — AMD's standard recipe with the architecture overridden to gfx1201:</p>
+
+<pre data-lang="bash"><code><span class="k">cd</span> ~/build/gromacs-stable
+<span class="k">cmake</span> ~/src/gromacs-amd-hip \
+  -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DGMX_GPU=HIP \
+  -DCMAKE_HIP_COMPILER=/opt/rocm/core-7.12/bin/amdclang++ \
+  -DCMAKE_HIP_COMPILER_ROCM_ROOT=/opt/rocm/core-7.12 \
+  -DGMX_HIP_TARGET_ARCH=gfx1201 \
+  -DCMAKE_PREFIX_PATH=/opt/rocm/core-7.12 \
+  -DGMX_MPI=OFF \
+  -DGMX_OPENMP=ON \
+  -DGMX_BUILD_OWN_FFTW=OFF \
+  -DCMAKE_INSTALL_PREFIX=/opt/gromacs/stable-rocm7.12 \
+  -DGMX_DOUBLE=OFF \
+  -DGMX_SIMD=AVX2_256 \
+  -DGMX_USE_RDTSCP=ON
+
+<span class="k">ninja</span> -j<span class="v">$(nproc)</span> <span class="k">install</span></code></pre>
+
+<p>The dev build is the same recipe with three changes:</p>
+
+<pre data-lang="bash"><code><span class="v">LLVM_HASH</span>=<span class="v">$(git -C /home/anshil/llvm-project rev-parse --short HEAD)</span>
+<span class="v">PREFIX</span>=/opt/gromacs/dev-llvm-<span class="v">${LLVM_HASH}</span>-<span class="v">$(date +%Y%m%d-%H%M)</span>
+<span class="v">HIP_FLAGS</span>=<span class="s">"--rocm-path=/opt/rocm/core-7.12 --offload-arch=gfx1201 \
+   -fPIC -fno-gpu-rdc -ffast-math -munsafe-fp-atomics \
+   -fdenormal-fp-math=ieee -fcuda-flush-denormals-to-zero \
+   -fno-slp-vectorize -Wno-unused-command-line-argument -Wno-pass-failed"</span>
+
+<span class="k">cmake</span> ~/src/gromacs-amd-hip \
+  -G Ninja \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DGMX_GPU=HIP \
+  <span class="f">-DCMAKE_HIP_COMPILER=/home/anshil/llvm-project/build/bin/clang++</span> \
+  -DCMAKE_HIP_COMPILER_ROCM_ROOT=/opt/rocm/core-7.12 \
+  <span class="f">-DCMAKE_HIP_FLAGS=<span class="s">"$HIP_FLAGS"</span></span> \
+  -DGMX_HIP_TARGET_ARCH=gfx1201 \
+  -DCMAKE_HIP_ARCHITECTURES=gfx1201 \
+  -DGPU_TARGETS=gfx1201 \
+  -DCMAKE_PREFIX_PATH=/opt/rocm/core-7.12 \
+  -DGMX_MPI=OFF -DGMX_OPENMP=ON -DGMX_BUILD_OWN_FFTW=OFF \
+  -DCMAKE_INSTALL_PREFIX=<span class="v">$PREFIX</span> \
+  -DGMX_DOUBLE=OFF -DGMX_SIMD=AVX2_256 -DGMX_USE_RDTSCP=ON \
+  <span class="f">-DHIPCC_HAS_TARGET_ARCH_gfx1201=TRUE</span>
+
+<span class="k">ninja</span> -j<span class="v">$(nproc)</span> <span class="k">install</span>
+<span class="k">ln</span> -sfn <span class="v">$PREFIX</span> /opt/gromacs/dev-current</code></pre>
+
+<p>The three changes from stable, marked in green above:</p>
+
+<ol>
+  <li><code>CMAKE_HIP_COMPILER</code> points directly at my <code>clang++</code>. CMake 3.27+ takes the HIP language compiler directly rather than through a hipcc wrapper.</li>
+  <li><code>CMAKE_HIP_FLAGS</code> carries the flags hipcc would otherwise inject. Going through clang directly puts those on you.</li>
+  <li><code>HIPCC_HAS_TARGET_ARCH_gfx1201=TRUE</code> seeds the cache variable GROMACS's probe would otherwise populate, skipping the probe.</li>
+</ol>
+
+<p>The install prefix is timestamped with the LLVM commit hash. Every dev build gets its own directory; old builds are never overwritten. Months from now I can dig back to <code>dev-llvm-d7fead0f-20260516-0243</code> and re-run any benchmark against it.</p>
+
+<h2 id="inputs">Benchmark inputs: Kutzner benchMEM and benchRIB</h2>
+
+<p>For compiler work, the inputs matter as much as the harness. I picked from <a href="https://www.mpinat.mpg.de/grubmueller/bench">Carsten Kutzner's free GROMACS benchmark set</a><a href="#fn1" class="footnote-ref">¹</a> — the canonical performance inputs that published GROMACS papers compare against. Using these means my numbers are directly comparable to anything other GROMACS people publish.</p>
+
+<table>
+  <thead><tr><th>System</th><th>Atoms</th><th>Description</th><th>Why I picked it</th></tr></thead>
+  <tbody>
+    <tr><td><code>benchMEM</code></td><td>82,000</td><td>Membrane protein in water</td><td>Small enough for ~3-minute iteration runs. Mixed GPU/CPU workload because membrane lipid constraints prevent full GPU residency.</td></tr>
+    <tr><td><code>benchRIB</code></td><td>2,000,000</td><td>Ribosome in water</td><td>Large enough to saturate the GPU and stress memory traffic. Used for weekly validation runs, not daily iteration.</td></tr>
+  </tbody>
+</table>
+
+<p>The other Kutzner systems either don't fit (<code>benchPEP</code> at 12 M atoms exceeds the 9070's 16 GB VRAM) or are too small to be meaningful (the binding affinity studies at 6-36k atoms). benchMEM is the workhorse; benchRIB is for "before I commit this patch upstream" validation.</p>
+
+<pre data-lang="bash"><code><span class="k">cd</span> /var/lib/gromacs-runs/_systems
+
+<span class="c"># benchMEM (82k atoms, membrane protein)</span>
+<span class="k">mkdir</span> -p benchMEM <span class="k">&amp;&amp;</span> <span class="k">cd</span> benchMEM
+<span class="k">wget</span> -O benchMEM.zip https://www.mpinat.mpg.de/benchMEM
+<span class="k">unzip</span> benchMEM.zip
+<span class="k">cp</span> benchMEM.tpr topol.tpr  <span class="c"># gmxrun expects topol.tpr</span>
+
+<span class="c"># benchRIB (2M atoms, ribosome)</span>
+<span class="k">cd</span> ..
+<span class="k">mkdir</span> -p benchRIB <span class="k">&amp;&amp;</span> <span class="k">cd</span> benchRIB
+<span class="k">wget</span> -O benchRIB.zip https://www.mpinat.mpg.de/benchRIB
+<span class="k">unzip</span> benchRIB.zip
+<span class="k">cp</span> benchRIB.tpr topol.tpr</code></pre>
+
+<p>The TPR files are pre-built run inputs. No <code>grompp</code> needed — straight to <code>mdrun</code>. The license is CC-BY 4.0; if you use them in published work, the attribution goes to <em>Dept. of Theoretical and Computational Biophysics, Max Planck Institute for Multidisciplinary Sciences, Göttingen, https://www.mpinat.mpg.de/grubmueller/bench</em>.</p>
+
+<h2 id="scripts">The wrapper scripts</h2>
+
+<p>Three scripts in <code>/usr/local/bin</code>, composing top-down: <code>gmxrun</code> wraps a single <code>mdrun</code> invocation with notifications and result capture. <code>kernel-bench</code> wraps <code>gmxrun</code> with rocprofv3 trace parsing. <code>bench-llvm-commit</code> wraps everything in the outer iteration loop.</p>
+
+<h3>gmxrun</h3>
+
+<p>Wraps a single <code>mdrun</code> invocation with notifications, result capture, and optional kernel/counter profiling. The entry point for every other tool below.</p>
+
+<pre data-lang="bash"><code>gmxrun &lt;build&gt; &lt;system&gt; [tag] [-- &lt;extra mdrun args&gt;]</code></pre>
+
+<p>Arguments:</p>
+
+<ul>
+  <li><code>build</code> — a directory name under <code>/opt/gromacs/</code> (e.g. <code>stable-rocm7.12</code>, <code>dev-current</code>). The script sources <code>$GMX_PREFIX/bin/GMXRC</code> from there.</li>
+  <li><code>system</code> — a directory under <code>/var/lib/gromacs-runs/_systems/</code> containing a <code>topol.tpr</code> (e.g. <code>benchMEM</code>, <code>benchRIB</code>).</li>
+  <li><code>tag</code> — an arbitrary label that becomes part of the run directory name. Defaults to <code>HHMMSS</code>.</li>
+  <li>Everything after <code>--</code> passes through to <code>mdrun</code> unchanged.</li>
+</ul>
+
+<p>Two flags are intercepted before they reach mdrun:</p>
+
+<ul>
+  <li><code>--profile=trace</code> — wrap the run in <code>rocprofv3 --hip-trace --kernel-trace --stats</code>, producing per-kernel CSVs under <code>rocprof/</code>.</li>
+  <li><code>--profile=compute</code> — wrap in <code>rocprof-compute profile --no-roof</code> for counter-level analysis under <code>rocpc/</code>.</li>
+</ul>
+
+<p>Side effects, in order: creates <code>/var/lib/gromacs-runs/&lt;build&gt;__&lt;system&gt;__&lt;tag&gt;/</code>, copies <code>topol.tpr</code> into it, pins the run to the discrete GPU (<code>HIP_VISIBLE_DEVICES=0</code>, <code>ROCR_VISIBLE_DEVICES=0</code>), posts a start message to <code>$DISCORD_WEBHOOK_URL</code> if it's set, runs <code>mdrun -v -deffnm topol -ntmpi 1 -ntomp 16 -pin on -resethway</code> plus your pass-through args, parses ns/day from <code>topol.log</code>, writes a structured <code>result.json</code> (build, system, tag, gmx_version, duration_seconds, ns_per_day, return_code, finished, profile_mode, timestamp), and posts a completion or failure message with the tail of the log on failure.</p>
+
+<p>Examples:</p>
+
+<pre data-lang="bash"><code><span class="c"># Plain run</span>
+gmxrun stable-rocm7.12 benchMEM baseline <span class="k">--</span> -nsteps 30000
+
+<span class="c"># Same, with kernel-level tracing</span>
+gmxrun dev-current     benchMEM r1       <span class="k">--</span> -nsteps 30000 --profile=trace</code></pre>
+
+<p>Three design notes on this script worth surfacing:</p>
+
+<ul>
+  <li><strong>Every run gets a unique directory</strong>, with the build name encoded in the path. No accidental overwrites of last week's baseline.</li>
+  <li><strong>The mdrun args don't force <code>-nb gpu</code> or <code>-pme gpu</code></strong>. Letting GROMACS use its heuristic defaults means each build picks the right offload level for the system, which keeps the comparison apples-to-apples between builds. Hardcoding GPU residency flags also breaks benchMEM, which can't use <code>-update gpu</code> due to constraint topology.</li>
+  <li><strong><code>-resethway</code> is on by default.</strong> This is the single most important methodology choice. GROMACS spends the first 1000-8000 steps tuning PME grid sizes — that's bursty, non-representative work that pollutes ns/day if you include it in the measurement. <code>-resethway</code> resets all timing counters at the halfway point. With <code>-nsteps 30000</code>, you tune for 15000 steps, then measure 15000 steps of steady state.</li>
+</ul>
+
+<h3>kernel-bench</h3>
+
+<p>A thin wrapper that runs <code>gmxrun</code> with <code>--profile=trace</code>, then post-processes the rocprofv3 CSV into a per-category kernel breakdown and diffs against a baseline.</p>
+
+<pre data-lang="bash"><code>kernel-bench &lt;build&gt; &lt;system&gt; [tag] [-- &lt;extra mdrun args&gt;]</code></pre>
+
+<p>Arguments are identical to <code>gmxrun</code>. The script does three things after the trace finishes:</p>
+
+<ul>
+  <li>Picks up the rocprofv3 CSV at <code>rocprof/&lt;host&gt;/*kernel_stats.csv</code> inside the run directory.</li>
+  <li>Collapses C++ template instantiations — <code>void pmeSplineAndSpreadKernel&lt;4, false, true&gt;(...)</code> becomes <code>pmeSplineAndSpreadKernel</code> — so different instantiations of the same kernel get aggregated into one row.</li>
+  <li>Categorizes each kernel into <code>nbnxm</code>, <code>pme_spread</code>, <code>pme_solve</code>, <code>pme_gather</code>, <code>fft</code>, <code>integrate</code>, <code>lincs</code>, <code>settle</code>, <code>memory</code>, or <code>other</code> by substring match on the name.</li>
+</ul>
+
+<p>It writes <code>kernel_result.json</code> in the run directory with totals per category (milliseconds and percent of GPU time) and per-kernel rows sorted by total time. Then it diffs against the baseline at <code>/var/lib/gromacs-runs/stable-rocm7.12__&lt;system&gt;__kernel-baseline/kernel_result.json</code> and posts a per-category breakdown to Discord:</p>
+
+<blockquote>
+  <p>📊 <code>dev-current/benchMEM/llvm-d7fead0f</code> kernel breakdown vs baseline<br>
+  🚀 <code>nbnxm</code>: 24108.42 ms (−3.29% vs 24928.79)<br>
+  • <code>pme_spread</code>: 27445.30 ms (−0.20% vs 27501.67)<br>
+  …</p>
+</blockquote>
+
+<p>The diff arrows fire at ±2%: 🚀 for &gt;2% faster, 🐢 for &gt;2% slower, • otherwise.</p>
+
+<p>One special tag: if <code>tag</code> is exactly <code>kernel-baseline</code>, the diff step is skipped — that run <em>is</em> the new baseline.</p>
+
+<p>Examples:</p>
+
+<pre data-lang="bash"><code><span class="c"># Establish (or refresh) the kernel-level baseline</span>
+kernel-bench stable-rocm7.12 benchMEM kernel-baseline <span class="k">--</span> -nsteps 30000
+
+<span class="c"># Measure a dev build against it; tag with the LLVM commit</span>
+kernel-bench dev-current benchMEM <span class="s">"llvm-$(git -C ~/llvm-project rev-parse --short HEAD)"</span> <span class="k">--</span> -nsteps 30000</code></pre>
+
+<p>One implementation note worth surfacing: rocprofv3 writes CSVs under <code>rocprof/&lt;hostname&gt;/&lt;pid&gt;_kernel_stats.csv</code>. The hostname subdirectory is for multi-host runs; on a single-host setup it just adds a layer of glob to navigate.</p>
+
+<h3>bench-llvm-commit</h3>
+
+<p>The outermost wrapper, and the one I actually run after editing the AMDGPU backend. Rebuilds LLVM, rebuilds GROMACS dev incrementally, runs the bench through <code>kernel-bench</code>, and pings Discord with the headline verdict.</p>
+
+<pre data-lang="bash"><code>bench-llvm-commit [--no-llvm-rebuild] [--no-gmx-rebuild]
+                  [--system NAME] [--tag TAG] [--steps N]</code></pre>
+
+<p>Flags:</p>
+
+<ul>
+  <li><code>--no-llvm-rebuild</code> — skip the <code>ninja -C $LLVM_DIR/build</code> step. Useful when you only changed GROMACS, or just want to re-measure.</li>
+  <li><code>--no-gmx-rebuild</code> — skip the incremental GROMACS rebuild. Useful for noise-floor runs against the existing dev binary.</li>
+  <li><code>--system NAME</code> — defaults to <code>benchMEM</code>; pass <code>benchRIB</code> for the 2 M-atom run.</li>
+  <li><code>--tag TAG</code> — defaults to the LLVM commit short hash, with <code>-dirty</code> appended if the LLVM working tree has uncommitted changes.</li>
+  <li><code>--steps N</code> — passed through as <code>-nsteps N</code>; defaults to 30000.</li>
+</ul>
+
+<p>What it does, in order: sources <code>~/ai-ops/.env</code> for <code>DISCORD_WEBHOOK_URL</code>; rebuilds LLVM (aborting with a notification on failure); captures the LLVM short hash plus a <code>-dirty</code> suffix if the tree isn't clean; rebuilds GROMACS dev with <code>HIP_CLANG_PATH</code> and <code>PATH</code> pointed at the freshly built clang; resolves <code>/opt/gromacs/dev-current</code> through its symlink to get the timestamped build directory; calls <code>kernel-bench</code> with that build, the chosen system, and the tag; computes the ns/day delta against the <code>stable-rocm7.12__&lt;system&gt;__baseline</code> run; stamps the LLVM commit hash into the run's <code>result.json</code>; and posts the headline.</p>
+
+<p>The final Discord message looks like:</p>
+
+<blockquote>
+  <p>🚀 LLVM <code>d7fead0f</code> on <code>benchMEM</code>: <strong>43.7 ns/day</strong> (baseline 41.5, Δ +2.200, <strong>+5.30%</strong>)</p>
+</blockquote>
+
+<p>The emoji thresholds match <code>kernel-bench</code>'s: 🚀 for &gt;2% faster than baseline, 🐢 for &gt;2% slower, 📊 otherwise.</p>
+
+<p>Examples:</p>
+
+<pre data-lang="bash"><code><span class="c"># The common case: edit LLVM, run this, wait six minutes</span>
+bench-llvm-commit
+
+<span class="c"># Re-measure without rebuilding anything</span>
+bench-llvm-commit --no-llvm-rebuild --no-gmx-rebuild --tag noise-r2
+
+<span class="c"># Big-system validation before a commit goes up</span>
+bench-llvm-commit --system benchRIB --steps 10000</code></pre>
+
+<p>After this script runs, every <code>result.json</code> under <code>/var/lib/gromacs-runs/</code> has the LLVM commit hash stamped on it. Six months from now I can <code>cat .../result.json | jq .llvm_commit</code> on any historical run and know which compiler revision produced which number. For compiler-development work that traceability is non-negotiable.</p>
+
+<h2 id="kernels">Per-kernel profiling with rocprofv3</h2>
+
+<p>The reason single ns/day numbers aren't enough is that the kernels are uncorrelated. A patch that helps NBNxM by 5% can hurt PME spread by 3%. A patch to FMA selection touches one kernel cluster; a patch to atomic operation scheduling touches a different one. Knowing the aggregate ns/day moved is useful but not actionable.</p>
+
+<p>What rocprofv3 in <code>--hip-trace --kernel-trace --stats</code> mode gives you is a CSV with, per kernel, total wall time, call count, average duration, min/max. For GROMACS on benchMEM, the categories that show up:</p>
+
+<table class="number-table">
+  <thead><tr><th>Category</th><th>% GPU time (typical)</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>nbnxm</code></td><td>34–40%</td><td>Non-bonded forces (vdW + short-range Coulomb), cluster pairs</td></tr>
+    <tr><td><code>pme_spread</code></td><td>28–38%</td><td>B-spline interpolation of charges onto the PME grid</td></tr>
+    <tr><td><code>fft</code></td><td>22–25%</td><td>3D FFT for PME solve (VkFFT inside the GROMACS build)</td></tr>
+    <tr><td><code>pme_solve</code></td><td>2–4%</td><td>Solve in Fourier space (force/energy convolution)</td></tr>
+    <tr><td><code>pme_gather</code></td><td>1–2%</td><td>Inverse interpolation: forces from grid back to atoms</td></tr>
+    <tr><td><code>memory</code></td><td>~2%</td><td><code>__amd_rocclr_copyBuffer</code>, <code>__amd_rocclr_fillBufferAligned</code></td></tr>
+    <tr><td><code>other</code></td><td>~2%</td><td>Reductions, transpose, transform helpers</td></tr>
+  </tbody>
+</table>
+
+<p>From a compiler-codegen perspective, these categories exercise materially different things:</p>
+
+<ul>
+  <li><strong>nbnxm</strong> stresses FMA throughput, register pressure (cluster pairs hold many atoms in registers), LDS, VMEM coalescing, and subgroup intrinsics. RDNA 4 is wave32-native, so anything that affects wave32 codegen surfaces here.</li>
+  <li><strong>pme_spread</strong> stresses atomic adds (<code>-munsafe-fp-atomics</code> matters), strided memory writes, transcendental codegen (sin/cos for theta), and polynomial FMA chains for spline coefficients.</li>
+  <li><strong>fft</strong> is VkFFT, which is a separate third-party library compiled separately. Your LLVM patches don't affect this — useful baseline that ought to be constant across runs.</li>
+  <li><strong>pme_solve</strong> is pure Fourier-space math: complex multiplication, sums, divisions. Small but a useful canary for floating-point codegen changes.</li>
+</ul>
+
+<p>The diff format the harness produces puts this front and center. A Discord notification from a typical bench-llvm-commit run looks like:</p>
+
+<blockquote>
+  <p>📊 <code>dev-current/benchMEM/llvm-d7fead0f</code> kernel breakdown vs baseline<br>
+  🚀 <code>nbnxm</code>: 24108.42 ms (−3.29% vs 24928.79)<br>
+  • <code>pme_spread</code>: 27445.30 ms (−0.20% vs 27501.67)<br>
+  • <code>pme_solve</code>: 1378.61 ms (+0.70% vs 1369.02)<br>
+  • <code>pme_gather</code>: 705.18 ms (+0.44% vs 702.07)<br>
+  • <code>fft</code>: 16012.84 ms (−0.09% vs 16027.30)</p>
+</blockquote>
+
+<p>This tells me exactly what my patch did: it helped nbnxm by 3.3% (consistent with FMA-pipeline changes I was working on), left PME mostly untouched (expected — different kernels), and didn't break anything elsewhere. The fft line being essentially flat is a useful sanity check that the toolchain swap itself isn't introducing wildly different behavior.</p>
+
+<h2 id="methodology">Methodology and the gotchas worth knowing</h2>
+
+<p>The numbers above only mean what they appear to mean if the methodology underneath is sound. The hard-won lessons:</p>
+
+<h3>1. Always use <code>-resethway</code></h3>
+
+<p>GROMACS's PME tuner converges to an optimal grid by trying different operating points during the first thousands of steps. Those tuning steps run at 10× the wall time of steady state. If you include them in the measurement, your ns/day number is dominated by tuner exploration. <code>-resethway</code> resets the timing counters at the halfway mark, throwing out the tuning window.</p>
+
+<p>This makes single-shot benchmarks much more reproducible. Without it, run-to-run variance can be 30%; with it, more like 2%.</p>
+
+<h3>2. Pin clocks before benchmarking</h3>
+
+<p>The 9070 has dynamic clocks that respond to thermal and power state. The CPU's <code>schedutil</code> governor downclocks aggressively. Both are death for run-to-run reproducibility. Before any A/B:</p>
+
+<pre data-lang="bash"><code><span class="k">sudo</span> rocm-smi --setperflevel high
+<span class="k">sudo</span> cpupower frequency-set -g performance</code></pre>
+
+<p>This costs ~20W idle and a couple of degrees of GPU temperature. Worth it for the noise reduction.</p>
+
+<h3>3. Two builds that converge to different PME grids aren't directly comparable</h3>
+
+<p>This bit me. My first dev vs stable comparison showed dev 2.2× faster overall, but every individual kernel slower. That's only possible if the tuner picked different operating points. Dev's tuner found a grid that was overall faster but used kernels less efficiently. Per-kernel comparisons between such runs are apples-to-oranges.</p>
+
+<p>The fix is either to pin the PME grid with <code>-notunepme</code> + an explicit <code>-rcoulomb</code> (eliminating the tuner's freedom), or to focus on the aggregate ns/day for end-to-end performance claims and use kernel deltas only as <em>directional</em> signals. I prefer the second; pinning the grid removes a real adaptive behavior that users get for free.</p>
+
+<h3>4. benchMEM can't use <code>-update gpu</code></h3>
+
+<p>It will fail with: <em>"The number of coupled constraints is higher than supported in the GPU LINCS code."</em> benchMEM's membrane lipids have constraint chains that exceed what GROMACS's GPU LINCS implementation handles. Update + constraints stay on the CPU for this system; only nb, pme, pmefft, and bonded run on the GPU.</p>
+
+<p>This means the bench wrapper shouldn't hardcode GPU residency flags — let mdrun pick its own heuristic defaults per-system. Different inputs support different levels of offload; hardcoding kills portability and breaks benchMEM.</p>
+
+<h3>5. Don't share builds between machines</h3>
+
+<p>The HIP compiler flags include <code>-march=skylake-avx512</code> or similar host-CPU-specific flags that <code>cmake</code> auto-detects. Builds aren't portable. If you move <code>/opt/gromacs/...</code> to another machine, expect either crashes or silent codegen-quality changes.</p>
+
+<h3>6. Variance, variance, variance</h3>
+
+<p>One run is not a measurement. Three runs are a measurement. The typical recipe:</p>
+
+<pre data-lang="bash"><code><span class="k">for</span> r <span class="k">in</span> 1 2 3; <span class="k">do</span>
+  kernel-bench stable-rocm7.12 benchMEM <span class="s">"baseline-r$r"</span> -- -nsteps 30000
+  <span class="k">sleep</span> 15
+<span class="k">done</span>
+
+<span class="k">for</span> r <span class="k">in</span> 1 2 3; <span class="k">do</span>
+  kernel-bench dev-current benchMEM <span class="s">"test-r$r"</span> -- -nsteps 30000
+  <span class="k">sleep</span> 15
+<span class="k">done</span></code></pre>
+
+<p>Six runs, ~20 minutes total. Use the median per build, look at spread. A 3% delta with 2% per-run noise floor is borderline; a 5% delta is real signal. Anything that doesn't survive across three runs in each direction isn't a finding.</p>
+
+<h2 id="agent">Aside: the Discord agent</h2>
+
+<p>The Discord notifications throughout this writeup come from a small local AI agent. Brief description, because it's tangentially relevant: an Ollama instance running <code>gpt-oss:20b</code> on the same 9070, a py-cord bot listening for DMs, and the bot owns its own agent loop — it executes Python tools that read system status, parse GROMACS logs, and post webhook notifications. From anywhere in the world (Tailscale handles the connectivity), I can DM the bot "how's my last bench" and get back a kernel breakdown, or get a proactive ping the moment a long simulation finishes or crashes.</p>
+
+<p>The agent is incidental to the benchmark methodology — webhooks alone would do the alert side, and I could query result.json files from a phone over SSH. But the conversational layer turns out to be genuinely useful for "compare these two runs and tell me what's different" queries, where the agent reads kernel_result.json from both and produces a summary I can act on without booting a laptop. That's a separate post, though.</p>
+
+<h2 id="caveats">What I haven't verified yet</h2>
+
+<p>This writeup describes infrastructure that works. It does not yet describe a robust performance result.</p>
+
+<p>The single dev-vs-stable comparison I have was collected before I'd applied the methodology fixes — no <code>-resethway</code>, no clock pinning, no CPU governor change, single-shot rather than three-run-each. The numbers in that comparison are not a defensible compiler benchmark result. They were what made me realize the methodology needed to be tightened, and they're the reason the methodology section above exists.</p>
+
+<p>The infrastructure is now correct. The clean re-baselines and re-comparisons happen in a separate session, with the perf settings pinned and three runs in each direction. Those are the numbers I'll publish when I have actual codegen patches to evaluate. This post is about the harness; the perf results that the harness produces are a separate writeup.</p>
+
+<p>A few other things I'd flag for anyone copying this setup:</p>
+
+<ul>
+  <li><strong>rocprofv3 column names vary across point releases.</strong> The CSV parser in kernel-bench assumes <code>Name</code>, <code>Calls</code>, <code>TotalDurationNs</code>. If you're on a different rocprof version, check the header line and adjust the column lookup. My script tries several candidate column names but isn't exhaustive.</li>
+  <li><strong>VkFFT in the trace is not your codegen.</strong> It's a third-party Vulkan-FFT library that GROMACS uses for the 3D FFT. If you want to A/B your LLVM against rocFFT for the FFT step, rebuild with <code>-DGMX_GPU_FFT_LIBRARY=rocFFT</code> as a separate build configuration.</li>
+  <li><strong>rocprof-compute roofline reference isn't calibrated for RDNA 4.</strong> Kernel-level counters work fine, but the roofline overlay won't be accurate. Use rocprof-compute for VALU utilization, occupancy, LDS busy %, but ignore the roofline plot for now.</li>
+  <li><strong>The published Kutzner inputs are old.</strong> The TPR files have <code>VERSION 4.6.3-dev-20130701</code> in their headers. GROMACS reads them fine because TPR file versioning is backward-compatible, but if you compare your numbers to historical published benchmarks, make sure the comparison also held the GROMACS version constant — kernel performance has changed substantially across releases.</li>
+</ul>
+
+<hr>
+
+<p>Two days of plumbing. A working iteration loop that goes from "edit clang source" to "Discord message with kernel-level delta" in about six minutes. Whether the LLVM patches I'm working on actually produce wins is the next question, and the right one. But until the harness was real, asking that question was guesswork. Now it's measurement.</p>
+
+<div class="footnotes">
+  <h3>Footnotes</h3>
+  <ol>
+    <li id="fn1">The Kutzner suite is one of multiple GROMACS benchmark traditions. The other big one is the water benchmarks from the GROMACS team itself, available at <code>ftp.gromacs.org/benchmarks/water_GMX50_bare.tar.gz</code> — water systems from 1.5k to 3M atoms in one tarball. Useful for spanning a wider range of system sizes if you want to study kernel performance vs problem size, but less well-attributed in the literature than benchMEM/benchRIB.</li>
+  </ol>
+</div>
+
+<div class="colophon">
+  <p>Set in Inter (body) and Fira Code (code), matching the rest of the site.</p>
+  <p>Code blocks rendered with hand-applied span markup rather than a syntax-highlighting library, for portability.</p>
+  <p>Benchmark inputs courtesy of Carsten Kutzner / MPI for Multidisciplinary Sciences, used under CC-BY 4.0.</p>
+</div>
+
+    </article>
+    </main>
+
+    <footer>
+        <p>&copy; Anshil Gandhi. All rights reserved.</p>
+        <p>
+            <a href="https://github.com/gandhi56"><i class="fab fa-github"></i> GitHub</a> |
+            <a href="mailto:gandhi21299@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </p>
+    </footer>
+</body>
+</html>
