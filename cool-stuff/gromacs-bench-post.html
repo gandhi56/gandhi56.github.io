@@ -486,7 +486,6 @@
         <li><a href="#scripts">The wrapper scripts</a></li>
         <li><a href="#kernels">Per-kernel profiling with rocprofv3</a></li>
         <li><a href="#methodology">Methodology and the gotchas worth knowing</a></li>
-        <li><a href="#refresh">Command cheatsheet</a></li>
         <li><a href="#agent">Aside: the Discord agent</a></li>
         <li><a href="#caveats">What I haven't verified yet</a></li>
       </ol>
@@ -857,45 +856,6 @@ bench-llvm-commit --system benchRIB --steps 10000</code></pre>
 <span class="k">done</span></code></pre>
 
 <p>Six runs, ~20 minutes total. Use the median per build, look at spread. A 3% delta with 2% per-run noise floor is borderline; a 5% delta is real signal. Anything that doesn't survive across three runs in each direction isn't a finding.</p>
-
-<h2 id="refresh">Command cheatsheet</h2>
-
-
-<h3>Baseline setup</h3>
-<pre data-lang="bash"><code><span class="c"># 1. Pin clocks</span>
-<span class="k">sudo</span> rocm-smi --setperflevel high
-<span class="k">sudo</span> cpupower frequency-set -g performance
-
-<span class="c"># 2. ns/day baselines (for bench-llvm-commit)</span>
-gmxrun stable-rocm7.12 benchMEM baseline -- -nsteps 30000
-gmxrun stable-rocm7.12 benchRIB  baseline -- -nsteps 10000
-
-<span class="c"># 3. kernel baselines (for kernel-bench)</span>
-kernel-bench stable-rocm7.12 benchMEM kernel-baseline -- -nsteps 30000
-kernel-bench stable-rocm7.12 benchRIB  kernel-baseline -- -nsteps 10000</code></pre>
-
-<h3><code>gmxrun &lt;build&gt; &lt;system&gt; [tag] [-- &lt;extra args&gt;]</code></h3>
-<p>Runs a single mdrun simulation. Pings Discord at start and finish. Writes <code>result.json</code> with ns/day, wall time, and provenance.</p>
-<pre data-lang="bash"><code>gmxrun stable-rocm7.12 benchMEM baseline -- -nsteps 30000
-gmxrun dev-current     benchMEM my-patch  -- -nsteps 30000
-gmxrun dev-current     benchMEM trace-run -- --profile=trace -nsteps 30000</code></pre>
-
-<h3><code>kernel-bench &lt;build&gt; &lt;system&gt; [tag] [-- &lt;extra args&gt;]</code></h3>
-<p>Wraps <code>gmxrun</code> with rocprofv3 tracing. Parses the kernel CSV, writes <code>kernel_result.json</code>, and posts a per-kernel breakdown to Discord diffed against the kernel-baseline run for that system.</p>
-<pre data-lang="bash"><code><span class="c"># Create the per-kernel baseline once</span>
-kernel-bench stable-rocm7.12 benchMEM kernel-baseline -- -nsteps 30000
-
-<span class="c"># Compare a dev build against it</span>
-kernel-bench dev-current benchMEM my-patch -- -nsteps 30000</code></pre>
-
-<h3><code>bench-llvm-commit [flags]</code></h3>
-<p>The full iteration loop. Rebuilds LLVM, rebuilds GROMACS dev, runs <code>kernel-bench</code>, diffs against the stable ns/day baseline, posts the verdict to Discord.</p>
-<pre data-lang="bash"><code>bench-llvm-commit                                      <span class="c"># full rebuild + bench</span>
-bench-llvm-commit --no-llvm-rebuild                    <span class="c"># GROMACS only</span>
-bench-llvm-commit --no-llvm-rebuild --no-gmx-rebuild   <span class="c"># retest existing binary</span>
-bench-llvm-commit --system benchRIB                    <span class="c"># validate on larger system</span></code></pre>
-
-<p>After that, the daily workflow is just <code>bench-llvm-commit</code>.</p>
 
 <h2 id="agent">Aside: the Discord agent</h2>
 
