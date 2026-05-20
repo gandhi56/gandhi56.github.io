@@ -646,6 +646,8 @@
 
 <h2 id="scripts">The wrapper scripts</h2>
 
+<pre data-lang="bash"><code>sudo rocm-smi --setperflevel high && sudo cpupower frequency-set -g performance</code></pre>
+
 <p>Three scripts in <code>/usr/local/bin</code>, composing top-down: <code>gmxrun</code> wraps a single <code>mdrun</code> invocation with notifications and result capture. <code>kernel-bench</code> wraps <code>gmxrun</code> with rocprofv3 trace parsing. <code>bench-llvm-commit</code> wraps everything in the outer iteration loop.</p>
 
 <h3>gmxrun</h3>
