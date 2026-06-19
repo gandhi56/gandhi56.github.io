@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helix + Byobu Cheat Sheet (macOS) — Anshil Gandhi</title>
+<meta name="description" content="A practical cheat sheet for using the Helix editor inside Byobu on macOS. Covers keybindings, multiple cursors, LSP, clipboard, and macOS-specific gotchas.">
+<link rel="stylesheet" href="../assets/css/glass.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+  .post-container {
+    max-width: 1200px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 5.5rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+    padding: 1.2rem 1.4rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.12) transparent;
+  }
+
+  .sidebar-title {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0 0 0.85rem 0;
+  }
+
+  .sidebar ol {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: section;
+  }
+
+  .sidebar li {
+    margin-bottom: 0.45rem;
+    counter-increment: section;
+    line-height: 1.35;
+  }
+
+  .sidebar li::before {
+    content: counter(section, decimal-leading-zero) ".  ";
+    color: var(--accent-color);
+    opacity: 0.55;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+  }
+
+  .sidebar a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.8rem;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
+    transition: color 0.15s ease, border-bottom-color 0.15s ease;
+  }
+
+  .sidebar a:hover {
+    color: #fff;
+    border-bottom-color: var(--accent-color);
+  }
+
+  .post-container > article {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .post {
+    padding: 3.5rem 3rem 4rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .post .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin: 0 0 1.5rem 0;
+    opacity: 0.85;
+  }
+
+  .post h1 {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.2rem 0;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+  }
+
+  .post .dek {
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.72);
+    margin: 0 0 2.5rem 0;
+    font-style: italic;
+    border-left: 2px solid var(--accent-color);
+    padding-left: 1.1rem;
+  }
+
+  .post .meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0 0 3rem 0;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .post .meta strong { color: rgba(255, 255, 255, 0.85); font-weight: 600; }
+
+  .post h2 {
+    font-size: 1.7rem;
+    line-height: 1.25;
+    margin: 3.5rem 0 1rem 0;
+    color: #fff;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .post h2::before {
+    content: "§ ";
+    color: var(--accent-color);
+    opacity: 0.6;
+    font-weight: 400;
+  }
+
+  .post h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    margin: 2.5rem 0 0.8rem 0;
+    color: #fff;
+  }
+
+  .post h4 {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 2rem 0 0.6rem 0;
+  }
+
+  .post p {
+    margin: 0 0 1.2rem 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+  }
+
+  .post a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 77, 77, 0.35);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+  }
+  .post a:hover {
+    color: #f9cb28;
+    text-decoration-color: #f9cb28;
+  }
+
+  .post code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: #f3d57a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .post pre {
+    background: rgba(0, 0, 0, 0.45);
+    color: #e8ddc6;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    padding: 1.5rem 1.6rem;
+    overflow-x: auto;
+    margin: 1.8rem 0;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    font-feature-settings: "calt" 0;
+  }
+  .post pre code {
+    background: transparent;
+    padding: 0;
+    border: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+
+  .post pre[data-lang]::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.55rem;
+    right: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .post blockquote {
+    margin: 1.8rem 0;
+    padding: 0.6rem 0 0.6rem 1.5rem;
+    border-left: 2px solid var(--accent-color);
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .post blockquote p { margin: 0; }
+
+  /* Callout variants */
+  .post .callout {
+    margin: 2rem 0;
+    padding: 1.2rem 1.4rem;
+    background: rgba(249, 203, 40, 0.06);
+    border-left: 3px solid #f9cb28;
+    border-radius: 6px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+  .post .callout-info {
+    background: rgba(100, 160, 255, 0.06);
+    border-left-color: #64a0ff;
+  }
+  .post .callout-good {
+    background: rgba(155, 196, 166, 0.06);
+    border-left-color: #9bc4a6;
+  }
+  .post .callout strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    color: #f9cb28;
+  }
+  .post .callout-info strong { color: #64a0ff; }
+  .post .callout-good strong { color: #9bc4a6; }
+  .post .callout p { margin: 0; }
+  .post .callout p + p { margin-top: 0.7rem; }
+
+  .post ul, .post ol {
+    margin: 1rem 0 1.5rem 0;
+    padding-left: 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .post li { margin-bottom: 0.5rem; }
+  .post li::marker { color: var(--accent-color); }
+
+  .post table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.8rem 0;
+    font-size: 0.94rem;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+  }
+  .post th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.65);
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid var(--glass-border);
+    font-weight: 600;
+  }
+  .post td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    vertical-align: top;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .post tr:last-child td { border-bottom: 0; }
+  .post td code { font-size: 0.86em; }
+  /* Highlight key column */
+  .post td:first-child code {
+    color: #9bc4a6;
+    background: rgba(155, 196, 166, 0.08);
+    border-color: rgba(155, 196, 166, 0.18);
+  }
+
+  .post hr {
+    border: 0;
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--glass-border);
+  }
+  .post hr::after {
+    content: "❦";
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    opacity: 0.7;
+  }
+
+  .post .colophon {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.7;
+  }
+  .post .colophon p { margin: 0 0 0.4rem 0; font-family: var(--font-mono); font-size: 0.78rem; color: rgba(255, 255, 255, 0.5); }
+
+  /* kbd pill styling */
+  kbd {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    padding: 0.1em 0.45em;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-bottom-width: 2px;
+    border-radius: 5px;
+    color: rgba(255,255,255,0.9);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 960px) {
+    .post-container { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .post { padding: 2rem 1.4rem 3rem; font-size: 1rem; }
+    .post h1 { font-size: 1.9rem; }
+    .post h2 { font-size: 1.35rem; }
+    .post pre { font-size: 0.74rem; padding: 1rem 1.1rem; }
+    .post .meta { gap: 0.9rem; font-size: 0.72rem; }
+    .post-container { padding: 0 0.8rem; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../github.html">GitHub</a></li>
+        <li><a href="../ualberta-archives.html">Archives</a></li>
+        <li><a href="gromacs-bench-post.html">Cool Stuff</a></li>
+        <li><a href="helix-byobu-cheatsheet.html" style="color: #fff; text-shadow: 0 0 10px rgba(255, 77, 77, 0.6);">Helix/Byobu</a></li>
+        <li><a href="../anshil_gandhi_resume.pdf">CV</a></li>
+        <li><a href="mailto:gandhi21299@gmail.com">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container post-container">
+    <aside class="sidebar glass-card">
+      <p class="sidebar-title">Contents</p>
+      <ol>
+        <li><a href="#setup">macOS Setup</a></li>
+        <li><a href="#byobu">Byobu Essentials</a></li>
+        <li><a href="#concepts">Helix Core Concepts</a></li>
+        <li><a href="#navigation">Navigation</a></li>
+        <li><a href="#selection">Selection &amp; Cursors</a></li>
+        <li><a href="#editing">Editing</a></li>
+        <li><a href="#search">Search &amp; Jump</a></li>
+        <li><a href="#files">File &amp; Buffer Mgmt</a></li>
+        <li><a href="#splits">Window Splits</a></li>
+        <li><a href="#lsp">LSP &amp; Code Intel</a></li>
+        <li><a href="#tips">Productivity Tips</a></li>
+        <li><a href="#config">Config Tweaks</a></li>
+        <li><a href="#vs-vim">Helix vs Vim</a></li>
+      </ol>
+    </aside>
+
+    <article class="post glass-card">
+
+      <p class="eyebrow">Developer Tooling</p>
+
+      <h1>Helix + Byobu on macOS</h1>
+
+      <p class="dek">A practical reference for getting comfortable in Helix editor running inside Byobu — covering keybindings, multiple cursors, LSP, Byobu pane management, clipboard, and all the macOS-specific gotchas.</p>
+
+      <div class="meta">
+        <span><strong>Author</strong> Anshil Gandhi</span>
+        <span><strong>Updated</strong> June 2026</span>
+        <span><strong>Reading time</strong> ~8 min</span>
+      </div>
+
+      <!-- ── macOS Setup ─────────────────────────────────────────── -->
+      <h2 id="setup">macOS Setup</h2>
+
+      <div class="callout">
+        <strong>Install</strong>
+        <p>Install everything via Homebrew: <code>brew install helix byobu tmux</code>. Run <code>byobu-tmux</code> if plain <code>byobu</code> doesn't launch. Config lives at <code>~/.config/helix/config.toml</code>.</p>
+      </div>
+
+      <h3>F-keys getting intercepted by macOS</h3>
+      <p>By default macOS maps F-keys to brightness, volume, and Mission Control — which breaks Byobu's entire interface. Fix it one of two ways:</p>
+      <ul>
+        <li><strong>System-wide:</strong> System Settings → Keyboard → enable <em>"Use F1, F2, etc. keys as standard function keys"</em>. You can still trigger media actions with <kbd>Fn</kbd> + F-key.</li>
+        <li><strong>iTerm2 (recommended):</strong> iTerm2 intercepts F-keys before macOS and passes them straight to the terminal. No system setting change needed. Prefer iTerm2 over Terminal.app for this setup.</li>
+      </ul>
+
+      <h3>Option key as Alt</h3>
+      <p>Helix uses <kbd>Alt</kbd> combos heavily (e.g. <kbd>Alt-C</kbd> for multiple cursors). The Option key needs to emit escape sequences, not Unicode characters:</p>
+      <ul>
+        <li><strong>Terminal.app:</strong> Preferences → Profiles → Keyboard → ✅ <em>Use Option as Meta key</em></li>
+        <li><strong>iTerm2:</strong> Preferences → Profiles → Keys → Left Option key → <code>Esc+</code></li>
+      </ul>
+
+      <hr>
+
+      <!-- ── Byobu Essentials ───────────────────────────────────── -->
+      <h2 id="byobu">Byobu Essentials</h2>
+      <p>Byobu wraps <strong>tmux</strong>. Its primary interface uses F-keys, which almost never conflict with Helix.</p>
+
+      <h3>Sessions &amp; Windows</h3>
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>F2</code></td><td>New window</td></tr>
+          <tr><td><code>F3</code> / <code>F4</code></td><td>Previous / next window</td></tr>
+          <tr><td><code>F6</code></td><td>Detach session</td></tr>
+          <tr><td><code>F8</code></td><td>Rename window</td></tr>
+          <tr><td><code>F9</code></td><td>Byobu config menu</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Panes</h3>
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>Ctrl-F2</code></td><td>New vertical pane split</td></tr>
+          <tr><td><code>Shift-F2</code></td><td>New horizontal pane split</td></tr>
+          <tr><td><code>Shift-F3</code> / <code>Shift-F4</code></td><td>Previous / next pane</td></tr>
+          <tr><td><code>Shift-↑↓←→</code></td><td>Move between panes</td></tr>
+          <tr><td><code>Alt-↑↓←→</code></td><td>Resize pane</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Scrollback</h3>
+      <p>Use <code>F7</code> to enter tmux scroll mode — navigate with arrow keys or <kbd>PgUp</kbd>/<kbd>PgDn</kbd>, exit with <kbd>q</kbd> or <kbd>Enter</kbd>. Only use this for scrolling <em>terminal output outside Helix</em>. Inside Helix, use <code>Ctrl-d</code> / <code>Ctrl-u</code> instead.</p>
+
+      <div class="callout-info callout">
+        <strong>Workflow tip</strong>
+        <p>Keep Helix in one pane and a shell in the adjacent pane. Use <kbd>Shift-←→</kbd> to hop between them without ever leaving Helix's normal mode. Run your compiler, git, or test suite in the shell pane and stay in flow.</p>
+      </div>
+
+      <hr>
+
+      <!-- ── Core Concepts ─────────────────────────────────────── -->
+      <h2 id="concepts">Helix Core Concepts</h2>
+
+      <p>Helix is <strong>selection-first</strong>, unlike Vim's operator-first model. You <em>select</em> something, then <em>act</em> on it.</p>
+
+      <pre data-lang="text"><code>Vim:    d w    →  operator (delete) then motion (word)
+Helix:  w d    →  select word, then delete selection</code></pre>
+
+      <table>
+        <thead><tr><th>Mode</th><th>Enter with</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Normal</td><td><kbd>Esc</kbd></td><td>Navigation and editing commands</td></tr>
+          <tr><td>Insert</td><td><kbd>i</kbd> / <kbd>a</kbd> / <kbd>o</kbd></td><td>Type text</td></tr>
+          <tr><td>Select</td><td><kbd>v</kbd></td><td>Extend the current selection</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── Navigation ────────────────────────────────────────── -->
+      <h2 id="navigation">Navigation</h2>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>h j k l</code></td><td>Move left / down / up / right</td></tr>
+          <tr><td><code>w</code> / <code>b</code></td><td>Next / prev word start</td></tr>
+          <tr><td><code>e</code></td><td>Next word end</td></tr>
+          <tr><td><code>W</code> / <code>B</code> / <code>E</code></td><td>Same but WORD (whitespace-delimited)</td></tr>
+          <tr><td><code>f&lt;char&gt;</code></td><td>Find char forward on line</td></tr>
+          <tr><td><code>F&lt;char&gt;</code></td><td>Find char backward on line</td></tr>
+          <tr><td><code>t&lt;char&gt;</code> / <code>T&lt;char&gt;</code></td><td>Till char (stops before it)</td></tr>
+          <tr><td><code>gg</code></td><td>Go to top of file</td></tr>
+          <tr><td><code>ge</code></td><td>Go to end of file</td></tr>
+          <tr><td><code>g&lt;line&gt;</code></td><td>Go to line number</td></tr>
+          <tr><td><code>Ctrl-d</code> / <code>Ctrl-u</code></td><td>Scroll down / up half page</td></tr>
+          <tr><td><code>Ctrl-f</code> / <code>Ctrl-b</code></td><td>Full page down / up</td></tr>
+          <tr><td><code>%</code></td><td>Jump to matching bracket</td></tr>
+          <tr><td><code>mi</code> / <code>ma</code></td><td>Select inside / around object (word, bracket, etc.)</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── Selection ─────────────────────────────────────────── -->
+      <h2 id="selection">Selection &amp; Multiple Cursors</h2>
+
+      <p>Multiple cursors are a first-class feature in Helix — no plugin needed.</p>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>v</code></td><td>Enter Select mode (extend selection)</td></tr>
+          <tr><td><code>x</code></td><td>Select current line</td></tr>
+          <tr><td><code>X</code></td><td>Extend selection to whole lines</td></tr>
+          <tr><td><code>C</code></td><td>Duplicate cursor downward</td></tr>
+          <tr><td><code>Alt-C</code></td><td>Duplicate cursor upward</td></tr>
+          <tr><td><code>s</code></td><td>Select regex within selection</td></tr>
+          <tr><td><code>S</code></td><td>Split selection on regex</td></tr>
+          <tr><td><code>,</code></td><td>Keep primary cursor only (collapse)</td></tr>
+          <tr><td><code>Alt-,</code></td><td>Remove primary cursor</td></tr>
+          <tr><td><code>&amp;</code></td><td>Align selections</td></tr>
+          <tr><td><code>_</code></td><td>Trim whitespace from selections</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout-good callout">
+        <strong>Multiple cursors power move</strong>
+        <p>Search with <code>/pattern</code> → all matches highlighted. Press <code>Ctrl-d</code> to select matches one at a time additively. Press <code>Alt-d</code> to skip and deselect. Then act on all of them at once.</p>
+      </div>
+
+      <hr>
+
+      <!-- ── Editing ────────────────────────────────────────────── -->
+      <h2 id="editing">Editing</h2>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>i</code></td><td>Insert before selection</td></tr>
+          <tr><td><code>a</code></td><td>Insert after selection</td></tr>
+          <tr><td><code>o</code></td><td>Open line below</td></tr>
+          <tr><td><code>O</code></td><td>Open line above</td></tr>
+          <tr><td><code>d</code></td><td>Delete selection</td></tr>
+          <tr><td><code>c</code></td><td>Change (delete + enter insert)</td></tr>
+          <tr><td><code>r&lt;char&gt;</code></td><td>Replace each selected char</td></tr>
+          <tr><td><code>~</code></td><td>Switch case</td></tr>
+          <tr><td><code>`</code></td><td>Lowercase selection</td></tr>
+          <tr><td><code>Alt-`</code></td><td>Uppercase selection</td></tr>
+          <tr><td><code>u</code> / <code>U</code></td><td>Undo / Redo</td></tr>
+          <tr><td><code>y</code></td><td>Yank (copy)</td></tr>
+          <tr><td><code>p</code> / <code>P</code></td><td>Paste after / before</td></tr>
+          <tr><td><code>&gt;</code> / <code>&lt;</code></td><td>Indent / de-indent</td></tr>
+          <tr><td><code>J</code></td><td>Join lines</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Surround operations</h3>
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>ms&lt;char&gt;</code></td><td>Add surround around selection</td></tr>
+          <tr><td><code>ds&lt;char&gt;</code></td><td>Delete surround</td></tr>
+          <tr><td><code>cs&lt;old&gt;&lt;new&gt;</code></td><td>Change surround character</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── Search ────────────────────────────────────────────── -->
+      <h2 id="search">Search &amp; Jump</h2>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>/</code></td><td>Search forward</td></tr>
+          <tr><td><code>?</code></td><td>Search backward</td></tr>
+          <tr><td><code>n</code> / <code>N</code></td><td>Next / prev match</td></tr>
+          <tr><td><code>*</code></td><td>Search for word under cursor (forward)</td></tr>
+          <tr><td><code>#</code></td><td>Search for word under cursor (backward)</td></tr>
+          <tr><td><code>Ctrl-s</code></td><td>Save current position to jumplist</td></tr>
+          <tr><td><code>Ctrl-i</code> / <code>Ctrl-o</code></td><td>Jump forward / back in jumplist</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── Files ─────────────────────────────────────────────── -->
+      <h2 id="files">File &amp; Buffer Management</h2>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>:w</code></td><td>Save</td></tr>
+          <tr><td><code>:q</code> / <code>:q!</code></td><td>Quit / force quit</td></tr>
+          <tr><td><code>:wq</code></td><td>Save and quit</td></tr>
+          <tr><td><code>:o &lt;file&gt;</code></td><td>Open file</td></tr>
+          <tr><td><code>Space-f</code></td><td>Fuzzy file picker</td></tr>
+          <tr><td><code>Space-b</code></td><td>Buffer picker</td></tr>
+          <tr><td><code>Space-/</code></td><td>Global grep search</td></tr>
+          <tr><td><code>Space-y</code> / <code>Space-p</code></td><td>Yank / paste using system clipboard</td></tr>
+          <tr><td><code>gf</code></td><td>Go to file path under cursor</td></tr>
+          <tr><td><code>Space-e</code></td><td>Toggle file explorer</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout-info callout">
+        <strong>Clipboard on macOS</strong>
+        <p><code>pbcopy</code> / <code>pbpaste</code> work automatically — no config needed. If clipboard breaks inside Byobu/tmux, add <code>set -g default-command "reattach-to-user-namespace -l zsh"</code> to <code>~/.tmux.conf</code> and install with <code>brew install reattach-to-user-namespace</code>.</p>
+      </div>
+
+      <hr>
+
+      <!-- ── Splits ────────────────────────────────────────────── -->
+      <h2 id="splits">Window Splits (inside Helix)</h2>
+
+      <p>Helix has its own split system independent of Byobu panes. Use Helix splits to view two files side by side; use Byobu panes to run a shell alongside your editor.</p>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>Ctrl-w s</code></td><td>Horizontal split</td></tr>
+          <tr><td><code>Ctrl-w v</code></td><td>Vertical split</td></tr>
+          <tr><td><code>Ctrl-w h/j/k/l</code></td><td>Move between splits</td></tr>
+          <tr><td><code>Ctrl-w q</code></td><td>Close split</td></tr>
+          <tr><td><code>Ctrl-w o</code></td><td>Close all other splits</td></tr>
+          <tr><td><code>Ctrl-w f</code></td><td>Open file picker in new split</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── LSP ───────────────────────────────────────────────── -->
+      <h2 id="lsp">LSP &amp; Code Intelligence</h2>
+
+      <p>LSP is built in — no plugins. Install the language server for your language (e.g. <code>brew install rust-analyzer</code>, <code>npm i -g typescript-language-server</code>) and Helix picks it up automatically.</p>
+
+      <table>
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><code>Space-d</code></td><td>Diagnostics picker</td></tr>
+          <tr><td><code>Space-a</code></td><td>Code actions</td></tr>
+          <tr><td><code>Space-r</code></td><td>Rename symbol</td></tr>
+          <tr><td><code>K</code></td><td>Hover / show docs</td></tr>
+          <tr><td><code>gd</code></td><td>Go to definition</td></tr>
+          <tr><td><code>gr</code></td><td>Go to references</td></tr>
+          <tr><td><code>gi</code></td><td>Go to implementation</td></tr>
+          <tr><td><code>gy</code></td><td>Go to type definition</td></tr>
+          <tr><td><code>]d</code> / <code>[d</code></td><td>Next / prev diagnostic</td></tr>
+          <tr><td><code>Ctrl-space</code></td><td>Trigger completion</td></tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <!-- ── Tips ──────────────────────────────────────────────── -->
+      <h2 id="tips">Productivity Tips</h2>
+
+      <h3>Repeat f/t motions</h3>
+      <p>After pressing <code>f&lt;char&gt;</code> or <code>t&lt;char&gt;</code>, press <code>;</code> to repeat the motion forward or <code>,</code> to repeat backward. Much faster than retyping.</p>
+
+      <h3>Text object selections</h3>
+      <p>Press <code>m</code> then <code>i</code> (inside) or <code>a</code> (around) followed by a delimiter. Examples: <code>mi(</code> selects inside parentheses, <code>maw</code> selects around a word including surrounding whitespace, <code>mi"</code> selects inside quotes.</p>
+
+      <h3>Jump to any visible line</h3>
+      <p>Use relative line numbers (see config below) combined with <code>g&lt;number&gt;</code> to jump anywhere on screen instantly — no counting from the top.</p>
+
+      <h3>Shell in an adjacent Byobu pane</h3>
+      <p>Press <kbd>Ctrl-F2</kbd> to create a vertical pane. Run your build/test/git there. <kbd>Shift-←</kbd> to return to Helix. This flow keeps you from losing Helix context just to run a command.</p>
+
+      <hr>
+
+      <!-- ── Config ────────────────────────────────────────────── -->
+      <h2 id="config">Recommended Config (<code>~/.config/helix/config.toml</code>)</h2>
+
+<pre data-lang="toml"><code>[editor]
+line-number = "relative"      # jump anywhere with g&lt;number&gt;
+scrolloff = 8                 # keep cursor away from screen edges
+cursorline = true             # highlight current line
+color-modes = true            # mode indicator changes color
+mouse = true                  # click to move cursor
+
+[editor.statusline]
+left  = ["mode", "spinner", "file-name", "file-modification-indicator"]
+right = ["diagnostics", "position", "file-encoding", "file-type"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[keys.normal]
+";" = "repeat_last_motion"    # repeat last f/t/F/T
+</code></pre>
+
+      <hr>
+
+      <!-- ── vs Vim ────────────────────────────────────────────── -->
+      <h2 id="vs-vim">Helix vs Vim: Mental Model</h2>
+
+      <p>The hardest adjustment coming from Vim is remembering the order is reversed: <strong>select then act</strong>.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Vim</th><th>Helix</th></tr></thead>
+        <tbody>
+          <tr><td>Delete word</td><td><code>dw</code></td><td><code>wd</code></td></tr>
+          <tr><td>Change inner word</td><td><code>ciw</code></td><td><code>miwc</code></td></tr>
+          <tr><td>Delete line</td><td><code>dd</code></td><td><code>xd</code></td></tr>
+          <tr><td>Visual line select</td><td><code>V</code></td><td><code>x</code> (repeatable)</td></tr>
+          <tr><td>Multiple cursors</td><td>Plugin (vim-visual-multi)</td><td>Built-in</td></tr>
+          <tr><td>Fuzzy file finder</td><td>Plugin (telescope)</td><td>Built-in <code>Space-f</code></td></tr>
+          <tr><td>LSP</td><td>Plugin (nvim-lspconfig)</td><td>Built-in</td></tr>
+          <tr><td>Surround</td><td>Plugin (vim-surround)</td><td>Built-in <code>ms</code> / <code>ds</code> / <code>cs</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="colophon">
+        <p>Written by Anshil Gandhi · June 2026</p>
+        <p>Helix editor · Byobu · macOS</p>
+      </div>
+
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; Anshil Gandhi. All rights reserved.</p>
+    <p>
+      <a href="https://github.com/gandhi56"><i class="fab fa-github"></i> GitHub</a> |
+      <a href="mailto:gandhi21299@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+    </p>
+  </footer>
+</body>
+</html>

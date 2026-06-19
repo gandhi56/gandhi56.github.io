@@ -470,6 +470,7 @@
                 <li><a href="../github.html">GitHub</a></li>
                 <li><a href="../ualberta-archives.html">Archives</a></li>
                 <li><a href="gromacs-bench-post.html" style="color: #fff; text-shadow: 0 0 10px rgba(255, 77, 77, 0.6);">Cool Stuff</a></li>
+                <li><a href="helix-byobu-cheatsheet.html">Helix/Byobu</a></li>
                 <li><a href="../anshil_gandhi_resume.pdf">CV</a></li>
                 <li><a href="mailto:gandhi21299@gmail.com">Contact</a></li>
             </ul>
@@ -646,8 +647,6 @@
 
 <h2 id="scripts">The wrapper scripts</h2>
 
-<pre data-lang="bash"><code>sudo rocm-smi --setperflevel high && sudo cpupower frequency-set -g performance</code></pre>
-
 <p>Three scripts in <code>/usr/local/bin</code>, composing top-down: <code>gmxrun</code> wraps a single <code>mdrun</code> invocation with notifications and result capture. <code>kernel-bench</code> wraps <code>gmxrun</code> with rocprofv3 trace parsing. <code>bench-llvm-commit</code> wraps everything in the outer iteration loop.</p>
 
 <h3>gmxrun</h3>
@@ -766,6 +765,23 @@ bench-llvm-commit --no-llvm-rebuild --no-gmx-rebuild --tag noise-r2
 bench-llvm-commit --system benchRIB --steps 10000</code></pre>
 
 <p>After this script runs, every <code>result.json</code> under <code>/var/lib/gromacs-runs/</code> has the LLVM commit hash stamped on it. Six months from now I can <code>cat .../result.json | jq .llvm_commit</code> on any historical run and know which compiler revision produced which number. For compiler-development work that traceability is non-negotiable.</p>
+
+<h4>Baseline setup</h4>
+
+<pre data-lang="bash"><code>sudo rocm-smi --setperflevel high
+sudo cpupower frequency-set -g performance
+set -a; source ~/ai-ops/.env; set +a
+
+gmxrun stable-rocm7.12 benchMEM baseline -- -nsteps 40000 -resetstep 20000
+gmxrun stable-rocm7.12 benchRIB  baseline -- -nsteps 20000 -resetstep 10000
+
+kernel-bench stable-rocm7.12 benchMEM kernel-baseline -- -nsteps 40000 -resetstep 20000
+kernel-bench stable-rocm7.12 benchRIB  kernel-baseline -- -nsteps 20000 -resetstep 10000
+
+ls /var/lib/gromacs-runs/stable-rocm7.12__benchMEM__baseline/result.json
+ls /var/lib/gromacs-runs/stable-rocm7.12__benchRIB__baseline/result.json
+ls /var/lib/gromacs-runs/stable-rocm7.12__benchMEM__kernel-baseline/kernel_result.json
+ls /var/lib/gromacs-runs/stable-rocm7.12__benchRIB__kernel-baseline/kernel_result.json</code></pre>
 
 <h2 id="kernels">Per-kernel profiling with rocprofv3</h2>
 
